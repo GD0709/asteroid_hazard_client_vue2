@@ -1,0 +1,17 @@
+.calculator_input{
+
+    .v-text-field__details
+    {
+        overflow: visible;
+        .v-messages__wrapper{
+            white-space: nowrap;
+        }
+    }
+    .v-text-field .v-label--active{
+        text-overflow: clip;
+        overflow: visible;
+    }
+}
+.italic_prefix .v-text-field__prefix{
+    font-style: italic;
+}
