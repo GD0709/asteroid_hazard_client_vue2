@@ -1,0 +1,65 @@
+{
+  "message": "hello i18n !!",
+  "old version": "old version",  
+  "footer":{
+    "navigation": "Navigation",
+    "about":"About",
+    "calculator": "Calculator",
+    "articles": "Articles",
+    "footer_text": "Impact Effects Calculator"
+  },
+  "home":{
+    "intro_1":"Comprehensive assessment of hazardous effects caused by impacts of cosmic bodies",
+    "intro_2":"web-based calculator easy to use",
+    "intro_3":"Estimation of air-blast and radiation effects, crater and ejecta, seismic effect and atmospheric disturbances",
+    "intro_4":"asteroids and comets: diameter from 15 m to 3 km; velocity from 10 to 72 km/s",
+    "intro_5":"Calculator applies the scaling relations based on the serial numerical simulation results of large number of different scenarios",
+    "start_button": "get started"
+  },
+  "calculator":{
+    "headers":{
+      "Projectile parameters": "Projectile parameters",
+      "Entry parameters": "Entry parameters",
+      "Observation point": "Observation point",
+      "Entry vector": "Entry vector"
+    },
+    "input":{
+      "labels":{
+        "diameter":"Diameter",
+        "density":"Density",
+        "entry_angle":"Entry angle",
+        "velocity":"Velocity",
+        "entry_latitude": "Latitude",
+        "entry_longitude": "Longitude",
+        "entry_azimuth": "Azimuth",
+        "distance along": "Distance along",
+        "distance across": "Distance across",
+        "distance to zp": "Distance to zero point",
+        "angle to zp": "Angle to trajectory projection",
+        "entry_point_100km":"Entry point at 100km above the ground",
+        "max_overpressure_point":"Max overpressure point",
+        "surface_intersection":"The point of intersection of the trajectory with the Earth's surface",
+        "max_thermal_effect_point":"Max thermal effect point"
+      },
+      "dimensions":{
+        "diameter":"m",
+        "density":"kg/m3",
+        "entry_angle":"°",
+        "velocity":"km/s",
+        "km": "km",
+        "latitude": "°",
+        "longitude": "°",
+        "azimuth": "°",
+        "angle": "°"
+      }
+    },
+    "schema":{
+      "effective_thermal_point_source":"Position of effective thermal point source",
+      "effective_overpressure_point_source": "Position of effective overpressure point source"
+    }
+  },
+
+  "articles":{
+    "articles": "articles"
+  }
+}
