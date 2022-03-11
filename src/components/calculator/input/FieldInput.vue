@@ -73,7 +73,7 @@ export default class FieldInput extends Vue {
 
 
     //visual
-    @Prop({default: 0}) id!: number;
+    @Prop({default: "-"}) id!: string;
     @Prop({default: 'value'}) label!: string;
     @Prop({default: ''}) dimension!: string;
     @Prop({default: ''}) prefix!: string;
@@ -94,7 +94,7 @@ export default class FieldInput extends Vue {
     {
         this.log("mounted");
         this.on_accuracy_changed(0,0);
-        this.on_value_changed(this.local_value,this.local_value);
+        this.on_value_changed(this.outer_value,this.outer_value);
     }
     lost_focus() {
         this.log('blured');
@@ -114,7 +114,10 @@ export default class FieldInput extends Vue {
             this.setted_value = res;
             this.setted_display_value = MathExt.round_decimal_digits_to_string(this.setted_value, this.accuracy_digits);
             this.display_value = this.setted_display_value;
-            this.local_value = res;
+            if(this.min <= res && res <= this.max)
+            {
+                this.hidden_local_value = res;
+            }
             this.log("on_value_changed setting ends",res,this.setted_value, this.local_value);
         }
     }

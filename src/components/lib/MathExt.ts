@@ -22,11 +22,11 @@ export default class MathExt
 {
 
 
-    static deg2rad(x: number) : number {
-        return x / 180. * Math.PI;
+    static deg2rad(angle_degree: number) : number {
+        return angle_degree / 180. * Math.PI;
     }
-    static rad2deg(x: number) : number {
-        return x / Math.PI * 180.;
+    static rad2deg(angle_rad: number) : number {
+        return angle_rad / Math.PI * 180.;
     }
     static interpolate_by_density(val1000: number, val3320: number, density: number){
         return val1000 * (3320. - density)/2320 + val3320 * (density - 1000.)/2320;
