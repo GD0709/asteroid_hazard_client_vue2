@@ -5,26 +5,15 @@
     <div class="line_primary">{{$t("home.intro_3")}}</div>
     <div class="line_second">{{$t("home.intro_4")}}</div>
     <div class="line_primary">{{$t("home.intro_5")}}</div>
-        <v-col
-          cols="12"
-          sm="6"
-          md="3"
-        >
-          <v-text-field
-            label="Regular"
-            placeholder="Placeholder"
-          ></v-text-field>
-          <v-slider
-  hint="Im a hint"
-  max="50"
-  min="-50"
-></v-slider>
-        </v-col>
 
-  <div class="get_started_button">
+
+<!--   <div class="get_started_button">
       <router-link to="/c" tag="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--x-large primary">{{$t("home.start_button")}}</router-link>
-  </div>
+  </div> -->
 
+<div class="get_started_button">
+      <div class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--x-large primary v-btn--disabled" disabled>{{$t("under construction")}}</div>
+  </div>
 <div>
 </div>
   </div>

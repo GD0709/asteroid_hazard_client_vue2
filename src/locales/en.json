@@ -1,6 +1,7 @@
 {
   "message": "hello i18n !!",
   "old version": "old version",  
+  "under construction": "under construction",
   "footer":{
     "navigation": "Navigation",
     "about":"About",
