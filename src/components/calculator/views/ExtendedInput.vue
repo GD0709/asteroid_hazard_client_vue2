@@ -84,7 +84,7 @@
                     <v-row>
                         <div >
                             <label class="radio_label theme--light" style="">{{$t('calculator.input.labels.target type')}}</label>
-                            <v-radio-group
+                            <v-radio-group class="radio_with_label"
                                 v-model="state.target.target_density"
                                 row
                                 >
@@ -95,6 +95,31 @@
                                 <v-radio
                                     :label="$t('calculator.input.labels.sand')"
                                     :value="1600"
+                                ></v-radio>
+                            </v-radio-group>
+                        </div>
+
+                        <div >
+                            <label class="radio_label theme--light" style="">{{$t('calculator.input.labels.zero point')}}</label>
+                            <v-radio-group class="radio_with_label"
+                                v-model="state.observation_point_inputs.relative_to"
+                                row
+                                >
+                                <v-radio
+                                    :label="$t('calculator.input.labels.surface_intersection')"
+                                    :value="3"
+                                ></v-radio>
+                                <v-radio
+                                    :label="$t('calculator.input.labels.max_overpressure_point')"
+                                    :value="2"
+                                ></v-radio>
+                                <v-radio
+                                    :label="$t('calculator.input.labels.max_thermal_effect_point')"
+                                    :value="4"
+                                ></v-radio>
+                                <v-radio
+                                    :label="$t('calculator.input.labels.entry_point_100km')"
+                                    :value="1"
                                 ></v-radio>
                             </v-radio-group>
                         </div>
@@ -173,6 +198,9 @@ export default class ExtendedInput extends Vue {
 </script>
 
 <style scoped lang="scss">
+    .radio_with_label{
+        margin-top: 0px;
+    }
     .radio_label{
             font-size: 12px;
             height: 20px;
