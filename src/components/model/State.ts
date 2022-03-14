@@ -1,11 +1,17 @@
-import { Point } from "./Geometry";
+import { GeoVector, Point } from "./Geometry";
 import Variant from "./Variant";
 import {ObservationPointInput} from "./Observation";
+import VisualSettings from "./VisualSettings";
 
 export default class State
 {
-    is_debug: boolean = true;
     static state: State = new State();
+
+    
+    is_debug: boolean = true;
+    visual_settings: VisualSettings = new VisualSettings();
+    
+    entry_point: GeoVector = new GeoVector(54.445, 64.565, 103.3);
 
 
     variant: Variant = new Variant();
@@ -13,3 +19,5 @@ export default class State
     observation_point: Point = new Point(50,50);
     observation_point_inputs: ObservationPointInput = new ObservationPointInput(this.observation_point, this.variant);
 }
+
+

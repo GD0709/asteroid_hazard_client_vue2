@@ -57,6 +57,18 @@
                 <span class="input_parameter_name">{{$t('calculator.input.labels.entry_angle')}}: </span>
                 <span class="input_parameter_value">{{state.variant.entry_angle}}{{$t('calculator.input.dimensions.entry_angle')}}</span>
             </div>
+            <div v-if="state.visual_settings.input_mode == 'extended'">
+                <span class="input_parameter_name">{{$t('calculator.input.labels.entry_latitude')}}: </span>
+                <span class="input_parameter_value">{{state.entry_point.latitude}}{{$t('calculator.input.dimensions.angle')}}</span>
+            </div>
+            <div v-if="state.visual_settings.input_mode == 'extended'">
+                <span class="input_parameter_name">{{$t('calculator.input.labels.entry_longitude')}}: </span>
+                <span class="input_parameter_value">{{state.entry_point.longitude}}{{$t('calculator.input.dimensions.angle')}}</span>
+            </div>
+            <div v-if="state.visual_settings.input_mode == 'extended'">
+                <span class="input_parameter_name">{{$t('calculator.input.labels.entry_azimuth')}}: </span>
+                <span class="input_parameter_value">{{state.entry_point.azimuth}}{{$t('calculator.input.dimensions.azimuth')}}</span>
+            </div>
         </v-col>
         <v-col>
             <v-card-title>{{$t("calculator.headers.Observation point")}}</v-card-title>

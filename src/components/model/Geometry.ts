@@ -74,4 +74,58 @@ class Vector extends Point {
     }
 }
 
-export {Point, Vector }
+
+class GeoPoint implements INotifyChanged<GeoPoint> {
+    constructor(latitude?:number, longitude?: number)
+    {
+        this._latitude = latitude ?? 0;
+        this._longitude = longitude ?? 0;
+    }
+    protected _latitude: number = 0;
+    protected _longitude: number = 0;
+
+    get latitude():number {return this._latitude;} set latitude(latitude: number) { this._latitude = 1.*latitude; this.fire_changed(); }
+    get longitude():number {return this._longitude;} set longitude(longitude: number) { this._longitude = 1.*longitude; this.fire_changed(); }
+
+    set(latitude:number, longitude: number): void{
+        if(this._latitude != latitude || this._longitude != longitude)
+        {
+            this._latitude = latitude;
+            this._longitude = longitude;
+            this.fire_changed();
+        }
+    }
+    private readonly on_changed = new Emitter<GeoPoint>();
+    get changed(): IEmitter<GeoPoint> {
+        return this.on_changed;
+    }
+
+    public fire_changed(): void {
+        this.on_changed.trigger(this);
+    }
+
+    to_string():string {
+        return `{latitude: ${this.latitude}, longitude:${this.longitude}}`;
+    }
+}
+class GeoVector extends GeoPoint {
+    constructor(latitude?:number, longitude?: number, azimuth?: number)
+    {
+        super(latitude, longitude);
+        this._azimuth = azimuth ?? 0;
+    }
+    private _azimuth: number = 0;
+    get azimuth():number {return this._azimuth;} set azimuth(azimuth: number) { this._azimuth = 1.*azimuth; this.fire_changed(); }
+
+    set_vector(latitude:number, longitude: number, azimuth: number): void{
+        if(this._latitude != latitude || this._longitude != longitude|| this._azimuth != azimuth)
+        {
+            this._latitude = latitude;
+            this._longitude = longitude;
+            this._azimuth = azimuth;
+            this.fire_changed();
+        }
+    }
+}
+
+export {Point, Vector, GeoPoint, GeoVector, }
