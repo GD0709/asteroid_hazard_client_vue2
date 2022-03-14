@@ -4,6 +4,7 @@ import {ObservationPointInput} from "./Observation";
 
 export default class State
 {
+    is_debug: boolean = true;
     static state: State = new State();
 
 

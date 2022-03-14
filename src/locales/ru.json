@@ -24,6 +24,10 @@
       "Observation point": "Точка наблюдения",      
       "Entry vector": "Вектор входа"
     },
+    "input_summary":{
+      "energy": "Энергия",
+      "energy_tnt": "Энергия (TNT)"
+    },
     "input":{
       "labels":{
         "diameter":"Диаметр",
@@ -36,6 +40,7 @@
         "distance along": "Дистанция вдоль",
         "distance across": "Дистанция поперёк",
         "distance to zp": "Расстояние до нулевой точки",
+        "zero point": "Нулевая точка",
         "angle to zp": "Угол к проекции траектории",
         "entry_point_100km":"Точка входа на высоте 100 км.",
         "max_overpressure_point":"Точка максимального избыточного давления",
@@ -51,7 +56,18 @@
         "latitude": "°",
         "longitude": "°",
         "azimuth": "°",
-        "angle": "°"
+        "angle": "°",
+        "energy": "Дж",
+        "tnt": "т ТНТ",
+        "prefix":{
+          "3": "к",
+          "6": "М",
+          "9": "Г",
+          "12": "Т",
+          "15": "П",
+          "18": "Е",
+          "21": "З"
+        }
       }
     },
     "schema":{

@@ -47,6 +47,8 @@ export default class MathExt
         let str = real.toString();
         let dot_pos = str.indexOf('.');
         if(dot_pos<0) return str;
+        if(after_dot_length == 0)
+            after_dot_length = -1;
         return str.substring(0, dot_pos + 1 + after_dot_length);
     }
     static round_by_digits_to_string(real: number, n: number){

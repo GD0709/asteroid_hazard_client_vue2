@@ -24,6 +24,10 @@
       "Observation point": "Observation point",
       "Entry vector": "Entry vector"
     },
+    "input_summary":{
+      "energy": "Energy",
+      "energy_tnt": "Energy (TNT)"
+    },
     "input":{
       "labels":{
         "diameter":"Diameter",
@@ -37,6 +41,7 @@
         "distance across": "Distance across",
         "distance to zp": "Distance to zero point",
         "angle to zp": "Angle to trajectory projection",
+        "zero point": "Zero Point",
         "entry_point_100km":"Entry point at 100km above the ground",
         "max_overpressure_point":"Max overpressure point",
         "surface_intersection":"The point of intersection of the trajectory with the Earth's surface",
@@ -51,7 +56,18 @@
         "latitude": "°",
         "longitude": "°",
         "azimuth": "°",
-        "angle": "°"
+        "angle": "°",
+        "energy": "J",
+        "tnt": "t TNT",
+        "prefix":{
+          "3": "k",
+          "6": "M",
+          "9": "G",
+          "12": "T",
+          "15": "P",
+          "18": "E",
+          "21": "Z"
+        }
       }
     },
     "schema":{

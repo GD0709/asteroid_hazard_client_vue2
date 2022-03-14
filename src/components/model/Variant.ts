@@ -23,6 +23,7 @@ export default class Variant implements INotifyChanged<Variant> {
     }
 
     public fire_changed(): void {
+        this.update_derivatives();
         this.on_changed.trigger(this);
     }
 
