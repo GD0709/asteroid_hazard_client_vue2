@@ -22,7 +22,8 @@
       "Projectile parameters": "Projectile parameters",
       "Entry parameters": "Entry parameters",
       "Observation point": "Observation point",
-      "Entry vector": "Entry vector"
+      "Entry vector": "Entry vector",
+      "Target parameters": "Target parameters"
     },
     "input_summary":{
       "energy": "Energy",
@@ -45,7 +46,11 @@
         "entry_point_100km":"Entry point at 100km above the ground",
         "max_overpressure_point":"Max overpressure point",
         "surface_intersection":"The point of intersection of the trajectory with the Earth's surface",
-        "max_thermal_effect_point":"Max thermal effect point"
+        "max_thermal_effect_point":"Max thermal effect point",
+
+        "target type": "Target type",
+        "sand": "Sand",
+        "rock": "Crystalline rock"
       },
       "dimensions":{
         "diameter":"m",

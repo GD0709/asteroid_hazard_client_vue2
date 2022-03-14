@@ -69,6 +69,15 @@
                 <span class="input_parameter_name">{{$t('calculator.input.labels.entry_azimuth')}}: </span>
                 <span class="input_parameter_value">{{state.entry_point.azimuth}}{{$t('calculator.input.dimensions.azimuth')}}</span>
             </div>
+
+
+            <v-card-title>{{$t("calculator.headers.Target parameters")}}</v-card-title>
+            <v-divider class="mx-4"></v-divider>
+            <div>
+                <span class="input_parameter_name">{{$t('calculator.input.labels.target type')}}: </span>
+                <span class="input_parameter_value">
+                    {{ $t('calculator.input.labels.' + {1600: 'sand', 2650: 'rock'}[state.target.target_density]) }} (ρ = {{state.target.target_density}} {{$t('calculator.input.dimensions.density')}})</span>
+            </div>
         </v-col>
         <v-col>
             <v-card-title>{{$t("calculator.headers.Observation point")}}</v-card-title>

@@ -22,7 +22,8 @@
       "Projectile parameters": "Параметры КТ",
       "Entry parameters": "Параметры входа",
       "Observation point": "Точка наблюдения",      
-      "Entry vector": "Вектор входа"
+      "Entry vector": "Вектор входа",
+      "Target parameters": "Параметры мишени"
     },
     "input_summary":{
       "energy": "Энергия",
@@ -45,7 +46,11 @@
         "entry_point_100km":"Точка входа на высоте 100 км.",
         "max_overpressure_point":"Точка максимального избыточного давления",
         "surface_intersection":"Точка пересечения траектории с поверхностью Земли",
-        "max_thermal_effect_point":"Точка максимального теплового эффекта"
+        "max_thermal_effect_point":"Точка максимального теплового эффекта",
+
+        "target type": "Тип мишени",
+        "sand": "Песок",
+        "rock": "Скальная порода"
       },
       "dimensions":{
         "diameter":"м",
