@@ -9,6 +9,7 @@
                 :rules="rules"
                 :label="label + ' (' + dimension + ')'"
                 :prefix="prefix"
+                v-on:input="test_text_input"
             >
             </v-text-field>
             
@@ -21,6 +22,7 @@
                         :min="log_slider ? Math.log(min)/Math.log(log_base) : min"
                         :max="log_slider ? Math.log(max)/Math.log(log_base) : max"
                         :step="log_slider ? 0.000001 : accuracy"
+                        v-on:input="test_slider_input"
                         >                        
                     </v-slider>
                     <div class="inside">
@@ -39,7 +41,7 @@ import { Component, Prop, Vue, Model, ModelSync, Watch } from 'vue-property-deco
 import MathExt from '@/components/lib/MathExt';
 @Component
 export default class FieldInput extends Vue {
-    debug: boolean = true;
+    debug: boolean = false;
     log(...data: any[])
     {
         if(this.debug == true)
@@ -70,7 +72,14 @@ export default class FieldInput extends Vue {
             }, 1000);
         }
     }
-
+    test_text_input()
+    {
+        this.log('test_text_input');
+    }
+    test_slider_input()
+    {
+        this.log('test_slider_input');
+    }
 
     //visual
     @Prop({default: "-"}) id!: string;
@@ -89,12 +98,13 @@ export default class FieldInput extends Vue {
     }
     accuracy_digits: number = 1;
 
-
+    is_mounted = false;
     mounted()
     {
-        this.log("mounted");
+        this.log("mounted", this.outer_value);
         this.on_accuracy_changed(0,0);
         this.on_value_changed(this.outer_value,this.outer_value);
+        this.is_mounted = true;
     }
     lost_focus() {
         this.log('blured');
@@ -104,7 +114,7 @@ export default class FieldInput extends Vue {
     @Watch('value')
     on_value_changed(val: number, old_val: number)
     {
-        this.log("on_value_changed", val);
+        this.log("on_value_changed", val, this.display_value, this.hidden_local_value);
         if(val != this.setted_value)
         {
             this.log("on_value_changed setting", val);
@@ -151,7 +161,12 @@ export default class FieldInput extends Vue {
             }
         }
     }
-
+    @Watch('min')
+    on_min_changed(val: number, old_val: number)
+    {
+        
+        this.log("on_min_changed",val, this.min, this.outer_value);
+    }
     //slider
     @Prop({default: 0}) min!: number;
     @Prop({default: 100}) max!: number;
@@ -161,7 +176,8 @@ export default class FieldInput extends Vue {
     get slider_value() : number { return this.log_slider ? Math.log(this.hidden_local_value)/Math.log(this.log_base) : this.hidden_local_value; }
     set slider_value(val: number) { 
         //console.log(val + " " + Math.round(Math.pow(this.log_base, val)));
-        
+        if(!this.is_mounted) return;
+        this.log("slider_value set", val);
         if(this.log_slider)
             this.local_value = Math.round(Math.pow(this.log_base, val));
         else 

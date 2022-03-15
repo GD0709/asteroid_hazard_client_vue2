@@ -1,4 +1,5 @@
 import { INotifyChanged, IEmitter, Emitter } from '@/components/lib/Events';
+import ShockWaveEffects from './Effects/ShockWave';
 
 export default class Variant implements INotifyChanged<Variant> {
 
@@ -7,6 +8,7 @@ export default class Variant implements INotifyChanged<Variant> {
         this._diameter = diameter??19;
         this._angle = angle??18;
         this._velocity = velocity??19;
+        this.update_derivatives();
     }
 
     clone():Variant {
@@ -41,10 +43,13 @@ export default class Variant implements INotifyChanged<Variant> {
 
     
     update_derivatives() {
-        this.angle_rad = this.angle * Math.PI/180;
+        if(this.angle == 0) 
+            this.angle_rad = 0;
+        else 
+            this.angle_rad = this.angle * Math.PI/180;
         this.kenergy = this.kenergy_calc(this);
         this.kenergy_kttnt = this.kenergy_kttnt_calc(this.kenergy);
-        //this.heff = ShockWaveEffects.heff_calc(this);
+        this.heff = ShockWaveEffects.heff_calc(this);
     }
  
     angle_rad: number = 0;
@@ -69,5 +74,10 @@ export default class Variant implements INotifyChanged<Variant> {
         //
         // Returns kinetic energy (kt TNT)
         return 2.39 * Math.pow(10, -13) * energy;
+    }
+
+    to_string()
+    {
+        return `${this.density}-${this.diameter}-${this.angle}-${this.velocity}`
     }
 }

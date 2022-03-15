@@ -7,7 +7,7 @@
                     
                     <v-row>
                         <field-input
-                        v-model="state.variant.diameter"
+                        
                         id="basic.diameter"
                         :accuracy="1"
                         :min="15"
@@ -16,6 +16,7 @@
                         :label="$t('calculator.input.labels.diameter')"
                         :dimension="$t('calculator.input.dimensions.diameter')"
                         prefix="D ="
+                        v-model="state.variant.diameter"
                         />
                     </v-row>
                     <v-row>
@@ -56,8 +57,8 @@
                     </v-row>
                     <v-row>
                         <field-input
-                        v-model="state.variant.entry_angle"
-                        id="basic.entry_angle"
+                        v-model="state.variant.angle"
+                        id="basic.angle"
                         :accuracy="0.1"
                         :min="15"
                         :max="90"
@@ -127,7 +128,71 @@
                 </v-container>
             </v-col>
             <v-col md="6" sm="12">
- 2               
+               <schema/>
+            </v-col>
+        </v-row>
+
+
+        <v-row>
+            <v-col md="6" sm="12">
+                <h4>{{$t("calculator.headers.Entry vector")}}</h4>
+        
+
+                <v-container>
+                        <v-row style="margin-right: 12px;">
+                        <v-text-field
+                            v-model="state.entry_point.latitude"
+                            :rules="input_rules.entry_latitude"
+                            :label="$t('calculator.input.labels.entry_latitude')+'(' + $t('calculator.input.dimensions.latitude') + ')'"
+                            required
+                        >
+                        </v-text-field>
+            
+
+                        <v-text-field
+                            v-model="state.entry_point.longitude"
+                            :rules="input_rules.entry_longitude"
+                            :label="$t('calculator.input.labels.entry_longitude')+'(' + $t('calculator.input.dimensions.longitude') + ')'"
+                            required
+                        >
+                        </v-text-field>
+                    </v-row>
+                    <v-row>
+                        <field-input
+                        v-model="state.entry_point.azimuth"
+                        id="extended.entry_point.azimuth"
+                        :accuracy="0.1"
+                        :min="0"
+                        :max="360"
+                        :rules="input_rules.input_along_across"
+                        :label="$t('calculator.input.labels.entry_azimuth')"
+                        :dimension="$t('calculator.input.dimensions.azimuth')"
+                        />
+    <!--               <template v-slot:label>
+                        Density (kg/m<sup>3</sup>)
+                    </template> -->
+                    </v-row>
+                    <v-row>
+                        <v-tabs
+                            v-model="tab"
+                            background-color="transparent"
+                            grow
+                            >
+                            <v-tab>
+                                Lx Ly
+                            </v-tab>
+                            <v-tab>
+                                D angle
+                            </v-tab>
+                            <v-tab>
+                                long lat
+                            </v-tab>
+                        </v-tabs>
+                    </v-row>
+                </v-container>
+            </v-col>
+            <v-col md="6" sm="12">
+               <schema/>
             </v-col>
         </v-row>
 
@@ -180,20 +245,24 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import FieldInput from '@/components/calculator/input/FieldInput.vue';
 import State from '@/components/model/State';
 import InpuRules from '@/components/calculator/input/InputRules';
+import Schema from './Schema.vue';
 
 @Component({
     components: {
-        FieldInput
+        FieldInput,
+        Schema
     }
 })
 export default class ExtendedInput extends Vue {
 
     mounted()
     {
+        //console.log('ExtendedInput mounted', this.state.variant.to_string());
     }
     // Density
     state: State = State.state;
     input_rules = InpuRules;
+    tab = null;
 }
 </script>
 

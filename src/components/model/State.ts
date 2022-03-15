@@ -3,6 +3,7 @@ import Variant from "./Variant";
 import {ObservationPointInput} from "./Observation";
 import VisualSettings from "./VisualSettings";
 import Target from "./Target";
+import { Effects } from "./Effects/EffectsAssessment";
 
 export default class State
 {
@@ -20,6 +21,8 @@ export default class State
 
     observation_point: Point = new Point(50,50);
     observation_point_inputs: ObservationPointInput = new ObservationPointInput(this.observation_point, this.variant);
+
+    effects: Effects = new Effects(this.variant, this.observation_point_inputs);
 }
 
 
