@@ -27,5 +27,17 @@ input_along_across: [
     (v:any) => !isNaN(v) || `${v} is not a number`,
     (v:any) => v>=-3000 || `Distance must be in range -3000 km to 3000 km`,
     (v:any) => v<=3000 || `Distance must be less than 72 km/s`
+],
+input_distance: [
+    (v:any) => v != '' || `Distance is required`,
+    (v:any) => !isNaN(v) || `${v} is not a number`,
+    (v:any) => v>=0 || `Distance must be more than 0 km`,
+    (v:any) => v<=4242 || `Distance must be less than 4242 km`
+],
+input_angle: [
+    (v:any) => v != '' || `Angle is required`,
+    (v:any) => !isNaN(v) || `${v} is not a number`,
+    (v:any) => v>=0 || `Entry angle must be more than 0°`,
+    (v:any) => v<=360 || `Entry angle must be less than 360°`
 ]
 };

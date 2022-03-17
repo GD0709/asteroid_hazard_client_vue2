@@ -76,8 +76,12 @@
       }
     },
     "schema":{
-      "effective_thermal_point_source":"Положение эквивалентного теплового источника",
-      "effective_overpressure_point_source": "Положение эквивалентного источника избыточного давления"
+      "Entry point": "Точка входа на авысоте 100км",
+      "Surface intersection point": "Точка пересечения траектории с поверхностью Земли",
+      "Effective thermal point source":"Положение эквивалентного теплового источника",
+      "Effective overpressure point source": "Положение эквивалентного источника избыточного давления",
+      "Observation point": "Точка наблюдения"
+
     }
   },
 

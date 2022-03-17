@@ -20,14 +20,26 @@ Math.rad2deg = function (x: number) : number {
 
 export default class MathExt
 {
-
+    static range(start: number = 0, end:number = 10, step:number = 1):ReadonlyArray<number> {
+        return Array.from({length: Math.floor((end - start + step)/step)}, (x, i) => start + i* step);
+    }
 
     static deg2rad(angle_degree: number) : number {
         return angle_degree / 180. * Math.PI;
     }
+    static point_deg2rad(point: {x:number, y: number}) : {x:number, y: number} {
+        return {x: MathExt.deg2rad(point.x), y: MathExt.deg2rad(point.y) };
+    }
+    static geopoint_deg2rad(point: {latitude:number, longitude: number}) : {latitude:number, longitude: number} {
+        return {latitude: MathExt.deg2rad(point.latitude), longitude: MathExt.deg2rad(point.longitude) };
+    }
     static rad2deg(angle_rad: number) : number {
         return angle_rad / Math.PI * 180.;
     }
+    static geopoint_rad2deg(point: {latitude:number, longitude: number}) : {latitude:number, longitude: number} {
+        return {latitude: MathExt.rad2deg(point.latitude), longitude: MathExt.rad2deg(point.longitude) };
+    }
+
     static interpolate_by_density(val1000: number, val3320: number, density: number){
         return val1000 * (3320. - density)/2320 + val3320 * (density - 1000.)/2320;
     }

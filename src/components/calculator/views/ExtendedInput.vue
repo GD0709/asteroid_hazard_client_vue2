@@ -3,9 +3,7 @@
         <v-row>
             <v-col md="6" sm="12">
                 <h4>{{$t("calculator.headers.Projectile parameters")}}</h4>
-                <v-container>
-                    
-                    <v-row>
+
                         <field-input
                         
                         id="basic.diameter"
@@ -18,8 +16,7 @@
                         prefix="D ="
                         v-model="state.variant.diameter"
                         />
-                    </v-row>
-                    <v-row>
+
                         <field-input
                         v-model="state.variant.density"
                         id="basic.density"
@@ -34,12 +31,12 @@
     <!--               <template v-slot:label>
                         Density (kg/m<sup>3</sup>)
                     </template> -->
-                    </v-row>
-                </v-container>
+    
+            
             </v-col>
             <v-col md="6" sm="12">
                 <h4>{{$t("calculator.headers.Entry parameters")}}</h4>
-                <v-container>
+
 
                     
                     <v-row>
@@ -71,7 +68,6 @@
                         Density (kg/m<sup>3</sup>)
                     </template> -->
                     </v-row>
-                </v-container>
             </v-col>
         </v-row>
 
@@ -79,10 +75,7 @@
         <v-row>
             <v-col md="6" sm="12">
                 <h4>{{$t("calculator.headers.Target parameters")}}</h4>
-        
-
-                <v-container>
-                    <v-row>
+                    <v-col>
                         <div >
                             <label class="radio_label theme--light" style="">{{$t('calculator.input.labels.target type')}}</label>
                             <v-radio-group class="radio_with_label"
@@ -104,7 +97,7 @@
                             <label class="radio_label theme--light" style="">{{$t('calculator.input.labels.zero point')}}</label>
                             <v-radio-group class="radio_with_label"
                                 v-model="state.observation_point_inputs.relative_to"
-                                row
+                                col
                                 >
                                 <v-radio
                                     :label="$t('calculator.input.labels.surface_intersection')"
@@ -124,8 +117,7 @@
                                 ></v-radio>
                             </v-radio-group>
                         </div>
-                    </v-row>
-                </v-container>
+                    </v-col>
             </v-col>
             <v-col md="6" sm="12">
                <schema/>
@@ -138,8 +130,7 @@
                 <h4>{{$t("calculator.headers.Entry vector")}}</h4>
         
 
-                <v-container>
-                        <v-row style="margin-right: 12px;">
+                    <v-row style="margin-right: 12px; margin-left: -24px">
                         <v-text-field
                             v-model="state.entry_point.latitude"
                             :rules="input_rules.entry_latitude"
@@ -179,20 +170,110 @@
                             grow
                             >
                             <v-tab>
-                                Lx Ly
+                                Along-across
                             </v-tab>
                             <v-tab>
-                                D angle
+                                Distance-angle
                             </v-tab>
                             <v-tab>
-                                long lat
+                                Latitude-Longitude
                             </v-tab>
+
+                            <v-tab-item>
+                                
+                                <v-col>
+                                    <field-input
+                                        :log_slider="false"
+                                        v-model="state.observation_point_inputs.along_across.along"
+                                        :min="-3000"
+                                        :max="3000"
+                                        :rules="input_rules.input_along_across"
+                                        :label="$t('calculator.input.labels.distance along')"
+                                        :dimension="$t('calculator.input.dimensions.km')"
+                                        prefix="y ="
+                                    />
+                                    <field-input
+                                            :log_slider="false"
+                                            v-model="state.observation_point_inputs.along_across.across"
+                                            :min="-3000"
+                                            :max="3000"
+                                            :rules="input_rules.input_along_across"
+                                            :label="$t('calculator.input.labels.distance across')"
+                                            :dimension="$t('calculator.input.dimensions.km')"
+                                            prefix="x ="
+                                    />
+                                </v-col>
+                                
+                            </v-tab-item>
+                            <v-tab-item>
+                                <v-col>
+                                    <field-input
+                                        :log_slider="false"
+                                        v-model="state.observation_point_inputs.distance_angle.distance"
+                                        :min="0"
+                                        :max="4242"
+                                        :rules="input_rules.input_distance"
+                                        :label="$t('calculator.input.labels.distance to zp')"
+                                        :dimension="$t('calculator.input.dimensions.km')"
+                                        prefix="y ="
+                                    />
+                                    <field-input
+                                            :log_slider="false"
+                                            v-model="state.observation_point_inputs.distance_angle.angle"
+                                            :min="0"
+                                            :max="360"
+                                            :rules="input_rules.input_along_across"
+                                            :label="$t('calculator.input.labels.angle to zp')"
+                                            :dimension="$t('calculator.input.dimensions.km')"
+                                            prefix="x ="
+                                    />
+                                </v-col>
+                            </v-tab-item>
+                            <v-tab-item
+                               
+                            >
+                                <v-card
+                                color="basil"
+                                flat
+                                >
+                                <v-card-text>{{ text }}</v-card-text>
+                                </v-card>
+                            </v-tab-item>
+
                         </v-tabs>
+
+                        <v-tabs-items v-model="tab">
+                            
+                        </v-tabs-items>
+
+                    
+                                    
+                                        <!-- <field-input
+                                            :log_slider="false"
+                                            v-model="state.observation_point_inputs.along_across.along"
+                                            :min="-3000"
+                                            :max="3000"
+                                            :rules="input_rules.input_along_across"
+                                            :label="$t('calculator.input.labels.distance along')"
+                                            :dimension="$t('calculator.input.dimensions.km')"
+                                            prefix="y ="
+                                            />
+                                            <field-input
+                                                :log_slider="false"
+                                                v-model="state.observation_point_inputs.along_across.across"
+                                                :min="-3000"
+                                                :max="3000"
+                                                :rules="input_rules.input_along_across"
+                                                :label="$t('calculator.input.labels.distance across')"
+                                                :dimension="$t('calculator.input.dimensions.km')"
+                                                prefix="x ="
+                                                />
+                                     -->
+                               
                     </v-row>
-                </v-container>
             </v-col>
             <v-col md="6" sm="12">
-               <schema/>
+                <Map/>
             </v-col>
         </v-row>
 
@@ -246,11 +327,13 @@ import FieldInput from '@/components/calculator/input/FieldInput.vue';
 import State from '@/components/model/State';
 import InpuRules from '@/components/calculator/input/InputRules';
 import Schema from './Schema.vue';
+import Map from './Map.vue';
 
 @Component({
     components: {
         FieldInput,
-        Schema
+        Schema,
+        Map
     }
 })
 export default class ExtendedInput extends Vue {
@@ -263,6 +346,8 @@ export default class ExtendedInput extends Vue {
     state: State = State.state;
     input_rules = InpuRules;
     tab = null;
+    items=['Appetizers', 'Entrees', 'Deserts', 'Cocktails']
+    text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 }
 </script>
 

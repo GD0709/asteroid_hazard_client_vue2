@@ -76,8 +76,11 @@
       }
     },
     "schema":{
-      "effective_thermal_point_source":"Position of effective thermal point source",
-      "effective_overpressure_point_source": "Position of effective overpressure point source"
+      "Entry point": "Entry point at 100km above the ground",
+      "Surface intersection point": "The point of intersection of the trajectory with the Earth's surface",
+      "Effective thermal point source":"Position of effective thermal point source",
+      "Effective overpressure point source": "Position of effective overpressure point source",
+      "Observation point": "Observation point"
     }
   },
 

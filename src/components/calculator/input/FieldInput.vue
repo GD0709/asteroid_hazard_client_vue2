@@ -15,7 +15,6 @@
             
         </div>
         <v-col>
-            <v-container>
                 <div class="slider_wrapper">
                     <v-slider
                         v-model="slider_value"
@@ -31,7 +30,6 @@
                         <div class="inside_col">{{max}} {{dimension}}</div>
                     </div>
                 </div>
-            </v-container>
         </v-col>
     </v-row>
 </template>

@@ -1,4 +1,6 @@
 import MathExt from "../lib/MathExt";
+import RadiationEffects from "./Effects/Radiation";
+import ShockWaveEffects from "./Effects/ShockWave";
 import { Point } from "./Geometry";
 import Variant from "./Variant";
 
@@ -35,7 +37,7 @@ class ObservationPointInput extends Point
             this.shift_y = 0;
             console.log(`relative to set: ${this.relative_to} surface_intersection and shift: ${this.shift_y}`);
         }
-/*         else if(this.relative_to == ZeroPoints.max_overpressure_point)
+        else if(this.relative_to == ZeroPoints.max_overpressure_point)
         {
             let shock = new ShockWaveEffects();
             shock.calc_heff_and_zero_point(this.variant);
@@ -50,7 +52,7 @@ class ObservationPointInput extends Point
             //this.shift_x = 0;
             this.shift_y = rad.zero_point;
             console.log(`relative to set: ${this.relative_to} max_thermal_effect_point and shift: ${this.shift_y}`);
-        } */
+        } 
         else if(this.relative_to == ZeroPoints.entry_point_100km)
         {
             //this.shift_x = 0;
