@@ -1,17 +1,10 @@
-h4{
+h3{
     text-align: left;
     font-weight: 400;
     font-size: 24px;
-    margin-bottom: 28px;
-}
-h3{
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 42px;
-    line-height: 110%;
-    margin: 24px 0 24px 0;
-    font-weight: 400;
-    width: 100%;
+    margin-bottom: 12px;
+    margin-left: 24px;
+    margin-top: 24px;
 }
 h1{
     font-weight: 300;
@@ -28,6 +21,7 @@ h1{
     flex-grow: 1;
     width: 100%;
 }
+
 .flex_row{
     display: flex;
     flex-direction: row;

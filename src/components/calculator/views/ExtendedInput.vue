@@ -1,21 +1,27 @@
 <template>
     <v-container>
-        <v-row>
-            <v-col md="6" sm="12">
-                <h4>{{$t("calculator.headers.Projectile parameters")}}</h4>
+        <v-row no-gutters>
+            <v-col cols="12" md="6" no-gutters class="pr-md-3 no-gutters">
+                <h3>{{$t("calculator.headers.Projectile parameters")}}</h3>
 
-                        <field-input
+                    <field-input
                         
                         id="basic.diameter"
                         :accuracy="1"
                         :min="15"
                         :max="3000"
                         :rules="input_rules.diameter"
-                        :label="$t('calculator.input.labels.diameter')"
-                        :dimension="$t('calculator.input.dimensions.diameter')"
+                        :label="$t('calculator.inputs.diameter.label')"
+                        :help_title="$t('calculator.inputs.diameter.label')"
+                        :help_text="$t('calculator.inputs.diameter.help')"
+                        :dimension="$t('calculator.inputs.dimensions.m')"
                         prefix="D ="
                         v-model="state.variant.diameter"
-                        />
+                        >
+<!--                         <template slot="help">
+                            Hello slot
+                        </template> -->
+                    </field-input>
 
                         <field-input
                         v-model="state.variant.density"
@@ -24,35 +30,30 @@
                         :min="500"
                         :max="4000"
                         :rules="input_rules.density"
-                        :label="$t('calculator.input.labels.density')"
-                        :dimension="$t('calculator.input.dimensions.density')"
+                        :label="$t('calculator.inputs.density.label')"
+                        :help_title="$t('calculator.inputs.density.label')"
+                        :help_text="$t('calculator.inputs.density.help')"
+                        :dimension="$t('calculator.inputs.dimensions.kg/m3')"
                         prefix="ρ ="
-                        />
-    <!--               <template v-slot:label>
-                        Density (kg/m<sup>3</sup>)
-                    </template> -->
-    
-            
+                        >
+                    </field-input>
             </v-col>
-            <v-col md="6" sm="12">
-                <h4>{{$t("calculator.headers.Entry parameters")}}</h4>
-
-
-                    
-                    <v-row>
-                        <field-input
+            <v-col cols="12" md="6" no-gutters class="pl-md-3 no-gutters">
+                <h3>{{$t("calculator.headers.Entry parameters")}}</h3>
+                    <field-input
                         v-model="state.variant.velocity"
                         id="basic.velocity"
                         :accuracy="0.1"
-                        :min="15"
+                        :min="12"
                         :max="72"
                         :rules="input_rules.velocity"
-                        :label="$t('calculator.input.labels.velocity')"
-                        :dimension="$t('calculator.input.dimensions.velocity')"
+                        :label="$t('calculator.inputs.velocity.label')"
+                        :help_title="$t('calculator.inputs.velocity.label')"
+                        :help_text="$t('calculator.inputs.velocity.help')"
+                        :dimension="$t('calculator.inputs.dimensions.km/s')"
                         prefix="V ="
                         />
-                    </v-row>
-                    <v-row>
+ 
                         <field-input
                         v-model="state.variant.angle"
                         id="basic.angle"
@@ -60,129 +61,227 @@
                         :min="15"
                         :max="90"
                         :rules="input_rules.entry_angle"
-                        :label="$t('calculator.input.labels.entry_angle')"
-                        :dimension="$t('calculator.input.dimensions.entry_angle')"
+                        :label="$t('calculator.inputs.entry angle.label')"
+                        :help_title="$t('calculator.inputs.entry angle.label')"
+                        :help_text="$t('calculator.inputs.entry angle.help')"
+                        :dimension="$t('calculator.inputs.dimensions.degree')"
                         prefix="α ="
                         />
-    <!--               <template v-slot:label>
-                        Density (kg/m<sup>3</sup>)
-                    </template> -->
-                    </v-row>
+             
             </v-col>
         </v-row>
 
         
-        <v-row>
-            <v-col md="6" sm="12">
-                <h4>{{$t("calculator.headers.Target parameters")}}</h4>
-                    <v-col>
+        <v-row no-gutters >
+            <v-col cols="12" md="6" no-gutters class="pr-md-3 no-gutters">
+                <h3>{{$t("calculator.headers.Target parameters")}}</h3>
+                    
                         <div >
-                            <label class="radio_label theme--light" style="">{{$t('calculator.input.labels.target type')}}</label>
+                            <label class="radio_label theme--light" style="">{{$t('calculator.inputs.target type.label')}} 
+                                <help :help_title="$t('calculator.inputs.target type.label')">
+                                    <span v-html="$t('calculator.inputs.target type.help')"/>
+                                </help>
+                            </label>
                             <v-radio-group class="radio_with_label"
                                 v-model="state.target.target_density"
                                 row
                                 >
                                 <v-radio
-                                    :label="$t('calculator.input.labels.rock')"
+                                    :label="$t('calculator.inputs.target type.rock')"
                                     :value="2650"
                                 ></v-radio>
                                 <v-radio
-                                    :label="$t('calculator.input.labels.sand')"
+                                    :label="$t('calculator.inputs.target type.sand')"
                                     :value="1600"
                                 ></v-radio>
                             </v-radio-group>
                         </div>
 
                         <div >
-                            <label class="radio_label theme--light" style="">{{$t('calculator.input.labels.zero point')}}</label>
+                            <label class="radio_label theme--light" style="">{{$t('calculator.inputs.zero point.label')}}
+                                <help :help_title="$t('calculator.inputs.zero point.label')">
+                                    <span v-html="$t('calculator.inputs.zero point.help')"/>
+                                </help>
+                            </label>
                             <v-radio-group class="radio_with_label"
                                 v-model="state.observation_point_inputs.relative_to"
                                 col
                                 >
                                 <v-radio
-                                    :label="$t('calculator.input.labels.surface_intersection')"
+                                    :label="$t('calculator.inputs.zero point.surface intersection')"
                                     :value="3"
                                 ></v-radio>
                                 <v-radio
-                                    :label="$t('calculator.input.labels.max_overpressure_point')"
+                                    :label="$t('calculator.inputs.zero point.max overpressure point')"
                                     :value="2"
                                 ></v-radio>
                                 <v-radio
-                                    :label="$t('calculator.input.labels.max_thermal_effect_point')"
+                                    :label="$t('calculator.inputs.zero point.max thermal effect point')"
                                     :value="4"
                                 ></v-radio>
                                 <v-radio
-                                    :label="$t('calculator.input.labels.entry_point_100km')"
+                                    :label="$t('calculator.inputs.zero point.entry point 100km')"
                                     :value="1"
                                 ></v-radio>
                             </v-radio-group>
                         </div>
-                    </v-col>
             </v-col>
-            <v-col md="6" sm="12">
+            <v-col cols="12" md="6" no-gutters class="pl-md-3">
                <schema/>
             </v-col>
         </v-row>
 
 
-        <v-row>
-            <v-col md="6" sm="12">
-                <h4>{{$t("calculator.headers.Entry vector")}}</h4>
+        <v-row no-gutters >
+            <v-col cols="12" md="6" no-gutters class="pr-md-3 no-gutters">
+                <h3>{{$t("calculator.headers.Entry vector")}}</h3>
         
 
-                    <v-row style="margin-right: 12px; margin-left: -24px">
-                        <v-text-field
-                            v-model="state.entry_point.latitude"
-                            :rules="input_rules.entry_latitude"
-                            :label="$t('calculator.input.labels.entry_latitude')+'(' + $t('calculator.input.dimensions.latitude') + ')'"
-                            required
-                        >
-                        </v-text-field>
-            
+                <v-row no-gutters class="align-center">
+                    <v-text-field
+                        v-model="state.entry_point.latitude"
+                        :rules="input_rules.entry_latitude"
+                        :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                        required
+                    >
+                    </v-text-field>
+        
 
-                        <v-text-field
-                            v-model="state.entry_point.longitude"
-                            :rules="input_rules.entry_longitude"
-                            :label="$t('calculator.input.labels.entry_longitude')+'(' + $t('calculator.input.dimensions.longitude') + ')'"
-                            required
+                    <v-text-field
+                        v-model="state.entry_point.longitude"
+                        :rules="input_rules.entry_longitude"
+                        :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                        required
+                    >
+                    </v-text-field>
+                    <help :help_title="$t('calculator.inputs.entry vector.help title')">
+                        <span v-html="$t('calculator.inputs.entry vector.help')"/>
+                    </help>
+                </v-row>
+                
+                <field-input
+                    v-model="state.entry_point.azimuth"
+                    id="extended.entry_point.azimuth"
+                    :accuracy="0.1"
+                    :min="0"
+                    :max="360"
+                    :rules="input_rules.input_along_across"
+                    :label="$t('calculator.inputs.entry vector.azimuth')"
+                    :help_title="$t('calculator.inputs.entry vector.azimuth')"
+                    :help_text="$t('calculator.inputs.entry vector.azimuth help')"
+                    :dimension="$t('calculator.inputs.dimensions.degree')"
+                    />
+                
+                <v-col no-gutters class="no-gutters">
+                    <h3>{{$t("calculator.headers.Observation point")}}</h3>
+                    <v-tabs
+                        v-model="tab"
+                        background-color="transparent"
+                        grow
                         >
-                        </v-text-field>
-                    </v-row>
-                    <v-row>
-                        <field-input
-                        v-model="state.entry_point.azimuth"
-                        id="extended.entry_point.azimuth"
-                        :accuracy="0.1"
-                        :min="0"
-                        :max="360"
-                        :rules="input_rules.input_along_across"
-                        :label="$t('calculator.input.labels.entry_azimuth')"
-                        :dimension="$t('calculator.input.dimensions.azimuth')"
-                        />
-    <!--               <template v-slot:label>
-                        Density (kg/m<sup>3</sup>)
-                    </template> -->
-                    </v-row>
-                    <v-row>
-                        <v-tabs
-                            v-model="tab"
-                            background-color="transparent"
-                            grow
-                            >
-                            <v-tab>
-                                Along-across
-                            </v-tab>
-                            <v-tab>
-                                Distance-angle
-                            </v-tab>
-                            <v-tab>
-                                Latitude-Longitude
-                            </v-tab>
+                        <v-tab>
+                            {{$t('calculator.inputs.observation point.along across.label')}}
+                        </v-tab>
+                        <v-tab>
+                            {{$t('calculator.inputs.observation point.distance angle.label')}}
+                        </v-tab>
+                        <v-tab>
+                            {{$t('calculator.inputs.observation point.latitude longitude.label')}}
+                        </v-tab>
 
-                            <v-tab-item>
+                        <v-tab-item>
+                            
+                            <div style="margin-top: 12px;">
+                                <field-input
+                                    :log_slider="false"
+                                    v-model="state.observation_point_inputs.along_across.along"
+                                    :min="-3000"
+                                    :max="3000"
+                                    :rules="input_rules.input_along_across"
+                                    :label="$t('calculator.inputs.observation point.along across.along')"
+                                    :help_title="$t('calculator.inputs.observation point.along across.along help title')"
+                                    :help_text="$t('calculator.inputs.observation point.along across.along help')"
+                                    :dimension="$t('calculator.inputs.dimensions.km')"
+                                    prefix="Ly ="
+                                />
+                                <field-input
+                                    :log_slider="false"
+                                    v-model="state.observation_point_inputs.along_across.across"
+                                    :min="-3000"
+                                    :max="3000"
+                                    :rules="input_rules.input_along_across"
+                                    :label="$t('calculator.inputs.observation point.along across.across')"
+                                    :help_title="$t('calculator.inputs.observation point.along across.across help title')"
+                                    :help_text="$t('calculator.inputs.observation point.along across.across help')"
+                                    :dimension="$t('calculator.inputs.dimensions.km')"
+                                    prefix="Lx ="
+                                />
+                            </div>
+                            
+                        </v-tab-item>
+                        <v-tab-item>
+                            <div style="margin-top: 12px;">
+                                <field-input
+                                    :log_slider="false"
+                                    v-model="state.observation_point_inputs.distance_angle.distance"
+                                    :min="0"
+                                    :max="4242"
+                                    :rules="input_rules.input_distance"
+                                    :label="$t('calculator.inputs.observation point.distance angle.distance')"
+                                    :help_title="$t('calculator.inputs.observation point.distance angle.distance help title')"
+                                    :help_text="$t('calculator.inputs.observation point.distance angle.distance help')"
+                                    :dimension="$t('calculator.input.dimensions.km')"
+                                    prefix="L ="
+                                />
+                                <field-input
+                                    :log_slider="false"
+                                    v-model="state.observation_point_inputs.distance_angle.angle"
+                                    :min="0"
+                                    :max="360"
+                                    :rules="input_rules.input_along_across"
+                                    :label="$t('calculator.inputs.observation point.distance angle.angle')"
+                                    :help_title="$t('calculator.inputs.observation point.distance angle.angle help title')"
+                                    :help_text="$t('calculator.inputs.observation point.distance angle.angle help')"
+                                    :dimension="$t('calculator.input.dimensions.km')"
+                                    prefix="𝜓 ="
+                                />
+                            </div>
+                        </v-tab-item>
+                        <v-tab-item>
+                            
+                            <v-row no-gutters class="align-center" style="margin-top: 12px;">
+                                <v-text-field
+                                    v-model="state.entry_point.latitude"
+                                    :rules="input_rules.entry_latitude"
+                                    :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                                    required
+                                >
+                                </v-text-field>
+                    
+
+                                <v-text-field
+                                    v-model="state.entry_point.longitude"
+                                    :rules="input_rules.entry_longitude"
+                                    :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                                    required
+                                >
+                                </v-text-field>
+                                <help :help_title="$t('calculator.inputs.entry vector.help title')">
+                                    <span v-html="$t('calculator.inputs.entry vector.help')"/>
+                                </help>
+                            </v-row>
+
+                        </v-tab-item>
+
+                    </v-tabs>
+
+<!--                     <v-tabs-items v-model="tab">
+                        
+                    </v-tabs-items> -->
+
+                
                                 
-                                <v-col>
-                                    <field-input
+                                    <!-- <field-input
                                         :log_slider="false"
                                         v-model="state.observation_point_inputs.along_across.along"
                                         :min="-3000"
@@ -191,8 +290,8 @@
                                         :label="$t('calculator.input.labels.distance along')"
                                         :dimension="$t('calculator.input.dimensions.km')"
                                         prefix="y ="
-                                    />
-                                    <field-input
+                                        />
+                                        <field-input
                                             :log_slider="false"
                                             v-model="state.observation_point_inputs.along_across.across"
                                             :min="-3000"
@@ -201,123 +300,16 @@
                                             :label="$t('calculator.input.labels.distance across')"
                                             :dimension="$t('calculator.input.dimensions.km')"
                                             prefix="x ="
-                                    />
-                                </v-col>
-                                
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-col>
-                                    <field-input
-                                        :log_slider="false"
-                                        v-model="state.observation_point_inputs.distance_angle.distance"
-                                        :min="0"
-                                        :max="4242"
-                                        :rules="input_rules.input_distance"
-                                        :label="$t('calculator.input.labels.distance to zp')"
-                                        :dimension="$t('calculator.input.dimensions.km')"
-                                        prefix="y ="
-                                    />
-                                    <field-input
-                                            :log_slider="false"
-                                            v-model="state.observation_point_inputs.distance_angle.angle"
-                                            :min="0"
-                                            :max="360"
-                                            :rules="input_rules.input_along_across"
-                                            :label="$t('calculator.input.labels.angle to zp')"
-                                            :dimension="$t('calculator.input.dimensions.km')"
-                                            prefix="x ="
-                                    />
-                                </v-col>
-                            </v-tab-item>
-                            <v-tab-item
-                               
-                            >
-                                <v-card
-                                color="basil"
-                                flat
-                                >
-                                <v-card-text>{{ text }}</v-card-text>
-                                </v-card>
-                            </v-tab-item>
-
-                        </v-tabs>
-
-                        <v-tabs-items v-model="tab">
-                            
-                        </v-tabs-items>
-
-                    
-                                    
-                                        <!-- <field-input
-                                            :log_slider="false"
-                                            v-model="state.observation_point_inputs.along_across.along"
-                                            :min="-3000"
-                                            :max="3000"
-                                            :rules="input_rules.input_along_across"
-                                            :label="$t('calculator.input.labels.distance along')"
-                                            :dimension="$t('calculator.input.dimensions.km')"
-                                            prefix="y ="
                                             />
-                                            <field-input
-                                                :log_slider="false"
-                                                v-model="state.observation_point_inputs.along_across.across"
-                                                :min="-3000"
-                                                :max="3000"
-                                                :rules="input_rules.input_along_across"
-                                                :label="$t('calculator.input.labels.distance across')"
-                                                :dimension="$t('calculator.input.dimensions.km')"
-                                                prefix="x ="
-                                                />
-                                     -->
-                               
-                    </v-row>
+                                    -->
+                            
+                </v-col>
             </v-col>
-            <v-col md="6" sm="12">
+            <v-col cols="12" md="6" no-gutters class="pl-md-3">
                 <Map/>
             </v-col>
         </v-row>
 
-
-
-        <v-row style="margin:0px 0px -24px 0px;">
-            <h4>{{$t("calculator.headers.Observation point")}}</h4>
-        </v-row>
-        <v-row>
-
-            <v-col md="6" sm="12">
-                <v-container>
-                    <v-row>
-                        <field-input
-                        :log_slider="false"
-                        v-model="state.observation_point_inputs.distance_angle.distance"
-                        id="basic.op.distance"
-                        :min="0"
-                        :max="4242"
-                        :rules="input_rules.input_distance"
-                        :label="$t('calculator.input.labels.distance to zp')"
-                        :dimension="$t('calculator.input.dimensions.km')"
-                        prefix="L ="
-                        />
-                    </v-row>
-                </v-container>
-            </v-col>
-            <v-col md="6" sm="12">
-                <v-container>
-                     <v-row>
-                        <field-input
-                        :log_slider="false"
-                        v-model="state.observation_point_inputs.distance_angle.angle"
-                        id="basic.op.angle"
-                        :min="0"
-                        :max="360"
-                        :label="$t('calculator.input.labels.angle to zp')"
-                        :dimension="$t('calculator.input.dimensions.angle')"
-                        prefix="𝜓 ="
-                        />
-                    </v-row>
-                </v-container>
-            </v-col>
-        </v-row>
     </v-container>
 </template>
 
@@ -328,10 +320,12 @@ import State from '@/components/model/State';
 import InpuRules from '@/components/calculator/input/InputRules';
 import Schema from './Schema.vue';
 import Map from './Map.vue';
+import Help from '../input/help.vue';
 
 @Component({
     components: {
         FieldInput,
+        Help,
         Schema,
         Map
     }
@@ -360,6 +354,5 @@ export default class ExtendedInput extends Vue {
             height: 20px;
             line-height: 20px;
             color: rgb(0, 0, 0,0.6);
-            margin-left: -12px;
     }
 </style>

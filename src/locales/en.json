@@ -29,30 +29,101 @@
       "energy": "Energy",
       "energy_tnt": "Energy (TNT)"
     },
+
+    "inputs":{
+      "dimensions": {
+        "m": "m",
+        "km": "km",
+        "kg/m3":"kg/m<sup>3</sup>",        
+        "km/s":"km/s",
+        "degree": "°"
+      },
+      "diameter": {
+        "label": "Diameter",
+        "help": "Projectile diameter (meters)"
+      },
+      "density": {
+        "label": "Density",
+        "help": "Density of cosmic body (kg/m<sup>3</sup>). It is assumed that asteroid density is in the range 2000-3320 kg/m<sup>3</sup>, cometary objects density is 500-1200 kg/m<sup>3</sup>"
+      },
+      "velocity": {
+        "label": "Velocity",
+        "help": "Projectile entry velocity is in the range from 12 to 72 km/s"
+      },
+      "entry angle": {
+        "label": "Entry angle",
+        "help": "The projectile entry angle (i.e., the angle to the Earth's surface). Setting it to 90° means that the projectile falls vertically."
+      },
+      "target type": {
+        "label": "Target Type",
+        "help": "The target type determines the properties of the surface on which the cosmic body hits.<br/>Density of a rock is 2650, sand: 1600 kg/m<sup>3</sup>",
+        "sand": "Sand",
+        "rock": "Crystalline rock"
+      },
+      "zero point": {
+        "label": "Zero Point",
+        "help": "",
+        "entry point 100km":"Entry point at 100km above the ground",
+        "max overpressure point":"Max overpressure point",
+        "surface intersection":"The point of intersection of the trajectory with the Earth's surface",
+        "max thermal effect point":"Max thermal effect point"
+      },
+      "entry vector": {
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "help title": "Projectile Entry Point Coordinates",
+        "help": "The latitude and the longitude of the projectile entry point. <br/> Both latitude and longitude are measured in degrees. Latitude ranges from -90° to 90°. Longitude ranges from -180° to 180°.",
+        "azimuth": "Azimuth",
+        "azimuth help":""
+      },
+      "observation point": {
+        "along across":{
+          "label": "along-across",
+          "along": "Distance along",
+          "along help title": "Distance Along the Trajectory Projection",
+          "along help": "L<sub>y</sub> The distance along the trajectory from the zero point to the point of intersection with the perpendicular drawn from the observation point to the projection of the trajectory",
+          "across": "Distance across",
+          "across help title": "Distance Across  the Trajectory Projection",
+          "across help": "L<sub>x</sub> The length of the perpendicular drawn from the observation point to the projection of the trajectory of the cosmic body"
+        },
+        "distance angle":{
+          "label": "distance-angle",
+          "distance": "Distance to zero point",
+          "distance help title": "Distance to the Zero Point, L",
+          "distance help": "The distance between the point of effect and the zero point (L)",
+          "angle": "Angle to trajectory projection",
+          "angle help title": "Angle to Trajectory Projection, 𝜓",
+          "angle help": "The angle between the direction from the observation point to the zero point and the projection of the trajectory on the surface of the Earth (𝜓)"
+        },
+        "latitude longitude":{
+          "label": "latitude-longitude",
+          "distance": "Distance to zero point",
+          "distance help title": "Distance to the Zero Point, L",
+          "distance help": "The distance between the point of effect and the zero point (L)",
+          "angle": "Angle to trajectory projection",
+          "angle help title": "Angle to Trajectory Projection, 𝜓",
+          "angle help": "The angle between the direction from the observation point to the zero point and the projection of the trajectory on the surface of the Earth (𝜓)"
+        }
+
+      }
+      
+    },
+
     "input":{
       "labels":{
-        "diameter":"Diameter",
-        "density":"Density",
-        "entry_angle":"Entry angle",
-        "velocity":"Velocity",
+        
         "entry_latitude": "Latitude",
         "entry_longitude": "Longitude",
         "entry_azimuth": "Azimuth",
         "distance along": "Distance along",
         "distance across": "Distance across",
         "distance to zp": "Distance to zero point",
-        "angle to zp": "Angle to trajectory projection",
-        "zero point": "Zero Point",
-        "entry_point_100km":"Entry point at 100km above the ground",
-        "max_overpressure_point":"Max overpressure point",
-        "surface_intersection":"The point of intersection of the trajectory with the Earth's surface",
-        "max_thermal_effect_point":"Max thermal effect point",
-
-        "target type": "Target type",
-        "sand": "Sand",
-        "rock": "Crystalline rock"
+        "angle to zp": "Angle to trajectory projection"
       },
       "dimensions":{
+
+
+
         "diameter":"m",
         "density":"kg/m3",
         "entry_angle":"°",

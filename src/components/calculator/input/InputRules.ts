@@ -19,7 +19,7 @@ entry_angle: [
 velocity: [
     (v:any) => v != '' || `Velocity is required`,
     (v:any) => !isNaN(v) || `${v} is not a number`,
-    (v:any) => v>=15 || `Velocity must be more than 15 km/s`,
+    (v:any) => v>=12 || `Velocity must be more than 12 km/s`,
     (v:any) => v<=72 || `Velocity must be less than 72 km/s`
 ],
 input_along_across: [

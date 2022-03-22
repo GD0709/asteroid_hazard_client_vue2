@@ -1,11 +1,15 @@
 import { Point } from "../Geometry";
 import { ObservationPointInput } from "../Observation";
+import Target from "../Target";
 import Variant from "../Variant";
 import RadiationEffects from "./Radiation";
 import ShockWaveEffects from "./ShockWave";
 
 interface IEffectAssesment{
     calc_variant(variant: Variant): void;
+}
+interface ITargetEffectAssesment {
+    calc_variant_target(variant: Variant, target: Target): void;
 }
 
 class Effects {

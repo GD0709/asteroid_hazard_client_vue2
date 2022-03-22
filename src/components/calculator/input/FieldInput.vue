@@ -1,20 +1,22 @@
 <template>
 	
-    <v-row>
+    <v-row no-gutters align="center">
         <div class="calculator_input input_text italic_prefix">
             <v-text-field
                 v-model.lazy="display_value" 
                 v-on:blur="lost_focus"              
                 required                
                 :rules="rules"
-                :label="label + ' (' + dimension + ')'"
                 :prefix="prefix"
                 v-on:input="test_text_input"
             >
-            </v-text-field>
+            <template v-slot:label>
+                <span v-html="label"></span> (<span v-html="dimension"></span>)
+            </template>
+        </v-text-field>
             
         </div>
-        <v-col>
+        <v-col no-gutters align-self="end">
                 <div class="slider_wrapper">
                     <v-slider
                         v-model="slider_value"
@@ -25,20 +27,31 @@
                         >                        
                     </v-slider>
                     <div class="inside">
-                        <div class="inside_col">{{min}} {{dimension}}</div>
+                        <div class="inside_col">{{min}}&nbsp;<span v-html="dimension"></span></div>
                         <div class="intermediate"></div>
-                        <div class="inside_col">{{max}} {{dimension}}</div>
+                        <div class="inside_col">{{max}}&nbsp;<span v-html="dimension"></span></div>
                     </div>
                 </div>
         </v-col>
+        <help :help_title="help_title" :help_text="help_text">
+            <template>
+                <slot name="help"/>
+            </template>
+        </help>
     </v-row>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Model, ModelSync, Watch } from 'vue-property-decorator';
 import MathExt from '@/components/lib/MathExt';
-@Component
+import Help from './help.vue'
+@Component({
+  components: {
+      Help
+  },
+})
 export default class FieldInput extends Vue {
+
     debug: boolean = false;
     log(...data: any[])
     {
@@ -80,6 +93,8 @@ export default class FieldInput extends Vue {
     }
 
     //visual
+    @Prop({default: ""}) help_text!: string;
+    @Prop({default: ""}) help_title!: string;
     @Prop({default: "-"}) id!: string;
     @Prop({default: 'value'}) label!: string;
     @Prop({default: ''}) dimension!: string;
@@ -192,6 +207,7 @@ export default class FieldInput extends Vue {
         font-style: italic;
     }
     .slider_wrapper{
+        margin-left: 12px;
         position: relative;
     }
     .inside{
