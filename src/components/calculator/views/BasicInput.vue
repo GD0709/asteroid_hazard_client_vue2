@@ -13,8 +13,8 @@
                         :min="15"
                         :max="3000"
                         :rules="input_rules.diameter"
-                        :label="$t('calculator.input.labels.diameter')"
-                        :dimension="$t('calculator.input.dimensions.diameter')"
+                        :label="$t('calculator.inputs.diameter.label')"
+                        :dimension="$t('calculator.dimensions.diameter')"
                         prefix="D ="
                         />
                     </v-row>
@@ -26,8 +26,8 @@
                         :min="500"
                         :max="4000"
                         :rules="input_rules.density"
-                        :label="$t('calculator.input.labels.density')"
-                        :dimension="$t('calculator.input.dimensions.density')"
+                        :label="$t('calculator.inputs.density.label')"
+                        :dimension="$t('calculator.dimensions.density')"
                         prefix="ρ ="
                         />
     <!--               <template v-slot:label>
@@ -49,8 +49,8 @@
                         :min="15"
                         :max="72"
                         :rules="input_rules.velocity"
-                        :label="$t('calculator.input.labels.velocity')"
-                        :dimension="$t('calculator.input.dimensions.velocity')"
+                        :label="$t('calculator.inputs.velocity.label')"
+                        :dimension="$t('calculator.dimensions.velocity')"
                         prefix="V ="
                         />
                     </v-row>
@@ -62,8 +62,8 @@
                         :min="15"
                         :max="90"
                         :rules="input_rules.entry_angle"
-                        :label="$t('calculator.input.labels.entry_angle')"
-                        :dimension="$t('calculator.input.dimensions.entry_angle')"
+                        :label="$t('calculator.inputs.entry angle.label')"
+                        :dimension="$t('calculator.dimensions.entry_angle')"
                         prefix="α ="
                         />
     <!--               <template v-slot:label>
@@ -91,8 +91,8 @@
                         :min="0"
                         :max="4242"
                         :rules="input_rules.input_distance"
-                        :label="$t('calculator.input.labels.distance to zp')"
-                        :dimension="$t('calculator.input.dimensions.km')"
+                        :label="$t('calculator.inputs.observation point.distance angle.distance')"
+                        :dimension="$t('calculator.dimensions.km')"
                         prefix="L ="
                         />
                     </v-row>
@@ -107,8 +107,8 @@
                         id="basic.op.angle"
                         :min="0"
                         :max="360"
-                        :label="$t('calculator.input.labels.angle to zp')"
-                        :dimension="$t('calculator.input.dimensions.angle')"
+                        :label="$t('calculator.inputs.observation point.distance angle.angle')"
+                        :dimension="$t('calculator.dimensions.angle')"
                         prefix="𝜓 ="
                         />
                     </v-row>

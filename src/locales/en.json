@@ -29,15 +29,33 @@
       "energy": "Energy",
       "energy_tnt": "Energy (TNT)"
     },
+    "dimensions": {
+      "m": "m",
+      "km": "km",
+      "kg/m3":"kg/m<sup>3</sup>",        
+      "km/s":"km/s",
+      "m/s": "m/s",
+      "degree": "°",
+      "atm": "atm",
+      "kPa": "kPa",
+      "Pa": "Pa",
+      "km2": "km<sup>2</sup>",
+      "J": "J",
+      "t tnt": "t TNT",
+      "prefix":{
+        "0": "",
+        "3": "k",
+        "6": "M",
+        "9": "G",
+        "12": "T",
+        "15": "P",
+        "18": "E",
+        "21": "Z"
+      }
+    },
 
     "inputs":{
-      "dimensions": {
-        "m": "m",
-        "km": "km",
-        "kg/m3":"kg/m<sup>3</sup>",        
-        "km/s":"km/s",
-        "degree": "°"
-      },
+
       "diameter": {
         "label": "Diameter",
         "help": "Projectile diameter (meters)"
@@ -109,43 +127,24 @@
       
     },
 
-    "input":{
-      "labels":{
-        
-        "entry_latitude": "Latitude",
-        "entry_longitude": "Longitude",
-        "entry_azimuth": "Azimuth",
-        "distance along": "Distance along",
-        "distance across": "Distance across",
-        "distance to zp": "Distance to zero point",
-        "angle to zp": "Angle to trajectory projection"
+
+    "results": {
+      "common":{
+        "at": "at"
       },
-      "dimensions":{
-
-
-
-        "diameter":"m",
-        "density":"kg/m3",
-        "entry_angle":"°",
-        "velocity":"km/s",
-        "km": "km",
-        "latitude": "°",
-        "longitude": "°",
-        "azimuth": "°",
-        "angle": "°",
-        "energy": "J",
-        "tnt": "t TNT",
-        "prefix":{
-          "3": "k",
-          "6": "M",
-          "9": "G",
-          "12": "T",
-          "15": "P",
-          "18": "E",
-          "21": "Z"
-        }
+      "shockwave": {
+        "Airblast wave": "Airblast wave",
+        "Overpressure": "Overpressure",
+        "description": "Numerical simulations of a shock wave from the cosmic object impact provide possibility to suggest scaling <br/> relations for a value of maximal overpressure and its distribution on the surface, for maximal wind velocity <br/> behind the front and for a squares, where overpressure is larger than a fixed levelall values are determined <br/> based only on the properties of the impactor",
+        "Effective altitude": "Effective altitude",
+        "Distance to the center": "Distance to the center of a overpressure field from the point of intersection of the trajectory with the Earth`s surface",
+        "Maximal overpressure": "Maximal overpressure",
+        "Areas": "Areas, at which chosen levels of overpressure exceed",
+        "The value of the overpressure":"The value of the overpressure in the point of observation",
+        "Maximum wind speed":"Maximum wind speed behind the shock front in the point of observation"
       }
     },
+    
     "schema":{
       "Entry point": "Entry point at 100km above the ground",
       "Surface intersection point": "The point of intersection of the trajectory with the Earth's surface",

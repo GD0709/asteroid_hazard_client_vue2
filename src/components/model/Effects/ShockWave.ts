@@ -1,10 +1,9 @@
 import MathExt from "@/components/lib/MathExt";
-import { Point } from "../Geometry";
+import { IPoint } from "../Geometry";
 import Variant from "../Variant";
-import { IEffectAssesment } from "./EffectsAssessment";
+import { IEffectAssesment, IPointEffectAssesment } from "./EffectsAssessment";
 
-export default class ShockWaveEffects implements IEffectAssesment {    
-
+export default class ShockWaveEffects implements IEffectAssesment, IPointEffectAssesment {
 
     calc_heff_and_zero_point(variant: Variant): void {
         this.heff = ShockWaveEffects.heff_calc(variant);
@@ -15,8 +14,14 @@ export default class ShockWaveEffects implements IEffectAssesment {
         this.calc_heff_and_zero_point(variant);
         this.max_value_of_overpressure = this.max_value_of_overpressure_calc(variant);
         this.areas_at = this.areas_at_calc(variant);
-        this.overpressureF = this.overpressure_calc(variant);
+        this.centered_overpressure_f = this.overpressure_calc(variant);
+        this.overpressure_f = op => this.centered_overpressure_f({x: op.x, y: op.y - this.zero_point});
     }
+    calc_point(op: IPoint): void {
+        console.log('shockwave updated for point');
+        this.point_assesment.overpressure = this.overpressure_f(op);
+        this.point_assesment.max_wind_speed = this.max_wind_speed_calc(this.point_assesment.overpressure);
+    }    
 
 /*     calc_effect(op: Point): void {
         
@@ -34,7 +39,13 @@ export default class ShockWaveEffects implements IEffectAssesment {
 
     areas_at: Map<number, number> = new Map<number, number>();
     
-    overpressureF: (op: Point) => number = (op: Point) => 0;
+    centered_overpressure_f: (op: IPoint) => number = op => 0;
+    overpressure_f:(op: IPoint) => number = op => 0;
+
+    point_assesment = {
+        overpressure: 0,
+        max_wind_speed: 0
+    }
 
 /*     overpressure: number = 0;
 
@@ -92,7 +103,7 @@ export default class ShockWaveEffects implements IEffectAssesment {
         return res;
     }
 
-    low_overpressure_calc(variant: Variant) : (op: Point) => number{
+    low_overpressure_calc(variant: Variant) : (op: IPoint) => number{
         let hetp = MathExt.interpolate_by_density(0.19 * variant.diameter**0.4 * Math.sin(variant.angle_rad)**0.32,
                                       0.39 * variant.velocity**0.26 * Math.sin(variant.angle_rad)**0.26,
                                       variant.density);
@@ -103,7 +114,7 @@ export default class ShockWaveEffects implements IEffectAssesment {
         let a=0.0048;
         let pre_res = (d:number):number => 1000000.0 * a * (variant.kenergy_kttnt**(1./3.) / d)**1.5;
 
-        return (op: Point) => {
+        return (op: IPoint) => {
             let r = Math.sqrt(op.x ** 2 + op.y ** 2);
             let phi = Math.atan2(op.y,op.x);
             let hetpORhetn = 0<= phi && phi< Math.PI ? hetp: hetn;
@@ -133,7 +144,7 @@ export default class ShockWaveEffects implements IEffectAssesment {
         return res > 0 ? res : 0;
 
     } */
-    high_overpressure_calc(variant: Variant): (op: Point) => number {
+    high_overpressure_calc(variant: Variant): (op: IPoint) => number {
 
 
 
@@ -151,7 +162,7 @@ export default class ShockWaveEffects implements IEffectAssesment {
 
         let pre_res = (d:number):number => 1000000.0 * a * (variant.kenergy_kttnt**(1./3.) / d)**1.4;
 
-        return (op: Point) => {
+        return (op: IPoint) => {
             let r = Math.sqrt(op.x ** 2 + op.y ** 2);
             let phi = Math.atan2(op.y,op.x);
 
@@ -172,8 +183,8 @@ export default class ShockWaveEffects implements IEffectAssesment {
         return (val) * 101.325;
     }
 
-    overpressure_calc(variant: Variant): (op: Point) => number {
-        let res = (op:Point) => 0;
+    overpressure_calc(variant: Variant): (op: IPoint) => number {
+        let res = (op:IPoint) => 0;
 
         
 
@@ -195,12 +206,12 @@ export default class ShockWaveEffects implements IEffectAssesment {
             var_300._velocity = variant.velocity;
             var_300.update_derivatives();
 
-            res = (op: Point) => MathExt.interpolate_by(this.low_overpressure_calc(var_150)(op) + 1, var_150.kenergy_kttnt, this.high_overpressure_calc(var_300)(op) + 1, var_300.kenergy_kttnt, variant.kenergy_kttnt) - 1;
+            res = (op: IPoint) => MathExt.interpolate_by(this.low_overpressure_calc(var_150)(op) + 1, var_150.kenergy_kttnt, this.high_overpressure_calc(var_300)(op) + 1, var_300.kenergy_kttnt, variant.kenergy_kttnt) - 1;
         }
         else res = this.high_overpressure_calc(variant);
 
 
-        let check = (op: Point) => {
+        let check = (op: IPoint) => {
             let output = res(op);
             if(this.heff > 0 && variant.diameter <= 150 && output > this.max_value_of_overpressure)
                 output = this.max_value_of_overpressure;
@@ -210,10 +221,11 @@ export default class ShockWaveEffects implements IEffectAssesment {
         return check;
     }
 
-   /*  max_wind_speed_calc() : number {
-        let pressure_value=(this.overpressure+1.0);
+
+     max_wind_speed_calc(overpressure_atm: number) : number {
+        let pressure_value=(overpressure_atm+1.0);
         let gamma=1.4;
         let value= 330.0/gamma * (pressure_value -1) * (1+(gamma + 1)/(2*gamma) * (pressure_value-1))**(-0.5);
         return value;
-    } */
+    } 
 }

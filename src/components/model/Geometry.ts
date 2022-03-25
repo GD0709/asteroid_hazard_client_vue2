@@ -1,6 +1,11 @@
 import { Emitter, IEmitter, INotifyChanged } from "../lib/Events";
 
-class Point implements INotifyChanged<Point> {
+interface IPoint {
+    x: number;
+    y: number;
+}
+
+class Point implements INotifyChanged<Point>, IPoint {
     constructor(x?:number, y?: number)
     {
         this._x = x ?? 0;
@@ -251,4 +256,4 @@ class Transform extends Vector {
 }
 
 
-export {Point, Vector, GeoPoint, GeoVector, Transform, GeoMath}
+export {IPoint, Point, Vector, GeoPoint, GeoVector, Transform, GeoMath}

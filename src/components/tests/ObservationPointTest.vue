@@ -26,7 +26,7 @@
                         :max="3000"
                         :rules="input_rules.input_along_across"
                         :label="$t('calculator.input.labels.distance along')"
-                        :dimension="$t('calculator.input.dimensions.km')"
+                        :dimension="$t('calculator.dimensions.km')"
                         prefix="y ="
                         />
                     </v-row>
@@ -43,7 +43,7 @@
                         :max="3000"
                         :rules="input_rules.input_along_across"
                         :label="$t('calculator.input.labels.distance across')"
-                        :dimension="$t('calculator.input.dimensions.km')"
+                        :dimension="$t('calculator.dimensions.km')"
                         prefix="x ="
                         />
                     </v-row>
@@ -64,7 +64,7 @@
                         :max="4242"
                         :rules="input_rules.input_distance"
                         :label="$t('calculator.input.labels.distance to zp')"
-                        :dimension="$t('calculator.input.dimensions.km')"
+                        :dimension="$t('calculator.dimensions.km')"
                         prefix="L ="
                         />
                     </v-row>
@@ -80,7 +80,7 @@
                         :min="0"
                         :max="360"
                         :label="$t('calculator.input.labels.angle to zp')"
-                        :dimension="$t('calculator.input.dimensions.angle')"
+                        :dimension="$t('calculator.dimensions.angle')"
                         prefix="𝜓 ="
                         />
                     </v-row>

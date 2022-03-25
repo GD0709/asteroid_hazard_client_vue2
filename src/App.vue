@@ -76,7 +76,10 @@ import { Component } from 'vue-property-decorator';
 
 @Component
 export default class App extends Vue {    
-    
+    created()
+    {
+      //console.log(this.$t);
+    }
     get locale(): string {return this.$i18n.locale; }
     set locale(val: string) {this.$i18n.locale = val;}
 }

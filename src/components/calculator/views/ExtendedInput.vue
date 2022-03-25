@@ -14,7 +14,7 @@
                         :label="$t('calculator.inputs.diameter.label')"
                         :help_title="$t('calculator.inputs.diameter.label')"
                         :help_text="$t('calculator.inputs.diameter.help')"
-                        :dimension="$t('calculator.inputs.dimensions.m')"
+                        :dimension="$t('calculator.dimensions.m')"
                         prefix="D ="
                         v-model="state.variant.diameter"
                         >
@@ -33,7 +33,7 @@
                         :label="$t('calculator.inputs.density.label')"
                         :help_title="$t('calculator.inputs.density.label')"
                         :help_text="$t('calculator.inputs.density.help')"
-                        :dimension="$t('calculator.inputs.dimensions.kg/m3')"
+                        :dimension="$t('calculator.dimensions.kg/m3')"
                         prefix="ρ ="
                         >
                     </field-input>
@@ -50,7 +50,7 @@
                         :label="$t('calculator.inputs.velocity.label')"
                         :help_title="$t('calculator.inputs.velocity.label')"
                         :help_text="$t('calculator.inputs.velocity.help')"
-                        :dimension="$t('calculator.inputs.dimensions.km/s')"
+                        :dimension="$t('calculator.dimensions.km/s')"
                         prefix="V ="
                         />
  
@@ -64,7 +64,7 @@
                         :label="$t('calculator.inputs.entry angle.label')"
                         :help_title="$t('calculator.inputs.entry angle.label')"
                         :help_text="$t('calculator.inputs.entry angle.help')"
-                        :dimension="$t('calculator.inputs.dimensions.degree')"
+                        :dimension="$t('calculator.dimensions.degree')"
                         prefix="α ="
                         />
              
@@ -141,7 +141,7 @@
                     <v-text-field
                         v-model="state.entry_point.latitude"
                         :rules="input_rules.entry_latitude"
-                        :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                        :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                         required
                     >
                     </v-text-field>
@@ -150,7 +150,7 @@
                     <v-text-field
                         v-model="state.entry_point.longitude"
                         :rules="input_rules.entry_longitude"
-                        :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                        :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                         required
                     >
                     </v-text-field>
@@ -169,7 +169,7 @@
                     :label="$t('calculator.inputs.entry vector.azimuth')"
                     :help_title="$t('calculator.inputs.entry vector.azimuth')"
                     :help_text="$t('calculator.inputs.entry vector.azimuth help')"
-                    :dimension="$t('calculator.inputs.dimensions.degree')"
+                    :dimension="$t('calculator.dimensions.degree')"
                     />
                 
                 <v-col no-gutters class="no-gutters">
@@ -201,7 +201,7 @@
                                     :label="$t('calculator.inputs.observation point.along across.along')"
                                     :help_title="$t('calculator.inputs.observation point.along across.along help title')"
                                     :help_text="$t('calculator.inputs.observation point.along across.along help')"
-                                    :dimension="$t('calculator.inputs.dimensions.km')"
+                                    :dimension="$t('calculator.dimensions.km')"
                                     prefix="Ly ="
                                 />
                                 <field-input
@@ -213,7 +213,7 @@
                                     :label="$t('calculator.inputs.observation point.along across.across')"
                                     :help_title="$t('calculator.inputs.observation point.along across.across help title')"
                                     :help_text="$t('calculator.inputs.observation point.along across.across help')"
-                                    :dimension="$t('calculator.inputs.dimensions.km')"
+                                    :dimension="$t('calculator.dimensions.km')"
                                     prefix="Lx ="
                                 />
                             </div>
@@ -230,7 +230,7 @@
                                     :label="$t('calculator.inputs.observation point.distance angle.distance')"
                                     :help_title="$t('calculator.inputs.observation point.distance angle.distance help title')"
                                     :help_text="$t('calculator.inputs.observation point.distance angle.distance help')"
-                                    :dimension="$t('calculator.input.dimensions.km')"
+                                    :dimension="$t('calculator.dimensions.km')"
                                     prefix="L ="
                                 />
                                 <field-input
@@ -242,7 +242,7 @@
                                     :label="$t('calculator.inputs.observation point.distance angle.angle')"
                                     :help_title="$t('calculator.inputs.observation point.distance angle.angle help title')"
                                     :help_text="$t('calculator.inputs.observation point.distance angle.angle help')"
-                                    :dimension="$t('calculator.input.dimensions.km')"
+                                    :dimension="$t('calculator.dimensions.km')"
                                     prefix="𝜓 ="
                                 />
                             </div>
@@ -253,7 +253,7 @@
                                 <v-text-field
                                     v-model="state.entry_point.latitude"
                                     :rules="input_rules.entry_latitude"
-                                    :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                                    :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
                                 >
                                 </v-text-field>
@@ -262,7 +262,7 @@
                                 <v-text-field
                                     v-model="state.entry_point.longitude"
                                     :rules="input_rules.entry_longitude"
-                                    :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.inputs.dimensions.degree') + ')'"
+                                    :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
                                 >
                                 </v-text-field>

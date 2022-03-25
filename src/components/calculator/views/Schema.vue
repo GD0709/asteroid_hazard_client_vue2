@@ -225,7 +225,7 @@ class Marker
 
 @Component
 export default class Schema extends Vue {
-    debug: boolean = true;
+    debug: boolean = false;
     log(...data: any[])
     {
         if(this.debug == true)

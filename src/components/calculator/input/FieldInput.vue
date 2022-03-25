@@ -107,7 +107,7 @@ export default class FieldInput extends Vue {
     on_accuracy_changed(val: number, old_val: number)
     {
         this.accuracy_digits = -Math.log10(this.accuracy);
-        console.log("accuracy_digits", this.accuracy_digits);
+        this.log("accuracy_digits", this.accuracy_digits);
     }
     accuracy_digits: number = 1;
 

@@ -22,7 +22,7 @@ export default class State
     observation_point: Point = new Point(50,50);
     observation_point_inputs: ObservationPointInput = new ObservationPointInput(this.observation_point, this.variant);
 
-    effects: Effects = new Effects(this.variant, this.observation_point_inputs);
+    effects: Effects = new Effects(this.variant, this.target, this.observation_point_inputs);
 }
 
 

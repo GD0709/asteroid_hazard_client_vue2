@@ -79,4 +79,26 @@ export default class MathExt
         else end = resstring.length;
         return resstring.substring(0, end);
     }
+
+    static dimension_prefix_format(real: number, dimension_formatter: (power: number) => string): string
+    {
+        let real_power = Math.floor(Math.log10(real));
+        let rest_power = real_power % 3;
+        let power = real_power-rest_power;
+
+        let mult = MathExt.round_by_digits_to_string(real / 10**power, 3);
+
+        return mult + ' ' + dimension_formatter(power);
+
+    }
+
+    static power_format(n: number)
+    {
+        let power = Math.floor(Math.log10(n));
+        let mult = MathExt.round_by_digits_to_string(n / 10**power, 3);
+        let html = mult;
+        if(power != 0)
+            html += " * 10<sup>" + power.toString() + "</sup>";
+        return { mult, power: power.toString(), power_n: power, html };
+    }
 }

@@ -19,8 +19,8 @@
                 </filter>
             </defs>
 
-            <image :width="200" :height="200" x="-100" y="-100"
-            :href="map_controller.url" filter="url(#blur_filter)"/>
+            <!-- <image :width="200" :height="200" x="-100" y="-100"
+            :href="map_controller.url" filter="url(#blur_filter)"/> -->
 
             <line class="sizes_line" 
                     :x1="visual_entry_vector.start.x" 
@@ -90,7 +90,7 @@ import { GeoMath, GeoPoint, Point, Transform } from '@/components/model/Geometry
 
 @Component
 export default class Map extends Vue {
-    debug: boolean = true;
+    debug: boolean = false;
     log(...data: any[])
     {
         if(this.debug == true)
