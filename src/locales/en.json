@@ -30,6 +30,7 @@
       "energy_tnt": "Energy (TNT)"
     },
     "dimensions": {
+      "s": "s",
       "m": "m",
       "km": "km",
       "kg/m3":"kg/m<sup>3</sup>",        
@@ -41,6 +42,8 @@
       "Pa": "Pa",
       "km2": "km<sup>2</sup>",
       "J": "J",
+      "J/cm2": "J/cm<sup>2</sup>",
+      "W/cm2": "W/cm<sup>2</sup>",
       "t tnt": "t TNT",
       "prefix":{
         "0": "",
@@ -142,6 +145,21 @@
         "Areas": "Areas, at which chosen levels of overpressure exceed",
         "The value of the overpressure":"The value of the overpressure in the point of observation",
         "Maximum wind speed":"Maximum wind speed behind the shock front in the point of observation"
+      },
+      "irradiation":{
+        "Irradiation": "Irradiation",
+        "Thermal exposure": "Thermal exposure",
+        "description": "One of the main hazardous effects of the cosmic body impacts",
+        "Maximal thermal exposure":"Maximal thermal exposure",
+        "Maximal irradiation flux":"Maximal irradiation flux",
+        "Radiation altitude":"Radiation altitude",
+        "Radiation pulse duration":"Radiation pulse duration",
+        "Radiation efficiency":"Radiation efficiency",
+        "Distance to the center":"Distance to the center of a radiation field from the point of intersection of the trajectory with the Earth`s surface",
+
+        "Thermal exposure in the point of observation":"Thermal exposure in the point of observation",
+        "Thermal flux in the point of observation":"Thermal flux in the point of observation"
+
       }
     },
     

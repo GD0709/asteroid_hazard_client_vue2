@@ -64,13 +64,38 @@ export default class MathExt
         return str.substring(0, dot_pos + 1 + after_dot_length);
     }
     static round_by_digits_to_string(real: number, n: number){
+
         if(real == 0) return "0";
+        if(n == 0)
+        {
+            let res = Math.round(real).toString();
+            let index = res.indexOf('.');
+            if(index > 0)
+                return res.substring(0, index);
+            else return res;
+        }
+        if(n < 0)
+        {
+            let res = real.toString();
+            let index = res.indexOf('.');
+            if(index > 0)
+            {
+                let count = index + 1 - n;
+                if(count > res.length)
+                    count = res.length;
+                return res.substring(0, count);
+            }
+            else return res;
+    
+        }		
+    
+    
         let sgn = real >= 0 ? 1 :  -1;
         let absreal = real >= 0 ? real :  -real;
         let power = Math.floor(Math.log10(absreal))-n + 1;
         let mult = 10.**(power);
         let res = 1. * sgn * mult * Math.round(absreal/mult);
-
+    
         let resstring = res.toString();
         let end = resstring.indexOf('.');
         if(end <=0)
@@ -80,22 +105,22 @@ export default class MathExt
         return resstring.substring(0, end);
     }
 
-    static dimension_prefix_format(real: number, dimension_formatter: (power: number) => string): string
+    static dimension_prefix_format(real: number, dimension_formatter: (power: number) => string, n: number): string
     {
         let real_power = Math.floor(Math.log10(real));
         let rest_power = real_power % 3;
         let power = real_power-rest_power;
 
-        let mult = MathExt.round_by_digits_to_string(real / 10**power, 3);
-
+        let mult = MathExt.round_by_digits_to_string(real / 10**power, n);
+        console.log("math_ext ", n, mult);
         return mult + ' ' + dimension_formatter(power);
 
     }
 
-    static power_format(n: number)
+    static power_format(real: number, n: number)
     {
-        let power = Math.floor(Math.log10(n));
-        let mult = MathExt.round_by_digits_to_string(n / 10**power, 3);
+        let power = Math.floor(Math.log10(real));
+        let mult = MathExt.round_by_digits_to_string(real / 10**power, n);
         let html = mult;
         if(power != 0)
             html += " * 10<sup>" + power.toString() + "</sup>";

@@ -121,6 +121,7 @@ class Effects {
         this.irradiation.calc_variant(this.variant);
 
         this.shock_wave.calc_point(this.observation_point_input.main_point);
+        this.irradiation.calc_point(this.observation_point_input.main_point);
     }
     variant_and_target_changed()
     {        
@@ -131,6 +132,7 @@ class Effects {
     {
         console.log("observation_point_changed");
         this.shock_wave.calc_point(this.observation_point_input.main_point);
+        this.irradiation.calc_point(this.observation_point_input.main_point);
     }
 
    /*  update() {

@@ -6,11 +6,11 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import './assets/fonts/asteroidhazard/style.css';
 import './styles/index.scss';
-import dimension from './plugins/Dimension';
+import round_format from './plugins/round_format';
 import state from './plugins/state';
 
 Vue.config.productionTip = false
-Vue.use(dimension);
+Vue.use(round_format);
 Vue.use(state);
 
 new Vue({

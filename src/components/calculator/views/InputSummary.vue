@@ -15,7 +15,7 @@
                 <span class="input_parameter_name">{{$t('calculator.inputs.density.label')}}: </span>
                 <span class="input_parameter_value">{{state.variant.density}} <span v-html="$t('calculator.dimensions.kg/m3')"></span></span>
             </div>
-            <div  v-if="state.is_debug">
+            <div  v-if="state.visual_settings.is_debug">
                 <span class="input_parameter_name">{{$t('calculator.input_summary.energy')}}: </span>
                 <span class="input_parameter_value">{{state.variant.kenergy}} {{$t('calculator.dimensions.J')}}</span>
             </div>
@@ -23,10 +23,10 @@
                 <span class="input_parameter_name">{{$t('calculator.input_summary.energy')}}: </span>
                 <span class="input_parameter_value">
                     {{$dimension_prefix_format(state.variant.kenergy)}}{{$t('calculator.dimensions.J')}}
-                    (<span v-html="$math_ext.power_format(state.variant.kenergy).html"/> {{$t('calculator.dimensions.J')}})
+                    (<span v-html="$power_format(state.variant.kenergy).html"/> {{$t('calculator.dimensions.J')}})
                 </span>
             </div>
-            <div  v-if="state.is_debug">
+            <div  v-if="state.visual_settings.is_debug">
                 <span class="input_parameter_name">energy_tnt: </span>
                 <span class="input_parameter_value">{{state.variant.kenergy_kttnt}} ktTNT</span>
             </div>
@@ -34,7 +34,7 @@
                 <span class="input_parameter_name">{{$t('calculator.input_summary.energy_tnt')}}: </span>
                 <span class="input_parameter_value">
                     {{$dimension_prefix_format(1000.*state.variant.kenergy_kttnt)}}{{$t('calculator.dimensions.t tnt')}}
-                    (<span v-html="$math_ext.power_format(1000.*state.variant.kenergy_kttnt).html"/> {{$t('calculator.dimensions.t tnt')}})
+                    (<span v-html="$power_format(1000.*state.variant.kenergy_kttnt).html"/> {{$t('calculator.dimensions.t tnt')}})
                 </span>
             </div>
         </v-col>

@@ -9,8 +9,6 @@ export default class State
 {
     static state: State = new State();
 
-
-    is_debug: boolean = true;
     visual_settings: VisualSettings = new VisualSettings();
     
     entry_point: GeoVector = new GeoVector(54.445, 64.565, 103.3);

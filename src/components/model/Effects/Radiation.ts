@@ -1,5 +1,5 @@
 import MathExt from '@/components/lib/MathExt';
-import { Point } from "../Geometry";
+import { IPoint, Point } from "../Geometry";
 import Variant from "../Variant";
 import { IEffectAssesment } from "./EffectsAssessment";
 
@@ -17,9 +17,18 @@ export default class RadiationEffects implements IEffectAssesment {
         this.trad = RadiationEffects.trad_calc(variant);
         this.max_irradiation_energy = RadiationEffects.max_irradiation_energy_calc(variant);
         this.max_irradiation_flux = RadiationEffects.max_irradiation_flux_calc(variant);
-        this.irradiationF = this.irradiation_calc(variant);
-        this.irradiation_fluxF = this.irradiation_flux_calc(variant);
+
+        this.centered_irradiation_f = this.irradiation_calc(variant);
+        this.irradiation_f = op => this.centered_irradiation_f({x: op.x, y: op.y - this.zero_point});
+
+        this.centered_irradiation_flux_f = this.irradiation_flux_calc(variant);
+        this.irradiation_flux_f = op => this.centered_irradiation_flux_f({x: op.x, y: op.y - this.zero_point});
     }
+    calc_point(op: IPoint): void {
+        this.point_assesment.thermal_exposure = this.irradiation_f(op);
+        this.point_assesment.thermal_flux = this.irradiation_flux_f(op);
+    }    
+
     /* calc_effect(op: Point): void {
         
         let centered_op = new Point(op.x, op.y - this.zero_point);
@@ -28,7 +37,10 @@ export default class RadiationEffects implements IEffectAssesment {
         this.irradiation_flux = this.irradiation_fluxF(centered_op);
     }
  */
-
+    point_assesment = {
+        thermal_exposure: 0,
+        thermal_flux: 0
+    }
 
 
     hrad: number = 0;
@@ -41,11 +53,12 @@ export default class RadiationEffects implements IEffectAssesment {
     max_irradiation_energy : number = 0;
     max_irradiation_flux : number = 0;
 
-    irradiationF: (op: Point) => number = (op: Point) => 0;
-    //irradiation: number = 0;
 
-    irradiation_fluxF: (op: Point) => number = (op: Point) => 0;
-    //irradiation_flux: number = 0;
+    centered_irradiation_f: (op: IPoint) => number = op => 0;
+    irradiation_f:(op: IPoint) => number = op => 0;
+
+    centered_irradiation_flux_f: (op: IPoint) => number = op => 0;
+    irradiation_flux_f:(op: IPoint) => number = op => 0;
 
 
     static hrad_small(variant: Variant): number {
@@ -211,7 +224,7 @@ export default class RadiationEffects implements IEffectAssesment {
         return MathExt.interpolate_by_density( 0.14 * variant.kenergy_kttnt ** 0.71, 0.01 * variant.kenergy_kttnt ** 0.97, variant.density);
     }
 
-    irradiation_small_calc(variant: Variant): (op: Point) => number {
+    irradiation_small_calc(variant: Variant): (op: IPoint) => number {
 
         let cos_a = Math.cos(variant.angle_rad);
         let log_ke_kttnt = Math.log(variant.kenergy_kttnt);
@@ -241,20 +254,20 @@ export default class RadiationEffects implements IEffectAssesment {
 
 
 
-        return (op: Point): number => {
+        return (op: IPoint): number => {
             let el = op.y >= 0 ? elp : eln;
             let res =  this.eta * 4.184 * 10 ** 12 * variant.kenergy_kttnt / (100*4 * Math.PI * 10**10 * (this.hrad**2 + op.x**2 + el * op.y**2))
             return res > 0 ? res : 0;
         }
     }
 
-    irradiation_large_calc(variant: Variant): (op: Point) => number {
+    irradiation_large_calc(variant: Variant): (op: IPoint) => number {
 
         
         let cos_scale = 190. * variant.kenergy_kttnt ** 0.11 * variant.velocity ** 0.11 * Math.sin(variant.angle_rad) ** 0.43;
         let shorter = (4.184*10**12) / (100*4 * Math.PI) * (variant.kenergy_kttnt * this.eta);
 
-        return (op: Point): number => {
+        return (op: IPoint): number => {
             let r = Math.sqrt(op.x**2 + op.y**2);
             let stuff = variant.angle <= 75 ? Math.cos(Math.PI * r / (2 * cos_scale)): 1;
             let res = shorter * stuff / (10**10 * (this.hrad**2 + r**2));
@@ -262,8 +275,8 @@ export default class RadiationEffects implements IEffectAssesment {
         }
     }
 
-    irradiation_calc(variant: Variant): (op: Point) => number {
-        let res: (op:Point) => number = (op: Point) => 0;
+    irradiation_calc(variant: Variant): (op: IPoint) => number {
+        let res: (op:Point) => number = (op: IPoint) => 0;
         if(variant.diameter <= 150)
             return this.irradiation_small_calc(variant);
         else if (variant.diameter < 300)
@@ -274,14 +287,14 @@ export default class RadiationEffects implements IEffectAssesment {
             let var_300 = variant.clone();
             var_300.diameter = 300.;
 
-            return (op: Point) => MathExt.interpolate_by(this.irradiation_small_calc(var_150)(op), var_150.kenergy_kttnt,
+            return (op: IPoint) => MathExt.interpolate_by(this.irradiation_small_calc(var_150)(op), var_150.kenergy_kttnt,
                                             this.irradiation_large_calc(var_300)(op), var_300.kenergy_kttnt,
                                             variant.kenergy_kttnt);
         }
         return this.irradiation_large_calc(variant);
     }
 
-    irradiation_flux_calc(variant: Variant): (op: Point) => number {
+    irradiation_flux_calc(variant: Variant): (op: IPoint) => number {
         let csc = 1/Math.sin(variant.angle_rad);
         let cos = Math.cos(variant.angle_rad);
         let log10 = Math.log10(variant.kenergy);
@@ -308,7 +321,7 @@ export default class RadiationEffects implements IEffectAssesment {
             eln = 1;
 
         let shorter = 1.0 / (400.0 * Math.PI * 10**10) * (eta_flux * variant.kenergy)
-        return (op: Point):number => {
+        return (op: IPoint):number => {
             let stuff = op.y >= 0 ? elp : eln;
 
             let res = shorter  / (this.hrad + op.x**2 + stuff * op.y**2);
