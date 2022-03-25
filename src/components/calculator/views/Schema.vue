@@ -1,6 +1,9 @@
 <template>
     <v-col>
-        <svg viewBox="0 0 220 120"  preserveAspectRatio="xMidYMid meet"  overflow="visible" ref="svg">
+        <svg viewBox="0 0 234 136"  preserveAspectRatio="xMidYMid meet"  overflow="visible" ref="svg">
+ <!--            <rect width="234" height="136" x="0" y="0"
+                fill="yellowgreen"
+                stroke="yellowgreen"/> -->
             <symbol v-for="(marker, name) in markers" 
                 :key=name 
                 :id="'icon_' + name"
@@ -13,53 +16,36 @@
                 </g>
             </symbol>
 
-            <!-- <symbol id="icon_entry"  preserveAspectRatio="xMidYMid meet" viewBox="16 16 32 32" overflow="visible">
-                    <g class="marker_figure">
-                        <circle cx="16" cy="16" r="16" 
-                                style="fill: var(--marker_back, #d3d3d32d); stroke: var(--marker_stroke, black);"
-                                ></circle> 
-                        <text x="16" y="16" dy="0.33em" text-anchor="middle" class="icon"  stroke="none" fill="#ededed"
-                            style="fill: var(--icon_color, black);" >
-                            &#xe902;
-                        </text>
-                    </g>
-                </symbol>
-                <symbol id="icon_shockwave"  preserveAspectRatio="xMidYMid meet" viewBox="16 16 32 32" overflow="visible">
-                    <g class="marker_figure">
-                        <circle cx="16" cy="16" r="16" 
-                                style="fill: var(--marker_back, #d3d3d32d); stroke: var(--marker_stroke, black);"                            
-                                ></circle> 
-                        <text x="16" y="16" dy="0.33em" text-anchor="middle" class="icon"  stroke="none" fill="#ededed"
-                            style="fill: var(--icon_color, black);" >
-                            &#xe904;
-                        </text>
-                    </g>
-                </symbol>
-                <symbol id="icon_thermal"  preserveAspectRatio="xMidYMid meet" viewBox="16 16 32 32" overflow="visible">
-                    <g class="marker_figure">
-                        <circle cx="16" cy="16" r="16" 
-                                style="fill: var(--marker_back, #d3d3d32d); stroke: var(--marker_stroke, black);"                            
-                                ></circle>
-                        <text x="16" y="16" dy="0.33em" text-anchor="middle" class="icon"  stroke="none" fill="#ededed"
-                            style="fill: var(--icon_color, black);" >
-                            &#xe9a9;
-                        </text>
-                    </g>
-                </symbol>
- -->
-                <svg x="0" y="0" viewBox="-10 -108 220 120" width="220" height="120" preserveAspectRatio="xMidYMid meet"  overflow="visible">
-                     <svg x="-10" y="0" viewBox="-10 0 220 10" width="220" height="10" preserveAspectRatio="xMidYMid meet"  overflow="hidden">
+                <svg x="0" y="0" viewBox="-10 -126 220 130" width="220" height="130" preserveAspectRatio="xMidYMid meet"  overflow="visible">
+                     <svg x="0" y="0" viewBox="0 0 210 10" width="210" height="10" preserveAspectRatio="xMidYMid meet"  overflow="hidden">
                         <!-- earth surface -->
                         <circle :class="{1600: 'sand', 2650: 'rock'}[state.target.target_density]"
-                        style="fill: rgb(231, 231, 231); stroke-width: 6px; fill-opacity: 0.42;" cx="0" cy="6400" r="6397"></circle>
-                      <!--   <line style="stroke: red; " x1="0" y1="0" :x2="0" :y2="-10"></line> -->
+                            style="stroke-width: 6px; stroke-opacity: 0.5; fill: none;" cx="0" cy="6400" r="6397"></circle>
+ <!--                        <line style="stroke: red; " x1="0" y1="10" :x2="0" :y2="-10"></line>
+                        <line style="stroke: red; " x1="50" y1="10" :x2="50" :y2="-10"></line> -->
                      </svg>
 
                 <!-- trajectory -->
                 <line style="stroke: rgb(175, 175, 175); stroke-dasharray: 4px;" x1="0" y1="0" :x2="airburst_point.x" :y2="-airburst_point.x * Math.tan(state.variant.angle_rad)"></line>
                 <line style="stroke: rgb(175, 175, 175);" :x1="airburst_point.x" :y1="-airburst_point.x * Math.tan(state.variant.angle_rad)" :x2="false_entry.x" :y2="-false_entry.y"></line>
+                
+            
 
-
+                <text text-anchor="middle" alignment-baseline="middle"
+                    v-if="state.variant.angle_rad < Math.atan( (100)/(200))"
+                    class="entry_vactor_arrow"
+                    :x="arrow_placement.x" 
+                    :y="arrow_placement.y"  
+                    :transform="'rotate('+ (-state.variant.angle-90)+' '+ arrow_placement.x + ' ' + arrow_placement.y + ')'"
+                        >↑
+                </text>
+<!--                 <text x="105" :y="-80" dy="0.13em" text-anchor="middle" stroke="none"
+                    alignment-baseline="end"
+                    :transform="'rotate('+ (-state.variant.angle-90)+' '+ arrow_placement.x + ' ' + (arrow_placement.map_cs.y) + ')'"
+                    class="axe_label_text">
+                    
+                    {{'rotate('+ (-state.variant.angle-90)+' '+ arrow_placement.x + ' ' + arrow_placement.y + ')'}}
+                </text> -->
 
                 <!-- entry -->
                 <g class="effects_group hover_shadow_back" @mouseover="markers.entry.icon.tooltip = true" @mouseout="markers.entry.icon.tooltip = false">
@@ -101,7 +87,7 @@
 
                 <!-- frame -->
                 <path stroke="black" fill="none" stroke-width="0.5" stroke-opacity="0.5"
-                    d="M0 0 L200 0 L200 -100 L0 -100 L0 0"/>
+                    d="M0 0 L210 0 L210 -110 L0 -110 L0 0"/>
                 <!-- frame ticks bottom -->
                 <path stroke="black" fill="none" stroke-width="0.5" stroke-opacity="0.5"
                     v-for="xl in x_ticks" :key="'axetick-bottom-x' + xl.pos"
@@ -126,6 +112,19 @@
                 </text>
 
 
+                <!-- y axe label -->
+                <text x="226" :y="-50" dy="0.13em" text-anchor="middle" stroke="none"
+                    alignment-baseline="end"
+                    class="axe_label_text"
+                    transform="rotate(-90 222 -50)">
+                    Altitude, km
+                </text>
+                <!-- x axe label -->
+                <text x="105" :y="-120" dy="0.13em" text-anchor="middle" stroke="none"
+                    alignment-baseline="end"
+                    class="axe_label_text">
+                    Distance Along the Trajectory Projection, km
+                </text>
 
                 <!-- y ticks left -->
                 <path stroke="black" fill="none" stroke-width="0.5" stroke-opacity="0.5"
@@ -135,21 +134,21 @@
                 <!-- y ticks right -->
                 <path stroke="black" fill="none" stroke-width="0.5" stroke-opacity="0.5"
                     v-for="y in [10,20,30,40,50,60,70,80,90,100]" :key="'axetick-right-y' + y"
-                    :d="'M200 ' + (-y)  + 'L197 ' + (-y)"/>
+                    :d="'M210 ' + (-y)  + 'L207 ' + (-y)"/>
 
 
                 <!-- y-text-left -->
                 <text x="-2" :y="-y" dy="0.13em" text-anchor="end" stroke="none"
                     alignment-baseline="middle"
                     class="axe_tick_text"
-                    v-for="y in [10,20,30,40,50,60,70,80,90]" :key="'axetick-left-text-y' + y">
+                    v-for="y in [0,10,20,30,40,50,60,70,80,90,100]" :key="'axetick-left-text-y' + y">
                             {{y}}
                 </text>
                 <!-- y-text-right -->
-                <text x="202" :y="-y" dy="0.13em" text-anchor="start" stroke="none"
+                <text x="212" :y="-y" dy="0.13em" text-anchor="start" stroke="none"
                     alignment-baseline="middle"
                     class="axe_tick_text"
-                    v-for="y in [10,20,30,40,50,60,70,80,90]" :key="'axetick-right-text-y' + y">
+                    v-for="y in [0,10,20,30,40,50,60,70,80,90,100]" :key="'axetick-right-text-y' + y">
                             {{y}}
                 </text>
 
@@ -162,6 +161,8 @@
 
                 <!-- entry -->
                 <g class="effects_group hover_shadow" @mouseover="markers.entry.icon.tooltip = true" @mouseout="markers.entry.icon.tooltip = false">
+<!--                     <line class="sizes_line" :x1="markers.entry.map_cs.x" y1="0" :x2="markers.entry.map_cs.x" :y2="-top_axe_origin_y"></line> 
+                    <line class="sizes_line" :x1="0" :y1="-markers.entry.map_cs.y" :x2="200" :y2="- markers.entry.map_cs.y"></line>    -->
                     <use class="use_marker meteoroid" 
                         height="16" width="16" xlink:href="#icon_entry" 
                         :x="markers.entry.map_cs.x" 
@@ -210,16 +211,29 @@ import MathExt from '@/components/lib/MathExt';
 import { Point } from '@/components/model/Geometry';
 import State from '@/components/model/State';
 import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
+class Icon
+{
+    constructor(code: string, tooltip_text_key: () => string)
+    {
+        this.code = code;
+        this.tooltip_text_key_f = tooltip_text_key;
+    }
+    private tooltip_text_key_f: () => string;
 
+    code:string;
+    tooltip: boolean = false;
+    get tooltip_text_key(): string { return this.tooltip_text_key_f(); }
+}
 class Marker
 {
-    constructor(code: string, tooltip_text_key: string, map_point_getter: ()=>{x: number,  y:number})
+
+    constructor(code: string, tooltip_text_key: () => string, map_point_getter: ()=>{x: number,  y:number})
     {
-        this.icon = {code,tooltip_text_key, tooltip: false };
+        this.icon = new Icon(code, tooltip_text_key);
         this.map_point_getter = map_point_getter;
     }
     map_point_getter: ()=> { x: number,  y:number };
-    icon: { code:string, tooltip: false, tooltip_text_key: string }
+    icon: Icon
     get map_cs(): {x: number, y: number} { return this.map_point_getter(); }
 }
 
@@ -232,20 +246,20 @@ export default class Schema extends Vue {
             console.log("schema ", ...data);
     }
     markers = {
-        entry: new Marker("&#xe902;", 'Entry point', () => this.false_entry),
-        intersection: new Marker("&#8736;", 'Surface intersection point', () => {return {x: 0, y: 0}}),
-        overpressure: new Marker("&#xe904;", 'Effective overpressure point source', 
+        entry: new Marker("&#xe902;", () => ((this.state.variant.angle_rad < Math.atan( (100)/(200))) ? 'Entry direction':'Entry point'), () => this.false_entry),
+        intersection: new Marker("&#8736;", () => 'Surface intersection point', () => {return {x: 0, y: 0}}),
+        overpressure: new Marker("&#xe904;", () => 'Effective overpressure point source', 
             () => {return {
                 x: this.state.effects.shock_wave.zero_point, 
                 y: this.state.effects.shock_wave.heff
                 }}),
-        irradiation: new Marker("&#xe9a9;", 'Effective thermal point source', 
+        irradiation: new Marker("&#xe9a9;", () => 'Effective thermal point source', 
             () => {return {x: this.state.effects.irradiation.zero_point, y: this.state.effects.irradiation.hrad}}),
 
     }
 
 
-    top_axe_origin_y = 100;
+    top_axe_origin_y = 110;
     get left_axe_origin(): number { return this.shift_x; }
     get shift_x(): number { return this.state.observation_point_inputs.shift_y; }
     get x_ticks(): ReadonlyArray<{pos: number, label: number}>
@@ -268,9 +282,22 @@ export default class Schema extends Vue {
 
         let crit_angle = Math.atan( (100)/(200))/Math.PI * 180;
         if(this.state.variant.angle < crit_angle)
+        {
+            /* let d = ((200.-this.airburst_point.x)**2 + (200 * Math.tan(this.state.variant.angle_rad)-this.airburst_point.y) ** 2)**0.5-16;
+            let x = d * Math.cos(this.state.variant.angle_rad);
+            let y = d * Math.sin(this.state.variant.angle_rad);
+            return { x: this.airburst_point.x + x, y: this.airburst_point.y + y }; */
             return {x:200, y: (200) * Math.tan(this.state.variant.angle_rad)};
+        }
         //else return {y:100-10-10, x: (100-10-10) / Math.tan(this.state.variant.angle_rad)};
         else return this.entry;
+    }
+    get arrow_placement()
+    {
+        return {
+            x: this.markers.entry.map_cs.x - 12*Math.cos(this.state.variant.angle_rad),
+            y: -this.markers.entry.map_cs.y + 12*Math.sin(this.state.variant.angle_rad)  
+            };
     }
 
 
@@ -314,7 +341,17 @@ export default class Schema extends Vue {
     .axe_tick_text
     {
         font: 5px serif; 
-        fill: black;
+        fill: rgb(29, 29, 29);
+    }
+    .axe_label_text
+    {
+        font: 8px serif; 
+        fill: rgb(29, 29, 29);
+    }
+    .entry_vactor_arrow
+    {
+        font: 26px serif;
+        fill: #3F51B5;
     }
 
 

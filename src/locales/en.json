@@ -165,6 +165,7 @@
     
     "schema":{
       "Entry point": "Entry point at 100km above the ground",
+      "Entry direction": "Direction from entry point at 100km above the ground",
       "Surface intersection point": "The point of intersection of the trajectory with the Earth's surface",
       "Effective thermal point source":"Position of effective thermal point source",
       "Effective overpressure point source": "Position of effective overpressure point source",
