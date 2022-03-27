@@ -1,5 +1,5 @@
 import MathExt from '@/components/lib/MathExt';
-import { Point } from "../Geometry";
+import { IPoint, Point } from "../Geometry";
 import Target from '../Target';
 import Variant from "../Variant";
 import { ITargetEffectAssesment } from "./EffectsAssessment";
@@ -7,18 +7,28 @@ import { ITargetEffectAssesment } from "./EffectsAssessment";
 enum CraterTypes {simple = 1, comples = 2};
 class Crater implements ITargetEffectAssesment
 {
+    calc_point(op: IPoint, overpressure_zero_point: number): void {
+        let p = {x: op.x, y: op.y - overpressure_zero_point};
+        let s = ((p.x*1000)**2 + (p.y*1000)**2)**0.5;
+        this.ejecta.ejecta_thickness = Ejecta.ejecta_thickness(this, s);
+        this.ejecta.melted_ejecta_thickness = Ejecta.melted_ejecta_thickness(s);
+
+    }
 
     calc_variant_target(variant: Variant, target: Target): void {
+        this.variant = variant;
+        this.target = target;
+
         let diameter_min = 70./ Math.sin(variant.angle_rad) * (3320 / target.target_density) ** (2./3.);
 
         this.diameter_min = diameter_min;
 
-        let c1 = Math.exp(
+        this.c1 = Math.exp(
             -2 * Crater.ro_atm *  Crater.h_atm / (Math.sin(variant.angle_rad)**2 * variant.density * variant.diameter));
 
-        let u = c1 * (1000 * variant.velocity) * Math.sin(variant.angle_rad);
+        this.u = this.c1 * (1000 * variant.velocity) * Math.sin(variant.angle_rad);
         let d_tr = variant.diameter * <number>Crater.K1.get(target.target_density) * (
-            9.8 * variant.diameter / (2 * u ** 2) *
+            9.8 * variant.diameter / (2 * this.u ** 2) *
             (target.target_density / variant.density) ** (2 * Crater.NU / <number>Crater.MU.get(target.target_density))
         ) ** (-<number>Crater.MU.get(target.target_density) / (2 + <number>Crater.MU.get(target.target_density)))
 
@@ -37,13 +47,15 @@ class Crater implements ITargetEffectAssesment
 
 
         this.ejecta.d_min_pr = 70.0 / Math.sin(variant.angle_rad) * (3320.0 / target.target_density) ** (2./3.);
+
+        
+        
+
     }
 
-    
-    static C2:Map<number, number> = new Map<number, number>([
-        [2650, 0.054],
-        [1600, 0.018]
-    ]);
+    variant: Variant|null = null;
+    target: Target|null = null;
+   
 
     static K1:Map<number, number> = new Map<number, number>([
         [2650, 0.93],
@@ -82,9 +94,42 @@ class Crater implements ITargetEffectAssesment
     ejecta: Ejecta = new  Ejecta();
 
 
+
+    c1: number = 0;
+    u: number = 0;
+
 }
 class Ejecta {
     d_min_pr: number = 0;
+    melted_ejecta_thickness: number = 0;
+    ejecta_thickness: number = 0;
+
+    static C2:Map<number, number> = new Map<number, number>([
+        [2650, 0.054],
+        [1600, 0.018]
+    ]);
+
+    static ejecta_thickness(crater: Crater, distance_in_meters: number)
+    {
+        if(crater.target == null) return 0;
+        if(crater.variant == null) return 0;
+        //let s = ((p.x*1000)**2 + (p.y*1000)**2)**0.5;
+        let c2 =<number>Ejecta.C2.get(crater.target.target_density); 
+        let mu = <number>Crater.MU.get(crater.target.target_density); 
+
+        return c2 * mu * 
+            ((crater.variant.density / crater.target.target_density) ** (3 * Crater.NU)) * 
+            (crater.variant.diameter ** 3) *
+            (Crater.GRAV_A ** (-1.5 * mu)) * 
+            (crater.u ** (3 * mu)) * 
+            (distance_in_meters ** (-1.5 * mu - 2));
+    }
+
+    static melted_ejecta_thickness(distance_in_meters: number)
+    {        
+        return Math.min(1, (distance_in_meters * Crater.GRAV_A) ** 0.5 / 10**4);
+    }
+
 }
 
 export {CraterTypes, Crater}

@@ -4,6 +4,8 @@
         <v-expansion-panels popout focusable multiple>
             <SchockWaveResults/>
             <Irradiation/>
+            <Crater/>
+            <Ejecta/>
         </v-expansion-panels>
     </div>
 </template>
@@ -13,10 +15,16 @@ import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
 import State from '@/components/model/State';
 import SchockWaveResults from './SchockWave.vue'
 import Irradiation from './Irradiation.vue'
+import Crater from './Crater.vue'
+import Ejecta from './Ejecta.vue'
+
+
 @Component({
     components: {
         SchockWaveResults,
-        Irradiation
+        Irradiation,
+        Crater,
+        Ejecta
     }
 })
 export default class Results extends Vue {

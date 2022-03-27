@@ -160,6 +160,34 @@
         "Thermal exposure in the point of observation":"Thermal exposure in the point of observation",
         "Thermal flux in the point of observation":"Thermal flux in the point of observation"
 
+      },
+      "crater": {
+        "Crater": "Crater",
+        "no crater": "No crater",
+        "Crater forming event": "Crater forming event",
+        "transient":{
+          "Transient crater parameters": "Transient crater parameters",
+          "description":"Diameter and depth of a crater, which are set at the end of excavation stage, measured in relation to the level of the original surface",
+          "Transient crater size":"Transient crater size",
+          "Transient crater depth":"Transient crater depth"
+        },
+        "final":{
+          "Final crater parameters": "Final crater parameters",
+          "description":"Final crater parameters are defined based on transient crater size.Also, final crater size and depth depend on its type (simple or complex).Simple called craters with final size less than 3 km in diameter (2.56km for corresponding transient diameter), complex – with final diameter more than 3 km (transient crater size more than 2.56 km).",
+          "Final crater diameter":"Final crater diameter",
+          "Depth of a final crater":"Depth of a final crater",
+          "Crater type": "Crater type",
+          "simple": "simple",
+          "complex": "complex"
+        }
+      },
+      "ejecta": {
+        "Ejecta": "Ejecta",
+        "no ejecta": "No ejecta",
+        "Ejecta forming event": "Ejecta forming event",
+        "description":"Target and projectile material excavated from the crater is called ejecta. Ejected particles land around the crater forming ejecta deposit or ejecta blanket. A thickness of ejecta blanket is the greatest at the crater rim and decreases with distance from the crater. At high distances ejecta become patchy. We give an average thickness of the ejecta blanket and a thickness melted part of the ejecta blanket.",
+        "Thickness of ejecta blanket": "Thickness of ejecta blanket",
+        "Fraction of melt in ejecta": "Fraction of melt in ejecta"
       }
     },
     

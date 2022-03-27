@@ -122,6 +122,7 @@ class Effects {
 
         this.shock_wave.calc_point(this.observation_point_input.main_point);
         this.irradiation.calc_point(this.observation_point_input.main_point);
+        this.crater.calc_variant_target(this.variant, this.target);
     }
     variant_and_target_changed()
     {        
@@ -133,6 +134,7 @@ class Effects {
         console.log("observation_point_changed");
         this.shock_wave.calc_point(this.observation_point_input.main_point);
         this.irradiation.calc_point(this.observation_point_input.main_point);
+        this.crater.calc_point(this.observation_point_input.main_point, this.shock_wave.zero_point);
     }
 
    /*  update() {
