@@ -42,7 +42,7 @@
           <div class="flex_row_center_top">
             <div class="flex_col_top_left footer_column">
               <div class="footer_caption white--text" >{{ $t("footer.navigation") }}</div>
-              <router-link class="white--text" to="/about">{{ $t("footer.about") }}</router-link>
+              <router-link class="white--text" to="/">{{ $t("footer.about") }}</router-link>
               <router-link class="white--text" to="/c">{{ $t("footer.calculator") }}</router-link>
               <router-link class="white--text" to="/articles">{{ $t("footer.articles") }}</router-link>
             </div>

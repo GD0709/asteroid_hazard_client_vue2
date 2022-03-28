@@ -112,7 +112,6 @@ export default class MathExt
         let power = real_power-rest_power;
 
         let mult = MathExt.round_by_digits_to_string(real / 10**power, n);
-        console.log("math_ext ", n, mult);
         return mult + ' ' + dimension_formatter(power);
 
     }

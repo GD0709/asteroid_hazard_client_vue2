@@ -20,7 +20,7 @@ export default function round_format(vue: typeof Vue, options?: any): void {
 
     Vue.prototype.$dimension_prefix_format = function(real: number) 
     { 
-      console.log("Dimensions", state.state.visual_settings.round_digits);
+      //console.log("Dimensions", state.state.visual_settings.round_digits);
       return MathExt.dimension_prefix_format(real, (p) => this.$t("calculator.dimensions.prefix." + p), state.state.visual_settings.round_digits);
     };
     Vue.prototype.$power_format = function(real: number) 

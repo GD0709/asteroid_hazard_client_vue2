@@ -57,7 +57,8 @@
         "12": "T",
         "15": "P",
         "18": "E",
-        "21": "Z"
+        "21": "Z",
+        "24": "Y"
       }
     },
 
@@ -122,12 +123,11 @@
         },
         "latitude longitude":{
           "label": "latitude-longitude",
-          "distance": "Distance to zero point",
-          "distance help title": "Distance to the Zero Point, L",
-          "distance help": "The distance between the point of effect and the zero point (L)",
-          "angle": "Angle to trajectory projection",
-          "angle help title": "Angle to Trajectory Projection, 𝜓",
-          "angle help": "The angle between the direction from the observation point to the zero point and the projection of the trajectory on the surface of the Earth (𝜓)"
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+
+          "help title": "Latitude and Longitude of the Zero Point",
+          "help": "The latitude and the longitude of the zero point.<br/>Both latitude and longitude are measured in degrees. Latitude ranges from -90° to 90°. Longitude ranges from -180° to 180°."
         }
 
       }

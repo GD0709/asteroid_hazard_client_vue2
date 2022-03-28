@@ -187,7 +187,7 @@
                                 <v-text-field
                                     v-model="state.entry_point.latitude"
                                     :rules="input_rules.entry_latitude"
-                                    :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
+                                    :label="$t('calculator.inputs.observation point.latitude longitude.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
                                 >
                                 </v-text-field>
@@ -196,12 +196,12 @@
                                 <v-text-field
                                     v-model="state.entry_point.longitude"
                                     :rules="input_rules.entry_longitude"
-                                    :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
+                                    :label="$t('calculator.inputs.observation point.latitude longitude.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
                                 >
                                 </v-text-field>
-                                <help :help_title="$t('calculator.inputs.entry vector.help title')">
-                                    <span v-html="$t('calculator.inputs.entry vector.help')"/>
+                                <help :help_title="$t('calculator.inputs.observation point.latitude longitude.help title')">
+                                    <span v-html="$t('calculator.inputs.observation point.latitude longitude.help')"/>
                                 </help>
                             </v-row>
 

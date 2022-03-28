@@ -7,13 +7,13 @@
     <div class="line_primary">{{$t("home.intro_5")}}</div>
 
 
-<!--   <div class="get_started_button">
+ <div class="get_started_button">
       <router-link to="/c" tag="button" class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--x-large primary">{{$t("home.start_button")}}</router-link>
-  </div> -->
+  </div> 
 
-<div class="get_started_button">
-      <div class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--x-large primary v-btn--disabled" disabled>{{$t("under construction")}}</div>
-  </div>
+<!-- <div class="get_started_button">
+      <div class="v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--x-large primary v-btn--disabled">{{$t("under construction")}}</div>
+  </div> -->
 <div>
 </div>
   </div>

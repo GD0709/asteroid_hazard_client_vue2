@@ -19,7 +19,7 @@
                 <span class="input_parameter_name">{{$t('calculator.input_summary.energy')}}: </span>
                 <span class="input_parameter_value">{{state.variant.kenergy}} {{$t('calculator.dimensions.J')}}</span>
             </div>
-            <div>
+            <div  v-if="state.visual_settings.input_mode == InputModes.extended">
                 <span class="input_parameter_name">{{$t('calculator.input_summary.energy')}}: </span>
                 <span class="input_parameter_value">
                     {{$dimension_prefix_format(state.variant.kenergy)}}{{$t('calculator.dimensions.J')}}
@@ -34,7 +34,9 @@
                 <span class="input_parameter_name">{{$t('calculator.input_summary.energy_tnt')}}: </span>
                 <span class="input_parameter_value">
                     {{$dimension_prefix_format(1000.*state.variant.kenergy_kttnt)}}{{$t('calculator.dimensions.t tnt')}}
+                    <span  v-if="state.visual_settings.input_mode == InputModes.extended">
                     (<span v-html="$power_format(1000.*state.variant.kenergy_kttnt).html"/> {{$t('calculator.dimensions.t tnt')}})
+                    </span>
                 </span>
             </div>
         </v-col>
@@ -49,15 +51,15 @@
                 <span class="input_parameter_name">{{$t('calculator.inputs.entry angle.label')}}: </span>
                 <span class="input_parameter_value">{{state.variant.angle}}{{$t('calculator.dimensions.degree')}}</span>
             </div>
-            <div v-if="state.visual_settings.input_mode == 'extended'">
+            <div v-if="state.visual_settings.input_mode == InputModes.extended">
                 <span class="input_parameter_name">{{$t('calculator.inputs.entry vector.latitude')}}: </span>
                 <span class="input_parameter_value">{{state.entry_point.latitude}}{{$t('calculator.dimensions.degree')}}</span>
             </div>
-            <div v-if="state.visual_settings.input_mode == 'extended'">
+            <div v-if="state.visual_settings.input_mode == InputModes.extended">
                 <span class="input_parameter_name">{{$t('calculator.inputs.entry vector.longitude')}}: </span>
                 <span class="input_parameter_value">{{state.entry_point.longitude}}{{$t('calculator.dimensions.degree')}}</span>
             </div>
-            <div v-if="state.visual_settings.input_mode == 'extended'">
+            <div v-if="state.visual_settings.input_mode == InputModes.extended">
                 <span class="input_parameter_name">{{$t('calculator.inputs.entry vector.azimuth')}}: </span>
                 <span class="input_parameter_value">{{state.entry_point.azimuth}}{{$t('calculator.dimensions.degree')}}</span>
             </div>
@@ -68,7 +70,9 @@
             <div>
                 <span class="input_parameter_name">{{$t('calculator.inputs.target type.label')}}: </span>
                 <span class="input_parameter_value">
-                    {{ $t('calculator.inputs.target type.' + {1600: 'sand', 2650: 'rock'}[state.target.target_density]) }} (ρ = {{state.target.target_density}} <span v-html="$t('calculator.dimensions.kg/m3')"></span>)</span>
+                    {{ $t('calculator.inputs.target type.' + {1600: 'sand', 2650: 'rock'}[state.target.target_density]) }} 
+                    <span v-if="state.visual_settings.input_mode == InputModes.extended">(ρ = {{state.target.target_density}} <span v-html="$t('calculator.dimensions.kg/m3')"></span>)</span>
+                </span>
             </div>
         </v-col>
         <v-col cols="12"  md="4">
@@ -110,6 +114,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import State from '@/components/model/State'
 import MathExt from '@/components/lib/MathExt';
+import {VisualSettings, InputModes} from '@/components/model/VisualSettings';
 
 @Component({
     components: {
@@ -117,7 +122,7 @@ import MathExt from '@/components/lib/MathExt';
     }
 })
 export default class InputSummary extends Vue {
-
+    InputModes = InputModes;
     math_ext = MathExt;
     mounted()
     {
