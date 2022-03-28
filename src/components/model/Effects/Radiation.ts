@@ -103,7 +103,7 @@ export default class RadiationEffects implements IEffectAssesment {
             res = MathExt.interpolate_by(RadiationEffects.hrad_small(var_150) + 1, var_150.kenergy_kttnt, RadiationEffects.hrad_large(var_300) + 1, var_300.kenergy_kttnt, variant.kenergy_kttnt);
         }
         else res = RadiationEffects.hrad_large(variant);
-        return res > 0 ? res : 0;
+        return res > 0 ? (res > 100 ? 100 : res) : 0;
     }
     
 
