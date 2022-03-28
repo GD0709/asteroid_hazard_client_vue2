@@ -7,6 +7,7 @@
             <Crater/>
             <Ejecta/>
             <Seismic/>
+            <AtmosphericDisturbances/>
         </v-expansion-panels>
     </div>
 </template>
@@ -14,11 +15,12 @@
 <script lang="ts">
 import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
 import State from '@/components/model/State';
-import SchockWaveResults from './SchockWave.vue'
-import Irradiation from './Irradiation.vue'
-import Crater from './Crater.vue'
-import Ejecta from './Ejecta.vue'
-import Seismic from './Seismic.vue'
+import SchockWaveResults from './SchockWave.vue';
+import Irradiation from './Irradiation.vue';
+import Crater from './Crater.vue';
+import Ejecta from './Ejecta.vue';
+import Seismic from './Seismic.vue';
+import AtmosphericDisturbances from './AtmosphericDisturbances.vue';
 
 
 @Component({
@@ -27,7 +29,8 @@ import Seismic from './Seismic.vue'
         Irradiation,
         Crater,
         Ejecta,
-        Seismic
+        Seismic,
+        AtmosphericDisturbances
     }
 })
 export default class Results extends Vue {

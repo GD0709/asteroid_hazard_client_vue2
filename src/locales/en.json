@@ -200,6 +200,12 @@
         "The peak ground velocity":"The peak ground velocity",
         "The peak ground acceleration":"The peak ground acceleration",
         "Time of arrival to the observation point":"Time of arrival to the observation point (started from moment of maximal energy deposition)"
+      },
+      "atmospheric_disturbances": {
+        "Atmospheric disturbances": "Atmospheric disturbances",
+        "description": "Atmospheric plume resulting from impact rises to high altitudes and generate atmospheric disturbances expanding to distances up to thousands of kilometres. To estimate these disturbances we consider deviations of air density from equilibrium value at an altitude of 300 km and deviations of temperature from equilibrium value at an altitude of 300 km.",
+        "Peak amplitude of relative density oscillations at an altitude of 300 km":"Peak amplitude of relative density oscillations at an altitude of 300 km",
+        "Peak amplitude of relative temperature oscillations at an altitude of 100 km":"Peak amplitude of relative temperature oscillations at an altitude of 100 km"
       }
     },
     

@@ -1,9 +1,6 @@
 <template>
      <div style="margin:20px;">
         <ExtendedInput/>
-         {{state.variant}}<br/>
-        {{state.effects.shock_wave}} <br/>
-        {{state.effects.irradiation}} <br/>
         <input-summary/>
         <results/>
     </div>

@@ -7,6 +7,7 @@ import { Crater } from "./Crater";
 import RadiationEffects from "./Radiation";
 import Seismic from "./Seismic";
 import ShockWaveEffects from "./ShockWave";
+import AtmosphericDisturbances from './AtmosphericDisturbances';
 
 interface IEffectAssesment{
     calc_variant(variant: Variant): void;
@@ -110,6 +111,7 @@ class Effects {
     irradiation: RadiationEffects = new RadiationEffects();
     crater: Crater = new Crater();
     seismic: Seismic = new Seismic();
+    atmospheric_disturbances: AtmosphericDisturbances = new AtmosphericDisturbances();
 
     update_fast(){
         this.shock_wave.calc_heff_and_zero_point(this.variant);
@@ -141,6 +143,7 @@ class Effects {
         this.irradiation.calc_point(this.observation_point_input.main_point);
         this.crater.calc_point(this.observation_point_input.main_point, this.shock_wave.zero_point);
         this.seismic.calc_point(this.variant, this.observation_point_input.main_point, this.shock_wave.zero_point);
+        this.atmospheric_disturbances.calc_point(this.variant, this.observation_point_input.main_point);
     }
 
    /*  update() {
