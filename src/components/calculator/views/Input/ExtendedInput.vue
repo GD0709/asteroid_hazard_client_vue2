@@ -1,74 +1,8 @@
 <template>
     <v-container>
         <v-row no-gutters>
-            <v-col cols="12" md="6" no-gutters class="pr-md-3 no-gutters">
-                <h3>{{$t("calculator.headers.Projectile parameters")}}</h3>
-
-                    <field-input
-                        
-                        id="basic.diameter"
-                        :accuracy="1"
-                        :min="15"
-                        :max="3000"
-                        :rules="input_rules.diameter"
-                        :label="$t('calculator.inputs.diameter.label')"
-                        :help_title="$t('calculator.inputs.diameter.label')"
-                        :help_text="$t('calculator.inputs.diameter.help')"
-                        :dimension="$t('calculator.dimensions.m')"
-                        prefix="D ="
-                        v-model="state.variant.diameter"
-                        >
-<!--                         <template slot="help">
-                            Hello slot
-                        </template> -->
-                    </field-input>
-
-                        <field-input
-                        v-model="state.variant.density"
-                        id="basic.density"
-                        :accuracy="1"
-                        :min="500"
-                        :max="4000"
-                        :rules="input_rules.density"
-                        :label="$t('calculator.inputs.density.label')"
-                        :help_title="$t('calculator.inputs.density.label')"
-                        :help_text="$t('calculator.inputs.density.help')"
-                        :dimension="$t('calculator.dimensions.kg/m3')"
-                        prefix="ρ ="
-                        >
-                    </field-input>
-            </v-col>
-            <v-col cols="12" md="6" no-gutters class="pl-md-3 no-gutters">
-                <h3>{{$t("calculator.headers.Entry parameters")}}</h3>
-                    <field-input
-                        v-model="state.variant.velocity"
-                        id="basic.velocity"
-                        :accuracy="0.1"
-                        :min="12"
-                        :max="72"
-                        :rules="input_rules.velocity"
-                        :label="$t('calculator.inputs.velocity.label')"
-                        :help_title="$t('calculator.inputs.velocity.label')"
-                        :help_text="$t('calculator.inputs.velocity.help')"
-                        :dimension="$t('calculator.dimensions.km/s')"
-                        prefix="V ="
-                        />
- 
-                        <field-input
-                        v-model="state.variant.angle"
-                        id="basic.angle"
-                        :accuracy="0.1"
-                        :min="15"
-                        :max="90"
-                        :rules="input_rules.entry_angle"
-                        :label="$t('calculator.inputs.entry angle.label')"
-                        :help_title="$t('calculator.inputs.entry angle.label')"
-                        :help_text="$t('calculator.inputs.entry angle.help')"
-                        :dimension="$t('calculator.dimensions.degree')"
-                        prefix="α ="
-                        />
-             
-            </v-col>
+            <ProjectileInput/>
+            <EntryInput/>
         </v-row>
 
         
@@ -318,30 +252,27 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import FieldInput from '@/components/calculator/input/FieldInput.vue';
 import State from '@/components/model/State';
 import InpuRules from '@/components/calculator/input/InputRules';
-import Schema from './Schema.vue';
-import Map from './Map.vue';
-import Help from '../input/help.vue';
+import ProjectileInput from './Projectile.vue'
+import EntryInput from './EntryInput.vue'
+
+import Schema from '../Schema.vue';
+import Map from '../Map.vue';
+import Help from '@/components/calculator/input/help.vue';
 
 @Component({
     components: {
-        FieldInput,
+        FieldInput,        
+        ProjectileInput,
+        EntryInput,
         Help,
         Schema,
         Map
     }
 })
 export default class ExtendedInput extends Vue {
-
-    mounted()
-    {
-        //console.log('ExtendedInput mounted', this.state.variant.to_string());
-    }
-    // Density
     state: State = State.state;
     input_rules = InpuRules;
     tab = null;
-    items=['Appetizers', 'Entrees', 'Deserts', 'Cocktails']
-    text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
 }
 </script>
 

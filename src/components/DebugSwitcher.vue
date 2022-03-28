@@ -6,7 +6,7 @@
 import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
 
 import State from '@/components/model/State';
-import VisualSettings from './model/VisualSettings';
+import {VisualSettings} from './model/VisualSettings';
 @Component({
     components: {
 

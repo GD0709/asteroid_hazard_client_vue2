@@ -75,7 +75,7 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import DebugSwitcher from './components/DebugSwitcher.vue'
 import State from './components/model/State';
-import VisualSettings from './components/model/VisualSettings';
+import {VisualSettings} from './components/model/VisualSettings';
 
 @Component({
     components: {

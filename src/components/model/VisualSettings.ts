@@ -1,8 +1,10 @@
 import MathExt from '@/components/lib/MathExt';
 
-export default class VisualSettings
+enum InputModes {basic = 0, extended = 1}
+class VisualSettings
 {
-    input_mode: 'basic'|'extended' = 'extended';
+
+    input_mode: InputModes = InputModes.basic;
     round_digits: number = 2;
     round(real: number){
         return '' + MathExt.round_by_digits_to_string(real, this.round_digits);
@@ -21,3 +23,4 @@ export default class VisualSettings
         }
     }
 }
+export {InputModes, VisualSettings}

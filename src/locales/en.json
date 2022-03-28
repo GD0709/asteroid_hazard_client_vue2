@@ -23,7 +23,9 @@
       "Entry parameters": "Entry parameters",
       "Observation point": "Observation point",
       "Entry vector": "Entry vector",
-      "Target parameters": "Target parameters"
+      "Target parameters": "Target parameters",
+      "basic":"basic",
+      "extended":"extended"
     },
     "input_summary":{
       "energy": "Energy",

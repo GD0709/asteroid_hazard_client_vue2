@@ -1,7 +1,7 @@
 import { GeoVector, Point } from "./Geometry";
 import Variant from "./Variant";
 import {ObservationPointInput} from "./Observation";
-import VisualSettings from "./VisualSettings";
+import {VisualSettings} from "./VisualSettings";
 import Target from "./Target";
 import { Effects } from "./Effects/EffectsAssessment";
 
