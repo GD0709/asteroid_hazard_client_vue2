@@ -19,8 +19,8 @@
                 </filter>
             </defs>
 
-            <!-- <image :width="200" :height="200" x="-100" y="-100"
-            :href="map_controller.url" filter="url(#blur_filter)"/> -->
+            <image :width="200" :height="200" x="-100" y="-100"
+            :href="map_controller.url" filter="url(#blur_filter)" v-if="!state.visual_settings.is_debug"/>
 
             <line class="sizes_line" 
                     :x1="visual_entry_vector.start.x" 

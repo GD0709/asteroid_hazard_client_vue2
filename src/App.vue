@@ -8,7 +8,7 @@
       <router-link class="header_link" to="/">
         <div class="d-flex align-center">
           <span class="icon ah-meteoroid logo"/>
-        <div class="app_bar_header">Impact Effects</div>
+        <div class="app_bar_header">Impact Effects{{visual.is_debug ? ' - Debug Mode' : ''}}</div>
         </div>
       </router-link>
 
@@ -63,7 +63,7 @@
         <v-divider></v-divider>
 
         <v-card-text class="white--text">
-          {{ new Date().getFullYear() }} — {{$t("footer.footer_text")}}
+          <DebugSwitcher>{{ new Date().getFullYear() }} — {{$t("footer.footer_text")}}</DebugSwitcher>
         </v-card-text>
       </v-card>
     </v-footer>
@@ -73,9 +73,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import DebugSwitcher from './components/DebugSwitcher.vue'
+import State from './components/model/State';
+import VisualSettings from './components/model/VisualSettings';
 
-@Component
+@Component({
+    components: {
+        DebugSwitcher
+    }
+})
 export default class App extends Vue {    
+  visual: VisualSettings = State.state.visual_settings;
     created()
     {
       //console.log(this.$t);

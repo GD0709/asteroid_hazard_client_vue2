@@ -4,7 +4,7 @@
     shaped
     >
     <v-row style="margin:20px;">
-        <v-col>
+        <v-col cols="12" md="4">
             <v-card-title>{{$t("calculator.headers.Projectile parameters")}}</v-card-title>
             <v-divider class="mx-4"></v-divider>
             <div>
@@ -38,7 +38,7 @@
                 </span>
             </div>
         </v-col>
-        <v-col>
+        <v-col cols="12" md="4">
             <v-card-title>{{$t("calculator.headers.Entry parameters")}}</v-card-title>
             <v-divider class="mx-4"></v-divider>
             <div>
@@ -71,7 +71,7 @@
                     {{ $t('calculator.inputs.target type.' + {1600: 'sand', 2650: 'rock'}[state.target.target_density]) }} (ρ = {{state.target.target_density}} <span v-html="$t('calculator.dimensions.kg/m3')"></span>)</span>
             </div>
         </v-col>
-        <v-col>
+        <v-col cols="12"  md="4">
             <v-card-title>{{$t("calculator.headers.Observation point")}}</v-card-title>
             <v-divider class="mx-4"></v-divider>
             <div>
@@ -96,6 +96,10 @@
             <div>
                 <span class="input_parameter_name">{{$t('calculator.inputs.observation point.along across.across')}}: </span>
                 <span class="input_parameter_value">{{math_ext.round_decimal_digits_to_string(state.observation_point_inputs.along_across.across,1)}} {{$t('calculator.dimensions.km')}}</span>
+            </div>
+            <div  v-if="state.visual_settings.is_debug">
+                <span class="input_parameter_name">main point: </span>
+                <span class="input_parameter_value">x: {{state.observation_point_inputs.main_point.x}}, y: {{state.observation_point_inputs.main_point.y}}</span>
             </div>
         </v-col>
     </v-row>

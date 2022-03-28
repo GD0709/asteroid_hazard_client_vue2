@@ -1,37 +1,13 @@
 
-<template>    
-    <v-expansion-panel  class="result">
-        <v-expansion-panel-header v-slot="{ open }">
-            <div class="level_line_header"></div>
-            <v-row no-gutters>
-                <v-col cols="4" class="header_caption">
-                    <span class="icon ah-seismic alert_level_0"/>
-                    {{$t('calculator.results.seismic.Seismic effect')}}
-                </v-col>
-                <v-col
-                    cols="8"
-                    class="text--secondary"
-                >
-                    <v-fade-transition leave-absolute>
-                        <span
-                            v-if="open"
-                            key="0"
-                        >   
-                        </span>
-                        <span
-                            v-else
-                            key="1"
-                        >
-                        {{$t('calculator.results.seismic.Magnitude')}}:
-                        {{$dimension_prefix_format(seismic.richter_scale_magnitude)}}
+<template>  
+
+    <Expansion icon="ah-seismic" :title="$t('calculator.results.seismic.Seismic effect')">
+        <template v-slot:closed>
+            {{$t('calculator.results.seismic.Magnitude')}}:
+            {{$dimension_prefix_format(seismic.richter_scale_magnitude)}}
                         
-                        </span>
-                    </v-fade-transition>
-                </v-col>
-            </v-row>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-   
+        </template>
+        <template v-slot:content>
             <div class="results_description" v-html="$t('calculator.results.seismic.description')"></div>
                 
             <div class="result_effect">
@@ -53,22 +29,21 @@
             <div class="result_effect">
                 <span class="results_effects_name">{{$t('calculator.results.seismic.The peak ground acceleration')}}:</span>
                 {{$math_ext.seconds_to_string(seismic.arrival_time)}}
-            </div>
-
-        </v-expansion-panel-content>
-    </v-expansion-panel>
+            </div>    
+        </template>
+    </Expansion>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
-
+import Expansion from './Expansion.vue'
 import State from '@/components/model/State';
 import Seismic from '@/components/model/Effects/Seismic';
 import Variant from '@/components/model/Variant';
 import Target from '@/components/model/Target';
 @Component({
     components: {
-
+Expansion
     }
 })
 export default class SeismicResults extends Vue {
