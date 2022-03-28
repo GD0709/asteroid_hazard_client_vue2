@@ -5,7 +5,7 @@
             <div class="level_line_header"></div>
             <v-row no-gutters>
                 <v-col cols="4" class="header_caption">
-                    <span class="icon ah-fire-2 alert_level_0"/>
+                    <span class="icon ah-fire alert_level_0"/>
                     {{$t('calculator.results.irradiation.Irradiation')}}
                 </v-col>
                 <v-col

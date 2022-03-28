@@ -5,6 +5,7 @@ import Target from "../Target";
 import Variant from "../Variant";
 import { Crater } from "./Crater";
 import RadiationEffects from "./Radiation";
+import Seismic from "./Seismic";
 import ShockWaveEffects from "./ShockWave";
 
 interface IEffectAssesment{
@@ -16,6 +17,7 @@ interface ITargetEffectAssesment {
 interface IPointEffectAssesment{
     calc_point(op: IPoint): void;
 }
+
 
 class DelayedUpdater
 {
@@ -79,7 +81,7 @@ class Effects {
     target: Target;
     target_updater = new  DelayedUpdater(500);
     observation_point_input: ObservationPointInput;
-    observation_point_input_updater = new  DelayedUpdater(1000);
+    observation_point_input_updater = new  DelayedUpdater(500);
 
     constructor(variant: Variant, target: Target, observation_point_input: ObservationPointInput)
     {
@@ -107,6 +109,7 @@ class Effects {
     shock_wave: ShockWaveEffects = new ShockWaveEffects();
     irradiation: RadiationEffects = new RadiationEffects();
     crater: Crater = new Crater();
+    seismic: Seismic = new Seismic();
 
     update_fast(){
         this.shock_wave.calc_heff_and_zero_point(this.variant);
@@ -123,6 +126,8 @@ class Effects {
         this.shock_wave.calc_point(this.observation_point_input.main_point);
         this.irradiation.calc_point(this.observation_point_input.main_point);
         this.crater.calc_variant_target(this.variant, this.target);
+
+        this.observation_point_changed();
     }
     variant_and_target_changed()
     {        
@@ -135,6 +140,7 @@ class Effects {
         this.shock_wave.calc_point(this.observation_point_input.main_point);
         this.irradiation.calc_point(this.observation_point_input.main_point);
         this.crater.calc_point(this.observation_point_input.main_point, this.shock_wave.zero_point);
+        this.seismic.calc_point(this.variant, this.observation_point_input.main_point, this.shock_wave.zero_point);
     }
 
    /*  update() {

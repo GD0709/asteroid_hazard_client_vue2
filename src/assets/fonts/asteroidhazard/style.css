@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'asteroidhazard';
-  src:  url('fonts/asteroidhazard.eot?k8wr5o');
-  src:  url('fonts/asteroidhazard.eot?k8wr5o#iefix') format('embedded-opentype'),
-    url('fonts/asteroidhazard.ttf?k8wr5o') format('truetype'),
-    url('fonts/asteroidhazard.woff?k8wr5o') format('woff'),
-    url('fonts/asteroidhazard.svg?k8wr5o#asteroidhazard') format('svg');
+  src:  url('fonts/asteroidhazard.eot?z14y8q');
+  src:  url('fonts/asteroidhazard.eot?z14y8q#iefix') format('embedded-opentype'),
+    url('fonts/asteroidhazard.ttf?z14y8q') format('truetype'),
+    url('fonts/asteroidhazard.woff?z14y8q') format('woff'),
+    url('fonts/asteroidhazard.svg?z14y8q#asteroidhazard') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -28,6 +28,9 @@
 .ah-shockwave:before {
   content: "\e904";
 }
+.ah-seismic:before {
+  content: "\e90b";
+}
 .ah-agw:before {
   content: "\e901";
 }
@@ -37,18 +40,15 @@
 .ah-crater:before {
   content: "\e90a";
 }
-.ah-asteroid:before {
-  content: "\e905";
-}
 .ah-globe:before {
   content: "\e900";
 }
 .ah-meteoroid:before {
   content: "\e902";
 }
-.ah-fire-2:before {
+.ah-fire:before {
   content: "\e9a9";
 }
-.ah-fire:before {
+.ah-fire-2:before {
   content: "\e903";
 }

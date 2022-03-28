@@ -6,6 +6,7 @@
             <Irradiation/>
             <Crater/>
             <Ejecta/>
+            <Seismic/>
         </v-expansion-panels>
     </div>
 </template>
@@ -17,6 +18,7 @@ import SchockWaveResults from './SchockWave.vue'
 import Irradiation from './Irradiation.vue'
 import Crater from './Crater.vue'
 import Ejecta from './Ejecta.vue'
+import Seismic from './Seismic.vue'
 
 
 @Component({
@@ -24,7 +26,8 @@ import Ejecta from './Ejecta.vue'
         SchockWaveResults,
         Irradiation,
         Crater,
-        Ejecta
+        Ejecta,
+        Seismic
     }
 })
 export default class Results extends Vue {

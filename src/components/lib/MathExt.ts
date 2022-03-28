@@ -126,4 +126,22 @@ export default class MathExt
             html += " * 10<sup>" + power.toString() + "</sup>";
         return { mult, power: power.toString(), power_n: power, html };
     }
+
+    static seconds_to_string(s: number, show_ms: boolean = false)
+    {
+        let local = s;
+        let h = Math.floor(local / 3600);
+        local = local - 3600*h;
+        let m = Math.floor(local / 60);
+        local = local - 60*m;
+        let sec = Math.floor(local);
+        
+        let res = h.toString() + ":" + m.toString() + ":" + sec.toString();
+        if(show_ms && s.toString().indexOf('.') >= 2)
+        {
+            let rest = s.toString().substring(s.toString().indexOf('.')+1);
+            res += "." + rest;
+        }
+        return res;
+    }
 }

@@ -36,6 +36,8 @@
       "kg/m3":"kg/m<sup>3</sup>",        
       "km/s":"km/s",
       "m/s": "m/s",
+      "cm/s": "cm/s",
+      "cm/s2": "cm/s<sup>2</sup>",
       "degree": "°",
       "atm": "atm",
       "kPa": "kPa",
@@ -188,6 +190,16 @@
         "description":"Target and projectile material excavated from the crater is called ejecta. Ejected particles land around the crater forming ejecta deposit or ejecta blanket. A thickness of ejecta blanket is the greatest at the crater rim and decreases with distance from the crater. At high distances ejecta become patchy. We give an average thickness of the ejecta blanket and a thickness melted part of the ejecta blanket.",
         "Thickness of ejecta blanket": "Thickness of ejecta blanket",
         "Fraction of melt in ejecta": "Fraction of melt in ejecta"
+      },
+      "seismic": {
+        "Seismic effect": "Seismic effect",
+        "description": "The seismic magnitude of the impact event is estimated for bothcrater forming impacts and aerial bursts.The magnitude is used for determination of the instrumental characteristicsof a seismic disturbance in the observational point.",
+        "Magnitude": "Magnitude",
+        "Richter scale magnitude of the impact event":"Richter scale magnitude of the impact event",
+        "Mercally scale intensity":"Mercally scale intensity",
+        "The peak ground velocity":"The peak ground velocity",
+        "The peak ground acceleration":"The peak ground acceleration",
+        "Time of arrival to the observation point":"Time of arrival to the observation point (started from moment of maximal energy deposition)"
       }
     },
     
