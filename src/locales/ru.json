@@ -28,6 +28,7 @@
       "extended":"расширенный"
     },    
     "input_summary":{
+      "title":"ваш вариант",
       "energy": "Энергия",
       "energy_tnt": "Энергия (TNT)"
     },
@@ -138,6 +139,7 @@
 
 
     "results": {
+      "title": "результаты",
       "common":{
         "at": "уровень"
       },

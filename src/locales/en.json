@@ -28,6 +28,7 @@
       "extended":"extended"
     },
     "input_summary":{
+      "title":"input summary",
       "energy": "Energy",
       "energy_tnt": "Energy (TNT)"
     },
@@ -136,13 +137,14 @@
 
 
     "results": {
+      "title": "results",
       "common":{
         "at": "at"
       },
       "shockwave": {
         "Airblast wave": "Airblast wave",
         "Overpressure": "Overpressure",
-        "description": "Numerical simulations of a shock wave from the cosmic object impact provide possibility to suggest scaling <br/> relations for a value of maximal overpressure and its distribution on the surface, for maximal wind velocity <br/> behind the front and for a squares, where overpressure is larger than a fixed levelall values are determined <br/> based only on the properties of the impactor",
+        "description": "Numerical simulations of a shock wave from the cosmic object impact provide possibility to suggest scaling relations for a value of maximal overpressure and its distribution on the surface, for maximal wind velocity behind the front and for a squares, where overpressure is larger than a fixed levelall values are determined based only on the properties of the impactor",
         "Effective altitude": "Effective altitude",
         "Distance to the center": "Distance to the center of a overpressure field from the point of intersection of the trajectory with the Earth`s surface",
         "Maximal overpressure": "Maximal overpressure",
@@ -195,7 +197,7 @@
       },
       "seismic": {
         "Seismic effect": "Seismic effect",
-        "description": "The seismic magnitude of the impact event is estimated for bothcrater forming impacts and aerial bursts.The magnitude is used for determination of the instrumental characteristicsof a seismic disturbance in the observational point.",
+        "description": "The seismic magnitude of the impact event is estimated for bothcrater forming impacts and aerial bursts.The magnitude is used for determination of the instrumental characteristics of a seismic disturbance in the observational point.",
         "Magnitude": "Magnitude",
         "Richter scale magnitude of the impact event":"Richter scale magnitude of the impact event",
         "Mercally scale intensity":"Mercally scale intensity",

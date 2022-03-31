@@ -1,6 +1,7 @@
 <template>
+<v-container>
     <div class="flex_col">
-        <h2>Results</h2>
+        <h2>{{$t('calculator.results.title')}}</h2>
         <v-expansion-panels popout focusable multiple>
             <SchockWaveResults/>
             <Irradiation/>
@@ -10,6 +11,7 @@
             <AtmosphericDisturbances/>
         </v-expansion-panels>
     </div>
+</v-container>
 </template>
 
 <script lang="ts">

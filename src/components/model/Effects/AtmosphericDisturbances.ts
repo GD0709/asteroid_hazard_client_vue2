@@ -6,7 +6,13 @@ import Variant from "../Variant";
 
 export default class AtmosphericDisturbances
 {
-
+    
+    debug: boolean = true;
+    log(...data: any[])
+    {
+        if(this.debug == true)
+            console.log("AtmosphericDisturbances:", ...data);
+    }
     calc_point(variant: Variant, op: IPoint): void {
         //let p = op;
         //let r = ((p.x)**2 + (p.y)**2)**0.5;
@@ -32,9 +38,12 @@ export default class AtmosphericDisturbances
 
     alg1_func1(variant: Variant, R: number): number
     {
+        this.log("Alg1_func1 called with ", variant, " and R=", R);
         let Ek = variant.kenergy_kttnt / 1000.;
         let Ea = Ek * Math.sin(variant.angle_rad) ** 2;
 
+        this.log("Ek:", Ek);
+        this.log("Ea:", Ea);
         let ksi_r = 0;
 
         let Ka = 0;
@@ -44,6 +53,7 @@ export default class AtmosphericDisturbances
 
         if(variant.diameter <= 200)
         {
+            this.log("variant.diameter <= 200:", variant.diameter );
             if(variant.angle < 30)
             {
                 Ka = Math.sin(30. * Math.PI / 180.) ** 2 / Math.sin(variant.angle_rad) ** 2;
@@ -97,31 +107,42 @@ export default class AtmosphericDisturbances
         }
         else
         {
+            this.log("variant.diameter > 200:", variant.diameter );
             ksi_max = 523. * Ea ** 0.9;
             if (Ea < 2.5 * 10 ** 4)
                 R0 = 1.83 * 10 ** 3 * Ea ** (-0.167) - 600;
             else
                 R0 = 2.6 * 10 ** 2 * Ea ** 0.025 - 600;
-
+            this.log("R0:", R0 );
 
             
             let Ymin = 2 * Math.log10(variant.diameter) - 4
+            this.log("Ymin:", Ymin );
             let Ymax = Math.log10(ksi_max)
+            this.log("Ymax:", Ymax );
             let Ymid = (Ymin + Ymax) / 2
             let Delta_mid = 390. * Ea ** 0.042
             let B2 = Delta_mid ** 2 / (Math.log(Ymax) - Math.log(Ymid))
+            this.log("B2:", B2 );
             let Y = Ymax * Math.exp(0 - (R - R0) ** 2 / B2)
+            this.log("Y:", Y );
             let ksi_g = 10 ** Y
             let Rstar = 100
             let Rminus = -2000
             let Rplus = 2000
 
             if (R > R0)
-            {
+            {    
+                this.log("R > R0:", R, ">", R0 );
                 let b_plus = 1.3 * Ea ** 0.096;
                 let ksi_Rplus = Ea ** 0.615;
                 let ksi_T = ksi_Rplus * ((Rplus - R0 + Rstar) / (R - R0 + Rstar)) ** b_plus;
-                let ksi_r = Math.min(Math.max(ksi_g, ksi_T), ksi_max);
+                ksi_r = Math.min(Math.max(ksi_g, ksi_T), ksi_max);
+
+                this.log("Y:", Y );
+                this.log("Y:", Y );
+                this.log("Y:", Y );
+                this.log("Y:", Y );
             }
             else
             {
@@ -159,11 +180,11 @@ export default class AtmosphericDisturbances
             else
                 R0 = 2.6 * 10 ** 2 * Ea ** 0.025 - 600;
         }
-        //print("atmospheric_disturbances alg1_func2 " + "R0" + ": " + str(R0))
+        this.log("atmospheric_disturbances alg1_func2 " + "R0" + ": " + R0)
         let RC = ((Distance * Math.sin(Teta)) ** 2 + (Distance * Math.cos(Teta) - R0) ** 2) ** 0.5;
-        //print("atmospheric_disturbances alg1_func2 " + "RC" + ": " + str(RC))
-        //print(R0 + RC)
-        //print(R0 - RC)
+        this.log("atmospheric_disturbances alg1_func2 " + "RC" + ": " + RC)
+        this.log(R0 + RC)
+        this.log(R0 - RC)
 
         let ksi_1 = this.alg1_func1(variant, R0 - RC);
         let ksi_2 = this.alg1_func1(variant, R0 + RC);
@@ -171,9 +192,9 @@ export default class AtmosphericDisturbances
         let gamma = Math.asin(Distance * Math.sin(Teta) / RC) * 180. / Math.PI;
         if (op.x < 0)
             gamma = 180 - gamma;
-        //print("atmospheric_disturbances alg1_func2 " + "gamma" + ": " + str(gamma))
+        this.log("atmospheric_disturbances alg1_func2 " + "gamma" + ": " + gamma)
         let L = Math.PI * RC * gamma / 180.;
-        //print("atmospheric_disturbances alg1_func2 " + "L" + ": " + str(L))
+        this.log("atmospheric_disturbances alg1_func2 " + "L" + ": " + L)
         let ksi = ksi_2 + (ksi_1 - ksi_2) * (gamma / 180);
         
         return ksi;

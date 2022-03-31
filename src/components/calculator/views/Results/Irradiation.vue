@@ -10,11 +10,11 @@
                 <div class="results_description" v-html="$t('calculator.results.irradiation.description')"></div>
                 <div class="result_effect" v-if="state.variant.diameter < 150">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Maximal thermal exposure')}}:</span>
-                    {{$dimension_prefix_format(irradiation.max_irradiation_energy)}} <span v-html="$t('calculator.dimensions.J/cm2')"/>
+                    {{$dimension_prefix_format(irradiation.max_irradiation_energy)}}<span v-html="$t('calculator.dimensions.J/cm2')"/>
                 </div>
                 <div class="result_effect" v-if="state.variant.diameter < 150">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Maximal irradiation flux')}}:</span>
-                    {{$dimension_prefix_format(irradiation.max_irradiation_flux)}} <span v-html="$t('calculator.dimensions.W/cm2')"/>
+                    {{$dimension_prefix_format(irradiation.max_irradiation_flux)}}<span v-html="$t('calculator.dimensions.W/cm2')"/>
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Radiation altitude')}}:</span>
