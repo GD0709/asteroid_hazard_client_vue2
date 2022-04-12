@@ -78,6 +78,8 @@
                 </div>
             </foreignObject>
         </svg>
+        <!-- op: {{$round(markers.observation.geo_deg.latitude, 6)}},{{$round(markers.observation.geo_deg.longitude, 6)}}<br/>
+        intersection: {{$round(markers.intersection.geo_deg.latitude, 6)}},{{$round(markers.intersection.geo_deg.longitude, 6)}} -->
     </v-col>
 </template>
 
@@ -132,7 +134,9 @@ export default class Map extends Vue {
         observation: { 
             icon: {code:"?", tooltip: false, tooltip_text_key: 'Observation point'},
             field_cs : this.state.observation_point,
-            map_cs: new Point(0,0)
+            map_cs: new Point(0,0),
+            geo_rad:  new GeoPoint(),
+            geo_deg: this.state.observation_geo_point,
         }
     }
     coord_sys = {
@@ -176,6 +180,10 @@ export default class Map extends Vue {
         this.markers.entry.geo_rad.changed.on(s => this.update_intersection_geo_rad());
 
         this.map_controller.update_url();
+
+
+        this.update_op_geo_rad();
+        this.markers.observation.map_cs.changed.on(s => this.update_op_geo_rad());
 
 
 
@@ -253,7 +261,25 @@ export default class Map extends Vue {
         //console.log("intersection_geo_rad: ", intersection_geo_rad, " intersection_geo_deg: ", intersection_geo_deg);
         this.markers.intersection.geo_rad.set(intersection_geo_rad.latitude, intersection_geo_rad.longitude);
         this.markers.intersection.geo_deg.set(intersection_geo_deg.latitude, intersection_geo_deg.longitude);
+        this.update_op_geo_rad();
         this.request_map_update();
+    }
+
+    update_op_geo_rad()
+    {
+        
+
+        let distance = ((this.markers.intersection.field_cs.x - this.markers.observation.field_cs.x)**2 + (this.markers.intersection.field_cs.y - this.markers.observation.field_cs.y)**2)**0.5;
+        
+        let angle = Math.atan2(this.markers.observation.field_cs.x-this.markers.intersection.field_cs.x, this.markers.observation.field_cs.y-this.markers.intersection.field_cs.y);
+        console.log('test angle', MathExt.rad2deg(angle));
+        angle +=  + MathExt.deg2rad(this.state.entry_point.azimuth);
+        let op_geo_rad = GeoMath.coords_by_distance_azimuth(this.markers.intersection.geo_rad, distance, angle);
+        let op_geo_deg = MathExt.geopoint_rad2deg(op_geo_rad);
+
+        console.log(distance, MathExt.rad2deg(angle), op_geo_rad, op_geo_deg);
+        this.markers.observation.geo_rad.set(op_geo_rad.latitude, op_geo_rad.longitude);
+        this.markers.observation.geo_deg.set(op_geo_deg.latitude, op_geo_deg.longitude);
     }
 
 

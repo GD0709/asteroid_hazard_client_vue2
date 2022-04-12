@@ -19,6 +19,7 @@ export default class State
 
     observation_point: Point = new Point(50,50);
     observation_point_inputs: ObservationPointInput = new ObservationPointInput(this.observation_point, this.variant);
+    observation_geo_point: GeoVector = new GeoVector(54.445, 64.565, 103.3);
 
     effects: Effects = new Effects(this.variant, this.target, this.observation_point_inputs);
 }

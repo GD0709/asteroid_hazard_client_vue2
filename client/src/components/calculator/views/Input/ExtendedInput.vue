@@ -176,7 +176,7 @@
                                     :label="$t('calculator.inputs.observation point.distance angle.angle')"
                                     :help_title="$t('calculator.inputs.observation point.distance angle.angle help title')"
                                     :help_text="$t('calculator.inputs.observation point.distance angle.angle help')"
-                                    :dimension="$t('calculator.dimensions.km')"
+                                    :dimension="$t('calculator.dimensions.degree')"
                                     prefix="𝜓 ="
                                 />
                             </div>
@@ -185,7 +185,7 @@
                             
                             <v-row no-gutters class="align-center" style="margin-top: 12px;">
                                 <v-text-field
-                                    v-model="state.entry_point.latitude"
+                                    v-model="state.observation_geo_point.latitude"
                                     :rules="input_rules.entry_latitude"
                                     :label="$t('calculator.inputs.observation point.latitude longitude.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
@@ -194,7 +194,7 @@
                     
 
                                 <v-text-field
-                                    v-model="state.entry_point.longitude"
+                                    v-model="state.observation_geo_point.longitude"
                                     :rules="input_rules.entry_longitude"
                                     :label="$t('calculator.inputs.observation point.latitude longitude.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
@@ -203,6 +203,9 @@
                                 <help :help_title="$t('calculator.inputs.observation point.latitude longitude.help title')">
                                     <span v-html="$t('calculator.inputs.observation point.latitude longitude.help')"/>
                                 </help>
+                            </v-row>
+                            <v-row no-gutters class="align-center" >
+                                {{state.observation_geo_point.latitude}}, {{state.observation_geo_point.longitude}}
                             </v-row>
 
                         </v-tab-item>

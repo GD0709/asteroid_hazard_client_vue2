@@ -7,7 +7,7 @@ import Variant from "../Variant";
 export default class AtmosphericDisturbances
 {
     
-    debug: boolean = true;
+    debug: boolean = false;
     log(...data: any[])
     {
         if(this.debug == true)

@@ -4,7 +4,8 @@
         <div class="calculator_input input_text italic_prefix">
             <v-text-field
                 v-model.lazy="display_value" 
-                v-on:blur="lost_focus"              
+                @blur="is_focused = false"
+                @focus="is_focused = true"
                 required                
                 :rules="rules"
                 :prefix="prefix"
@@ -20,9 +21,9 @@
                 <div class="slider_wrapper">
                     <v-slider
                         v-model="slider_value"
-                        :min="log_slider ? Math.log(min)/Math.log(log_base) : min"
-                        :max="log_slider ? Math.log(max)/Math.log(log_base) : max"
-                        :step="log_slider ? 0.000001 : accuracy"
+                        :min="log_slider ? 0 : min"
+                        :max="log_slider ? 1 : max"
+                        :step="log_slider ? 0.01 : accuracy"
                         v-on:input="test_slider_input"
                         >                        
                     </v-slider>
@@ -91,6 +92,7 @@ export default class FieldInput extends Vue {
     {
         this.log('test_slider_input');
     }
+    is_focused: boolean = false;
 
     //visual
     @Prop({default: ""}) help_text!: string;
@@ -128,7 +130,7 @@ export default class FieldInput extends Vue {
     on_value_changed(val: number, old_val: number)
     {
         this.log("on_value_changed", val, this.display_value, this.hidden_local_value);
-        if(val != this.setted_value)
+        if(val != this.setted_value && !this.is_focused)
         {
             this.log("on_value_changed setting", val);
             let res = Math.round(val / this.accuracy)*this.accuracy;
@@ -184,15 +186,22 @@ export default class FieldInput extends Vue {
     @Prop({default: 0}) min!: number;
     @Prop({default: 100}) max!: number;
     @Prop({default: false}) log_slider!: boolean;
-    private log_base: number = 3;
+    private log_base: number = 0.02;
 
-    get slider_value() : number { return this.log_slider ? Math.log(this.hidden_local_value)/Math.log(this.log_base) : this.hidden_local_value; }
+    //get slider_value() : number { return this.log_slider ? Math.log(this.hidden_local_value)/Math.log(this.log_base) : this.hidden_local_value; }
+    get slider_value() : number { return this.log_slider ? 
+        (Math.log(this.log_base + (this.hidden_local_value-this.min)/(this.max-this.min)) - Math.log(this.log_base))/(Math.log(this.log_base+1)-Math.log(this.log_base))
+        : this.hidden_local_value; }
     set slider_value(val: number) { 
         //console.log(val + " " + Math.round(Math.pow(this.log_base, val)));
         if(!this.is_mounted) return;
         this.log("slider_value set", val);
         if(this.log_slider)
-            this.local_value = Math.round(Math.pow(this.log_base, val));
+        {
+            //this.local_value = Math.round(Math.pow(this.log_base, val));
+            let res = this.min + (this.max-this.min)*(Math.exp(val * (Math.log(this.log_base+1) - Math.log(this.log_base)) + Math.log(this.log_base)) - this.log_base);
+            this.local_value = Math.round(res * 10)/10;
+        } 
         else 
             this.local_value = Math.round(val * 10)/10;
     }

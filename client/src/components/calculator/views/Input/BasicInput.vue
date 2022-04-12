@@ -16,7 +16,7 @@
                 <v-container>
                     <v-row>
                         <field-input
-                        :log_slider="false"
+                        :log_slider="true"
                         v-model="state.observation_point_inputs.distance_angle.distance"
                         id="basic.op.distance"
                         :min="0"
@@ -43,7 +43,7 @@
                             :label="$t('calculator.inputs.observation point.distance angle.angle')"
                             :help_title="$t('calculator.inputs.observation point.distance angle.angle help title')"
                             :help_text="$t('calculator.inputs.observation point.distance angle.angle help')"
-                            :dimension="$t('calculator.dimensions.km')"
+                            :dimension="$t('calculator.dimensions.degree')"
                             prefix="𝜓 ="
                         />
                     </v-row>

@@ -8,6 +8,12 @@ enum ZeroPoints { entry_point_100km = 1, max_overpressure_point = 2,  surface_in
 
 class ObservationPointInput extends Point
 {
+    debug: boolean = false;
+    log(...data: any[])
+    {
+        if(this.debug == true)
+            console.log("AtmosphericDisturbances:", ...data);
+    }
     main_point: Point;
     variant: Variant;
     constructor(main_point: Point,variant: Variant)
@@ -35,7 +41,7 @@ class ObservationPointInput extends Point
         {
             //this.shift_x = 0;
             this.shift_y = 0;
-            console.log(`relative to set: ${this.relative_to} surface_intersection and shift: ${this.shift_y}`);
+            this.log(`relative to set: ${this.relative_to} surface_intersection and shift: ${this.shift_y}`);
         }
         else if(this.relative_to == ZeroPoints.max_overpressure_point)
         {
@@ -43,7 +49,7 @@ class ObservationPointInput extends Point
             shock.calc_heff_and_zero_point(this.variant);
             //this.shift_x = 0;
             this.shift_y = shock.zero_point;
-            console.log(`relative to set: ${this.relative_to} max_overpressure_point and shift: ${this.shift_y}`);
+            this.log(`relative to set: ${this.relative_to} max_overpressure_point and shift: ${this.shift_y}`);
         }
         else if(this.relative_to == ZeroPoints.max_thermal_effect_point)
         {
@@ -51,13 +57,13 @@ class ObservationPointInput extends Point
             rad.calc_hrad_and_zero_point(this.variant);
             //this.shift_x = 0;
             this.shift_y = rad.zero_point;
-            console.log(`relative to set: ${this.relative_to} max_thermal_effect_point and shift: ${this.shift_y}`);
+            this.log(`relative to set: ${this.relative_to} max_thermal_effect_point and shift: ${this.shift_y}`);
         } 
         else if(this.relative_to == ZeroPoints.entry_point_100km)
         {
             //this.shift_x = 0;
             this.shift_y = 100./ Math.tan(MathExt.deg2rad(this.variant.angle))
-            console.log(`relative to set: ${this.relative_to} entry_point_100km and shift: ${this.shift_y}`);
+            this.log(`relative to set: ${this.relative_to} entry_point_100km and shift: ${this.shift_y}`);
         }
         
         this.set_xy(this.main_point.x, this.main_point.y - this.shift_y);
@@ -93,8 +99,8 @@ class ObservationPointDistanceAngle {
     {
         if(!isNaN(val)) 
         {
-            let angle = Math.atan2(this.input.y, this.input.x);
-            this.input.set_xy(val * Math.cos(angle), val * Math.sin(angle));
+            let angle = Math.atan2(this.input.x, -this.input.y);
+            this.input.set_xy(val * Math.sin(angle), -val * Math.cos(angle));
         }
     }
     static fix_quartile(angle_rad: number): number
@@ -105,14 +111,14 @@ class ObservationPointDistanceAngle {
             angle_rad -= 2*Math.PI;
         return angle_rad;
     }
-    get angle(): number { return MathExt.rad2deg(ObservationPointDistanceAngle.fix_quartile(Math.atan2(this.input.y, this.input.x))); } 
+    get angle(): number { return MathExt.rad2deg(ObservationPointDistanceAngle.fix_quartile(Math.atan2(this.input.x, -this.input.y))); } 
     set angle(val : number) 
     { 
         if(!isNaN(val)) 
         { 
             let distance = this.distance;
             let a = MathExt.deg2rad(val);
-            this.input.set_xy(distance * Math.cos(a), distance * Math.sin(a));
+            this.input.set_xy(distance * Math.sin(a), -distance * Math.cos(a));
         } 
     }
 }
