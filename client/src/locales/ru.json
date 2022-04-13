@@ -46,6 +46,7 @@
       "kPa": "кПа",
       "Pa": "Па",
       "km2": "км<sup>2</sup>",
+      "km3": "км<sup>3</sup>",
       "J": "Дж",
       "J/cm2": "Дж/см<sup>2</sup>",
       "W/cm2": "Вт/см<sup>2</sup>",
@@ -187,6 +188,13 @@
           "Crater type": "Тип кратера",
           "simple": "простой",
           "complex": "сложный"
+        },
+        "melt":{
+          "Melt target material in the crater counting":"Расчет расплавленного материала в кратере",
+          "description":"Толщина брекчии (для простого кратера); толщина и объем расплава",
+          "Thickness of a breccia lens":"Толщина брекчии",
+          "Melt volume":"Объем расплава",
+          "Melt thickness":"Толщина расплава"
         }
       },
       "ejecta": {

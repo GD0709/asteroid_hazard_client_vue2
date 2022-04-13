@@ -1,13 +1,10 @@
-import MathExt from '@/components/lib/MathExt';
-import { IPoint, Point } from "../Geometry";
-import Target from '../Target';
-import Variant from "../Variant";
-import { ITargetEffectAssesment } from "./EffectsAssessment";
+import Variant from './../Variant';
+import Target from './../Target';
 
 enum CraterTypes {simple = 1, comples = 2};
-class Crater implements ITargetEffectAssesment
+class Crater
 {
-    calc_point(op: IPoint, overpressure_zero_point: number): void {
+    calc_point(op: {x: number, y: number}, overpressure_zero_point: number): void {
         let p = {x: op.x, y: op.y - overpressure_zero_point};
         let s = ((p.x*1000)**2 + (p.y*1000)**2)**0.5;
         this.ejecta.ejecta_thickness = Ejecta.ejecta_thickness(this, s);
@@ -22,9 +19,11 @@ class Crater implements ITargetEffectAssesment
         this.diameter_min = 70./ Math.sin(variant.angle_rad) * (3320 / target.target_density) ** (2./3.);
 
         this.c1 = Math.exp(
-            -2. * Crater.ro_atm *  Crater.h_atm / (Math.sin(variant.angle_rad)**2 * variant.density * variant.diameter));
+            -2 * Crater.ro_atm *  Crater.h_atm / (Math.sin(variant.angle_rad)**2 * variant.density * variant.diameter));
 
         this.u = this.c1 * (1000 * variant.velocity) * Math.sin(variant.angle_rad);
+        console.log('K1: ', <number>Crater.K1.get(target.target_density));
+
         let d_tr = variant.diameter * <number>Crater.K1.get(target.target_density) * (
             9.8 * variant.diameter / (2 * this.u ** 2) *
             (target.target_density / variant.density) ** (2 * Crater.NU / <number>Crater.MU.get(target.target_density))

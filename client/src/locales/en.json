@@ -46,6 +46,7 @@
       "kPa": "kPa",
       "Pa": "Pa",
       "km2": "km<sup>2</sup>",
+      "km3": "km<sup>3</sup>",
       "J": "J",
       "J/cm2": "J/cm<sup>2</sup>",
       "W/cm2": "W/cm<sup>2</sup>",
@@ -185,6 +186,13 @@
           "Crater type": "Crater type",
           "simple": "simple",
           "complex": "complex"
+        },
+        "melt":{
+          "Melt target material in the crater counting":"Melt target material in the crater counting",
+          "description":"Breccia lens thickness (for simple crater) and thickness and volume of the melt layer",
+          "Thickness of a breccia lens":"Thickness of a breccia lens",
+          "Melt volume":"Melt volume",
+          "Melt thickness":"Melt thickness"
         }
       },
       "ejecta": {

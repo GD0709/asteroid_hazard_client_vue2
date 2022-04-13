@@ -10,7 +10,13 @@
                 <div v-if="state.variant.diameter < crater.diameter_min">
                     {{$t('calculator.results.crater.no crater')}}
                 </div>
-                <div v-if="state.variant.diameter >= crater.diameter_min">
+                <div v-if="state.visual_settings.is_debug">
+                    --debug <br/>
+                    crater.diameter_min:{{crater.diameter_min}} <br/>
+                    test: {{state.variant.diameter}}  {{state.variant.diameter >= crater.diameter_min}}<br/>
+                    --debug
+                </div>
+                <div v-if="state.variant.diameter >= crater.diameter_min" class="flex_col">
                     <h3>{{$t('calculator.results.crater.transient.Transient crater parameters')}}</h3>
                     <div class="results_description" v-html="$t('calculator.results.crater.transient.description')"></div>
                     
@@ -30,7 +36,7 @@
                         <span class="results_effects_name">{{$t('calculator.results.crater.final.Crater type')}}:</span>
                         {{$t('calculator.results.crater.final.' + 
                     ['simple', 'complex']
-                        [crater.crater_type])}}
+                        [crater.crater_type -1])}}
                     </div>
 
                     <div class="result_effect">
@@ -41,7 +47,26 @@
                         <span class="results_effects_name">{{$t('calculator.results.crater.final.Depth of a final crater')}}:</span>
                         {{$dimension_prefix_format(crater.final_depth)}}<span v-html="$t('calculator.dimensions.m')"/>
                     </div>
-                </div>    
+                </div>
+
+                <div v-if="state.variant.diameter >= crater.diameter_min && crater.crater_type == 1">
+                    <h3>{{$t('calculator.results.crater.melt.Melt target material in the crater counting')}}</h3>
+                    <div class="results_description" v-html="$t('calculator.results.crater.melt.description')"></div>
+                    
+                    <div class="result_effect">
+                        <span class="results_effects_name">{{$t('calculator.results.crater.melt.Thickness of a breccia lens')}}:</span>
+                        {{$dimension_prefix_format(crater.thickness_of_a_breccia_lens)}}<span v-html="$t('calculator.dimensions.m')"/>
+                    </div>
+                    <div class="result_effect">
+                        <span class="results_effects_name">{{$t('calculator.results.crater.melt.Melt volume')}}:</span>
+                        {{$dimension_prefix_format(crater.melt_volume / 10**9)}}<span v-html="$t('calculator.dimensions.km3')"/>
+                    </div>
+                        <div class="result_effect">
+                        <span class="results_effects_name">{{$t('calculator.results.crater.melt.Melt thickness')}}:</span>
+                        {{$dimension_prefix_format(crater.melt_thickness)}}<span v-html="$t('calculator.dimensions.m')"/>
+                    </div>
+
+                </div>
             </template>
         </Expansion> 
 </template>
@@ -62,6 +87,8 @@ export default class CraterResults extends Vue {
 }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+    h3{
+        text-align: center;
+    }
 </style>

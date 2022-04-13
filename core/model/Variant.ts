@@ -1,7 +1,8 @@
-import { INotifyChanged, IEmitter, Emitter } from './../lib/Events';
-import ShockWaveEffects from './Effects/ShockWave';
+//import { INotifyChanged, IEmitter, Emitter } from './../lib/Events';
+//import ShockWaveEffects from './Effects/ShockWave';
 
-export default class Variant implements INotifyChanged<Variant> {
+export default class Variant// implements INotifyChanged<Variant>
+{
 
     constructor(density?: number, diameter?: number, angle?: number, velocity?: number){
         this._density = density??3320;
@@ -19,14 +20,14 @@ export default class Variant implements INotifyChanged<Variant> {
         res._velocity = this.velocity;
         return res;
     } 
-    private readonly on_changed = new Emitter<Variant>();
-    get changed(): IEmitter<Variant> {
-        return this.on_changed;
-    }
+    //private readonly on_changed = new Emitter<Variant>();
+    //get changed(): IEmitter<Variant> {
+    //    return this.on_changed;
+    //}
 
     public fire_changed(): void {
         this.update_derivatives();
-        this.on_changed.trigger(this);
+      //  this.on_changed.trigger(this);
     }
 
     _velocity: number = 19.16;
@@ -49,7 +50,7 @@ export default class Variant implements INotifyChanged<Variant> {
             this.angle_rad = this.angle * Math.PI/180;
         this.kenergy = this.kenergy_calc(this);
         this.kenergy_kttnt = this.kenergy_kttnt_calc(this.kenergy);
-        this.heff = ShockWaveEffects.heff_calc(this);
+       // this.heff = ShockWaveEffects.heff_calc(this);
     }
  
     angle_rad: number = 0;
