@@ -123,4 +123,4 @@ class ObservationPointDistanceAngle {
     }
 }
 
-export {ObservationPointInput, ObservationPointAlongAcross, ObservationPointDistanceAngle}
+export {ObservationPointInput, ObservationPointAlongAcross, ObservationPointDistanceAngle, ZeroPoints}

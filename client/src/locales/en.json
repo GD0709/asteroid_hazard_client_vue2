@@ -121,7 +121,10 @@
           "distance help": "The distance between the point of effect and the zero point (L)",
           "angle": "Angle to trajectory projection",
           "angle help title": "Angle to Trajectory Projection, 𝜓",
-          "angle help": "The angle between the direction from the observation point to the zero point and the projection of the trajectory on the surface of the Earth (𝜓)"
+          "angle help": "The angle between the direction from the observation point to the zero point and the projection of the trajectory on the surface of the Earth (𝜓)",
+          "distance by zeropoint":{
+            "entry point 100km": "Distance to the ground projection of the entry point at 100km altitude"
+          }
         },
         "latitude longitude":{
           "label": "latitude-longitude",

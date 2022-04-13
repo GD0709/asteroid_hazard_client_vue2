@@ -22,7 +22,7 @@
                         :min="0"
                         :max="4242"
                         :rules="input_rules.input_distance"
-                        :label="$t('calculator.inputs.observation point.distance angle.distance')"
+                        :label="$t('calculator.inputs.observation point.distance angle.distance by zeropoint.entry point 100km')"
                         :help_title="$t('calculator.inputs.observation point.distance angle.distance help title')"
                         :help_text="$t('calculator.inputs.observation point.distance angle.distance help')"
                         :dimension="$t('calculator.dimensions.km')"
