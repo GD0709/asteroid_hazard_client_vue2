@@ -1,6 +1,6 @@
 import { Emitter, IEmitter } from "../lib/Events";
 
-export default class Target
+class Target
 {
    
     private readonly on_changed = new Emitter<Target>();
@@ -15,3 +15,5 @@ export default class Target
     _target_density: number = 2650;
     get target_density() : number { return this._target_density; } set target_density(value: number) { this._target_density = value; this.fire_changed(); }
 }
+
+export { Target }

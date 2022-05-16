@@ -14,7 +14,7 @@
 
       <v-spacer></v-spacer>
 
-<v-btn
+      <v-btn class="d-none d-sm-flex"
         href="http://isturunt.pythonanywhere.com/"
         target="_blank"
         text
@@ -45,6 +45,9 @@
               <router-link class="white--text" to="/">{{ $t("footer.about") }}</router-link>
               <router-link class="white--text" to="/c">{{ $t("footer.calculator") }}</router-link>
               <router-link class="white--text" to="/articles">{{ $t("footer.articles") }}</router-link>
+              <a href="http://isturunt.pythonanywhere.com/"
+                target="_blank"
+                class="white--text">{{ $t("old version") }}</a>
             </div>
 
             <div class="flex_col_top_left footer_column">

@@ -1,6 +1,8 @@
-import Variant from '../core/model/Variant';
-import Target from '../core/model/Target';
-import {Crater} from '../core/model/Effects/Crater';;
+
+//import Variant from '../core/model/Variant';
+//import Target from '../core/model/Target';
+//import {Crater} from '../core/model/Effects/Crater';;
+import {Crater, Variant, Target} from "../core"
 
 let variant = new Variant(1000,100,45,50);
 let target = new Target();

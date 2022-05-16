@@ -3,6 +3,8 @@ module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
   ],
+  //outputDir:"../dist/",
+  outputDir:"../server light/public/",
 
   pluginOptions: {
     i18n: {

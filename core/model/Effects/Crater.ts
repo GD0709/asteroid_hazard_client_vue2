@@ -1,5 +1,5 @@
-import Variant from './../Variant';
-import Target from './../Target';
+import { Variant } from './../Variant';
+import { Target } from './../Target';
 
 enum CraterTypes {simple = 1, comples = 2};
 class Crater

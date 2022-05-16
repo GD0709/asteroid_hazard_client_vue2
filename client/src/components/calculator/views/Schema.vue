@@ -207,9 +207,9 @@
 
 
 <script lang="ts">
-import MathExt from '@/components/lib/MathExt';
-import { Point } from '@/components/model/Geometry';
-import State from '@/components/model/State';
+import MathExt from '../../lib/MathExt';
+import { Point } from '../../model/Geometry';
+import State from '../../model/State';
 import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
 class Icon
 {

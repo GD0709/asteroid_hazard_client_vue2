@@ -185,7 +185,7 @@
                             
                             <v-row no-gutters class="align-center" style="margin-top: 12px;">
                                 <v-text-field
-                                    v-model="state.observation_geo_point.latitude"
+                                    v-model="observation_latitude"
                                     :rules="input_rules.entry_latitude"
                                     :label="$t('calculator.inputs.observation point.latitude longitude.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
@@ -194,7 +194,7 @@
                     
 
                                 <v-text-field
-                                    v-model="state.observation_geo_point.longitude"
+                                    v-model="observation_longitude"
                                     :rules="input_rules.entry_longitude"
                                     :label="$t('calculator.inputs.observation point.latitude longitude.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
@@ -204,7 +204,7 @@
                                     <span v-html="$t('calculator.inputs.observation point.latitude longitude.help')"/>
                                 </help>
                             </v-row>
-                            <v-row no-gutters class="align-center" >
+                            <v-row no-gutters class="align-center" v-if="state.visual_settings.is_debug">
                                 {{state.observation_geo_point.latitude}}, {{state.observation_geo_point.longitude}}
                             </v-row>
 
@@ -276,6 +276,11 @@ export default class ExtendedInput extends Vue {
     state: State = State.state;
     input_rules = InpuRules;
     tab = null;
+
+    get observation_latitude(): number {return Math.round(this.state.observation_geo_point.latitude * 1000)/1000; }
+    set observation_latitude(val: number) {this.state.observation_geo_point.latitude = val;}
+    get observation_longitude(): number {return Math.round(this.state.observation_geo_point.latitude * 1000)/1000; }
+    set observation_longitude(val: number) {this.state.observation_geo_point.latitude = val;}
 }
 </script>
 

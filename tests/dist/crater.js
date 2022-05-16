@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+//import Variant from '../core/model/Variant';
+//import Target from '../core/model/Target';
+//import {Crater} from '../core/model/Effects/Crater';;
+const core_1 = require("../core");
+let variant = new core_1.Variant(1000, 100, 45, 50);
+let target = new core_1.Target();
+target.target_density = 2650;
+let crater = new core_1.Crater();
+crater.calc_variant_target(variant, target);
+console.log(crater);

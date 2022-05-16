@@ -1,5 +1,5 @@
 <template>
-<v-container>
+
     <div class="flex_col">
         <h2>{{$t('calculator.results.title')}}</h2>
         <v-expansion-panels popout focusable multiple>
@@ -11,12 +11,12 @@
             <AtmosphericDisturbances/>
         </v-expansion-panels>
     </div>
-</v-container>
+
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Model, ModelSync } from 'vue-property-decorator';
-import State from '@/components/model/State';
+import State from '../../../model/State';
 import SchockWaveResults from './SchockWave.vue';
 import Irradiation from './Irradiation.vue';
 import Crater from './Crater.vue';

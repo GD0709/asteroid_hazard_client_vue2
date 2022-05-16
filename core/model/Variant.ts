@@ -1,7 +1,7 @@
 //import { INotifyChanged, IEmitter, Emitter } from './../lib/Events';
 //import ShockWaveEffects from './Effects/ShockWave';
 
-export default class Variant// implements INotifyChanged<Variant>
+class Variant// implements INotifyChanged<Variant>
 {
 
     constructor(density?: number, diameter?: number, angle?: number, velocity?: number){
@@ -82,3 +82,5 @@ export default class Variant// implements INotifyChanged<Variant>
         return `${this.density}-${this.diameter}-${this.angle}-${this.velocity}`
     }
 }
+
+export { Variant }

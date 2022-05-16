@@ -40,10 +40,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import FieldInput from '@/components/calculator/input/FieldInput.vue';
-import State from '@/components/model/State';
-import InpuRules from '@/components/calculator/input/InputRules';
-import Help from '@/components/calculator/input/help.vue';
+import FieldInput from '../../input/FieldInput.vue';
+import State from '../../../model/State';
+import InpuRules from '../../input/InputRules';
+import Help from '../../input/help.vue';
 
 @Component({
     components: {
