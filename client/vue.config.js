@@ -4,7 +4,7 @@ module.exports = defineConfig({
     'vuetify'
   ],
   //outputDir:"../dist/",
-  outputDir:"../server light/public/",
+  outputDir:"../server express/public/",
 
   pluginOptions: {
     i18n: {

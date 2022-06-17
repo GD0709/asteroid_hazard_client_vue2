@@ -27,7 +27,7 @@
                 {{$round(seismic.PGA)}} <span v-html="$t('calculator.dimensions.cm/s2')"/>
             </div>
             <div class="result_effect">
-                <span class="results_effects_name">{{$t('calculator.results.seismic.The peak ground acceleration')}}:</span>
+                <span class="results_effects_name">{{$t('calculator.results.seismic.Time of arrival to the observation point')}}:</span>
                 {{$math_ext.seconds_to_string(seismic.arrival_time)}}
             </div>    
         </template>
