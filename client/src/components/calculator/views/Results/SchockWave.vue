@@ -15,7 +15,10 @@
                 <div class="result_effect" v-if="shock_wave.heff > 0"><div class="results_effects_name" >{{$t('calculator.results.shockwave.Areas')}}: </div>
                 
                     <div v-for="([key, value], i) in shock_wave.areas_at" :key="i" class="results_tab">
-                        {{$t('calculator.results.common.at')}} {{key}} {{$t('calculator.dimensions.atm')}}: {{$round(value.min)}} <span v-if="value.min != value.max"> - {{$round(value.max)}}</span> <span v-html="$t('calculator.dimensions.km2')"/>
+                        {{$t('calculator.results.common.at')}} {{key}} {{$t('calculator.dimensions.atm')}}: 
+                        <span v-if="key > shock_wave.max_value_of_overpressure"> - </span>
+                        <span v-if="key <= shock_wave.max_value_of_overpressure">{{$round(value.min)}} <span v-if="value.min != value.max"> - {{$round(value.max)}}</span> <span v-html="$t('calculator.dimensions.km2')"/></span>
+                        
                     </div>
                 
                 </div>
