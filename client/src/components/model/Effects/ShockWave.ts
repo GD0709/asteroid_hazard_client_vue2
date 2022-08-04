@@ -37,7 +37,7 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
 
     max_value_of_overpressure: number = 0;
 
-    areas_at: Map<number, number> = new Map<number, number>();
+    areas_at: Map<number, {min: number, max:number}> = new Map<number, {min: number, max:number}>();
     
     centered_overpressure_f: (op: IPoint) => number = op => 0;
     overpressure_f:(op: IPoint) => number = op => 0;
@@ -91,15 +91,48 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
         else return NaN;
     }
 
-    areas_at_calc(variant: Variant): Map<number, number> {
-        let res = new Map<number, number>();
+    areas_at_calc(variant: Variant): Map<number, {min: number, max: number}> {
+        let res = new Map<number, {min: number, max: number}>();
         if(this.heff <= 0) return res;
 
-        res.set(0.2, 0.003 * this.heff**0.14 * variant.kenergy_kttnt**0.64 / Math.sin(variant.angle_rad)**0.19);
-        res.set(0.5, 0.00009 * this.heff**0.125 * variant.kenergy_kttnt**0.87 / Math.sin(variant.angle_rad)**0.51);
-        res.set(1, 0.00007 * this.heff**0.15 * variant.kenergy_kttnt**0.83 * Math.sin(variant.angle_rad)**0.1);
-        res.set(2, 0.00055 * this.heff**0.064 * variant.kenergy_kttnt**0.56 / Math.sin(variant.angle_rad)**0.08);
+        let v002 = 0.003 * this.heff**0.14 * variant.kenergy_kttnt**0.64 / Math.sin(variant.angle_rad)**0.19
+        let v005 = 0.00009 * this.heff**0.125 * variant.kenergy_kttnt**0.87 / Math.sin(variant.angle_rad)**0.51
+        let v01 = 0.00007 * this.heff**0.15 * variant.kenergy_kttnt**0.83 * Math.sin(variant.angle_rad)**0.1
+        let v02 = 0.00055 * this.heff**0.064 * variant.kenergy_kttnt**0.56 / Math.sin(variant.angle_rad)**0.08
 
+        let arr = [
+            {level: 0.02, value: v002, fix_prev: null, fix_next: null},
+            {level: 0.05, value: v005, fix_prev: null, fix_next: null},
+            {level: 0.1, value: v01, fix_prev: null, fix_next: null},
+            {level: 0.2, value: v02, fix_prev: null, fix_next: null}];
+        // arr.sort((o, t) => o.value- t.value)
+        
+        let previous:any = null;
+        let min = (p:any) => Math.min(...[p.value, p.fix_prev, p.fix_next].filter(f => f != null));
+        let max = (p:any) => Math.max(...[p.value, p.fix_prev, p.fix_next].filter(f => f != null));
+
+       arr.map(p => {
+            if(previous == null)
+            {
+                previous = p;
+                return false;
+            }
+            else
+            {
+                console.log(p, "min:", min(p), "max:", max(p), " with ", previous, "min:", min(previous), "max:", max(previous))
+                if(min(previous) < min(p))
+                {
+                    previous.fix_next = p.value;
+                    p.fix_prev = previous.value;
+                }
+                previous = p;
+            }   
+        
+        })
+        
+
+        arr.forEach(p => res.set(p.level, {min: min(p), max: max(p)}));
+        
         return res;
     }
 

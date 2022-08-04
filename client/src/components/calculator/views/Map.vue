@@ -1,6 +1,7 @@
 <template>
-	<v-col>
-        <svg viewBox="-100 -100 200 200"  preserveAspectRatio="xMidYMid meet"  overflow="visible" class="map" ref="svg">
+	<v-col style="position: relative; padding-top: 100%;">
+        
+        <svg viewBox="-100 -100 200 200"  preserveAspectRatio="xMidYMid meet"  overflow="hidden" class="map" ref="svg" style="background-color: red; position: absolute;top: 0;">
             <symbol v-for="(marker, name) in markers" 
                 :key=name 
                 :id="'icon_' + name"
@@ -70,6 +71,9 @@
 
 
 
+            
+        </svg>
+        <svg viewBox="-100 -100 200 200"  preserveAspectRatio="xMidYMid meet"  overflow="visible" class="map" style="background: none; position: absolute;top: 0; pointer-events:none;" >
             <foreignObject  v-for="(marker, name)  in markers" :key="'tooltip for ' + name"
                 :x="marker.map_cs.x" :y="- marker.map_cs.y" width="0" height="0" overflow="visible" >
                 <div xmlns="http://www.w3.org/1999/xhtml" class="tooltip_wrapper top" :class="marker.icon.tooltip ? 'active' : ''" 
