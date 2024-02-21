@@ -14,14 +14,14 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn class="d-none d-sm-flex"
+      <!-- <v-btn class="d-none d-sm-flex"
         href="http://isturunt.pythonanywhere.com/"
         target="_blank"
         text
       >
         <span class="mr-2">{{ $t("old version") }}</span>
         <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
 
     <v-main>
@@ -67,6 +67,7 @@
 
         <v-card-text class="white--text">
           <DebugSwitcher>{{ new Date().getFullYear() }} — {{$t("footer.footer_text")}}</DebugSwitcher>
+          <div><a class="footer_link" href="https://idg.ras.ru/">{{$t("footer.organization")}}</a></div>
         </v-card-text>
       </v-card>
     </v-footer>
@@ -121,6 +122,7 @@ export default class App extends Vue {
     margin-bottom: 16px;
   }
   footer a {
+    color:white;
     text-decoration: unset;
     &:hover{
       text-decoration: underline;
