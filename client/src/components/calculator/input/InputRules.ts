@@ -39,5 +39,11 @@ input_angle: [
     (v:any) => !isNaN(v) || `${v} is not a number`,
     (v:any) => v>=0 || `Entry angle must be more than 0°`,
     (v:any) => v<=360 || `Entry angle must be less than 360°`
+],
+coordinate: [
+    (v:any) => v != '' || `Coordinate is required`,
+    (v:any) => !isNaN(v) || `${v} is not a number`,
+    (v:any) => v>=-180 || `Coordinate must be more than -180°`,
+    (v:any) => v<=180 || `Entry angle must be less than 180°`
 ]
 };

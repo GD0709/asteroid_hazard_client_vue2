@@ -22,6 +22,13 @@
         <span class="mr-2">{{ $t("old version") }}</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn> -->
+      <v-btn class="d-none d-sm-flex"
+        text
+        v-on:click="test"
+      >
+        <span class="mr-2">test</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -80,6 +87,8 @@ import { Component } from 'vue-property-decorator';
 import DebugSwitcher from './components/DebugSwitcher.vue'
 import State from './components/model/State';
 import {VisualSettings} from './components/model/VisualSettings';
+import LatLon from 'geodesy/latlon-ellipsoidal-vincenty.js';
+
 
 @Component({
     components: {
@@ -94,6 +103,17 @@ export default class App extends Vue {
     }
     get locale(): string {return this.$i18n.locale; }
     set locale(val: string) {this.$i18n.locale = val;}
+
+
+    test() {
+      const p1 = new LatLon(-37.95103, 144.42487);
+const dist = 54972.271;
+const brng = 306.86816;
+const p2 = p1.destinationPoint(dist, brng);
+let dist2 = p1.distanceTo(p2);
+
+      console.log("hello 2", p2, " and distance is ", dist2);
+    }
 }
 
 </script>

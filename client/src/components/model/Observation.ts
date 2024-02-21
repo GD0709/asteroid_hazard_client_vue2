@@ -111,7 +111,10 @@ class ObservationPointDistanceAngle {
             angle_rad -= 2*Math.PI;
         return angle_rad;
     }
-    get angle(): number { return MathExt.rad2deg(ObservationPointDistanceAngle.fix_quartile(Math.atan2(this.input.x, -this.input.y))); } 
+    static calc_angle(point: Point): number {
+        return MathExt.rad2deg(ObservationPointDistanceAngle.fix_quartile(Math.atan2(point.x, -point.y)));
+    }
+    get angle(): number { return ObservationPointDistanceAngle.calc_angle(this.input); } 
     set angle(val : number) 
     { 
         if(!isNaN(val)) 

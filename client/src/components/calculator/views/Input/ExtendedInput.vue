@@ -74,7 +74,7 @@
                 <v-row no-gutters class="align-center">
                     <v-text-field
                         v-model="state.entry_point.latitude"
-                        :rules="input_rules.entry_latitude"
+                        :rules="input_rules.coordinate"
                         :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                         required
                     >
@@ -83,7 +83,7 @@
 
                     <v-text-field
                         v-model="state.entry_point.longitude"
-                        :rules="input_rules.entry_longitude"
+                        :rules="input_rules.coordinate"
                         :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                         required
                     >
@@ -186,7 +186,7 @@
                             <v-row no-gutters class="align-center" style="margin-top: 12px;">
                                 <v-text-field
                                     v-model="observation_latitude"
-                                    :rules="input_rules.entry_latitude"
+                                    :rules="input_rules.coordinate"
                                     :label="$t('calculator.inputs.observation point.latitude longitude.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
                                 >
@@ -195,7 +195,7 @@
 
                                 <v-text-field
                                     v-model="observation_longitude"
-                                    :rules="input_rules.entry_longitude"
+                                    :rules="input_rules.coordinate"
                                     :label="$t('calculator.inputs.observation point.latitude longitude.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
                                     required
                                 >
@@ -277,10 +277,10 @@ export default class ExtendedInput extends Vue {
     input_rules = InpuRules;
     tab = null;
 
-    get observation_latitude(): number {return Math.round(this.state.observation_geo_point.latitude * 1000)/1000; }
+    get observation_latitude(): number {return Math.round(this.state.observation_geo_point.latitude * 10000)/10000; }
     set observation_latitude(val: number) {this.state.observation_geo_point.latitude = val;}
-    get observation_longitude(): number {return Math.round(this.state.observation_geo_point.latitude * 1000)/1000; }
-    set observation_longitude(val: number) {this.state.observation_geo_point.latitude = val;}
+    get observation_longitude(): number {return Math.round(this.state.observation_geo_point.longitude * 10000)/10000; }
+    set observation_longitude(val: number) {this.state.observation_geo_point.longitude = val;}
 }
 </script>
 

@@ -1,4 +1,6 @@
 import { Emitter, IEmitter, INotifyChanged } from "../lib/Events";
+import LatLon from 'geodesy/latlon-ellipsoidal-vincenty.js';
+
 
 interface IPoint {
     x: number;
@@ -101,6 +103,14 @@ class GeoPoint implements INotifyChanged<GeoPoint> {
             this.fire_changed();
         }
     }
+    set_wo_notify(latitude:number, longitude: number): void 
+    {
+        if(this._latitude != latitude || this._longitude != longitude)
+        {
+            this._latitude = latitude;
+            this._longitude = longitude;
+        }
+    }
     set_point(p: {latitude:number, longitude: number}): void
     {
         this.set(p.latitude, p.longitude);
@@ -140,6 +150,18 @@ class GeoVector extends GeoPoint {
 
 class GeoMath{
 
+    public static calc_distance(
+        view_point: {latitude: number, longitude: number}, //view point coordinates (radians)
+        target_point: {latitude: number, longitude: number} //target point coordinates (radians)
+    ): number {
+        
+        const p1 = new LatLon(view_point.latitude, view_point.longitude);
+        const p2 = new LatLon(target_point.latitude, target_point.longitude);
+        let dist2 = p1.distanceTo(p2);
+        return dist2/1000;
+    }
+
+
     public static Earth_radius: number = 6371; // km.
 
     public static azimuth_calc(
@@ -155,31 +177,35 @@ class GeoMath{
         return (alpha + 2 * Math.PI) % (2 * Math.PI);
     }
 
-    /*
-    * Calculates coordinates of the target point (TP) given
-    * the coordinates of the view point (VP),
-    * distance between the target and the view point,
-    * and azimuth to the VP-TP line (i.e., the angle from the north direction to the VP-TP line).
-    * */
+    /** in dec */
     public static coords_by_distance_azimuth(
-        view_point: {latitude: number, longitude: number}, //view point coordinates (radians)
+        view_point: {latitude: number, longitude: number}, //view point coordinates (dec)
         distance: number, // distance to the target point (meters)
-        azimuth: number // azimuth from the view point to the target point (radians)
+        bearing: number // azimuth from the view point to the target point (dec)
     ): {latitude: number, longitude: number}
     {
-        let lat = Math.asin(
-            Math.sin(view_point.latitude) * Math.cos(distance / GeoMath.Earth_radius) + 
-            Math.cos(view_point.latitude) * Math.sin(distance / GeoMath.Earth_radius) * Math.cos(azimuth)
-        );
-        let long = view_point.longitude + Math.atan2(
-            Math.sin(azimuth)*Math.sin(distance/GeoMath.Earth_radius)*Math.cos(view_point.latitude),
-            Math.cos(distance/GeoMath.Earth_radius)-Math.sin(view_point.latitude)*Math.sin(lat)
-        )
-        return {
-            latitude: lat,
-            longitude: long
-        };
+        let p1 = new LatLon(view_point.latitude, view_point.longitude);
+        let p2 = p1.destinationPoint(distance, bearing);
+        return {latitude: p2.latitude, longitude: p2.longitude};
     }
+
+    public static final_bearing_to(
+        view_point: {latitude: number, longitude: number}, //view point coordinates (dec)
+        target_point: {latitude: number, longitude: number} 
+    ): number {
+        let p1 = new LatLon(view_point.latitude, view_point.longitude);
+        let p2 = new LatLon(target_point.latitude, target_point.longitude);
+        return p1.finalBearingTo(p2);
+    }
+    public static initial_bearing_to(
+        view_point: {latitude: number, longitude: number}, //view point coordinates (dec)
+        target_point: {latitude: number, longitude: number} 
+    ): number {
+        let p1 = new LatLon(view_point.latitude, view_point.longitude);
+        let p2 = new LatLon(target_point.latitude, target_point.longitude);
+        return p1.initialBearingTo(p2);
+    }
+    
 }
 
 
