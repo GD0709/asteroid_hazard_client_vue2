@@ -14,6 +14,7 @@ app.get("/about", function(request, response){
   response.send("<h1>О сайте</h1>");
 });
 
+
 app.get("/api/test", function(request, response){
      
   response.json({ a: 1 });
