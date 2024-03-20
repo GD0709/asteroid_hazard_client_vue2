@@ -105,6 +105,7 @@ class GeoPoint implements INotifyChanged<GeoPoint> {
     }
     set_wo_notify(latitude:number, longitude: number): void 
     {
+        console.log("set_wo_notify", this)
         if(this._latitude != latitude || this._longitude != longitude)
         {
             this._latitude = latitude;
@@ -121,6 +122,7 @@ class GeoPoint implements INotifyChanged<GeoPoint> {
     }
 
     public fire_changed(): void {
+        console.log("fire", this)
         this.on_changed.trigger(this);
     }
 

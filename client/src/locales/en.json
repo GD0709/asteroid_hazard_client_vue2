@@ -173,7 +173,7 @@
         "Distance to the center":"Distance to the center of a radiation field from the point of intersection of the trajectory with the Earth`s surface",
 
         "Thermal exposure in the point of observation":"Thermal exposure in the point of observation",
-        "Thermal flux in the point of observation":"Thermal flux in the point of observation"
+        "Maximal thermal flux in the point of observation":"Maximal thermal flux in the point of observation"
 
       },
       "crater": {
@@ -208,8 +208,8 @@
         "no ejecta": "No ejecta",
         "Ejecta forming event": "Ejecta forming event",
         "description":"Target and projectile material excavated from the crater is called ejecta. Ejected particles land around the crater forming ejecta deposit or ejecta blanket. A thickness of ejecta blanket is the greatest at the crater rim and decreases with distance from the crater. At high distances ejecta become patchy. We give an average thickness of the ejecta blanket and a thickness melted part of the ejecta blanket.",
-        "Thickness of ejecta blanket": "Thickness of ejecta blanket",
-        "Fraction of melt in ejecta": "Fraction of melt in ejecta"
+        "Thickness of ejecta blanket": "Thickness of ejecta blanket in the observational point",
+        "Fraction of melt in ejecta": "Fraction of melt in ejecta in the observational point"
       },
       "seismic": {
         "Seismic effect": "Seismic effect",

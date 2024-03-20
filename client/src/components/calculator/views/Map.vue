@@ -115,15 +115,15 @@ export default class Map extends Vue {
             field_cs : new Point(0,0),
             map_cs: new Point(0,0),
             geo_deg: this.state.entry_point,
-            geo_rad: new GeoPoint()
+            //geo_rad: new GeoPoint()
         },
         
         intersection: { 
             icon: {code:"&#8736;", tooltip: false, tooltip_text_key: 'Surface intersection point'},
             field_cs : new Point(0,0),
             map_cs: new Point(0,0),
-            geo_rad:  new GeoPoint(),
-            geo_deg: new GeoPoint(),
+            //geo_rad:  new GeoPoint(),
+            geo_deg: this.state.intersection_geo_point,
         },
         overpressure: { 
             icon: {code:"&#xe904;", tooltip: false, tooltip_text_key: 'Effective thermal point source'},
@@ -139,7 +139,7 @@ export default class Map extends Vue {
             icon: {code:"?", tooltip: false, tooltip_text_key: 'Observation point'},
             field_cs : this.state.observation_point,
             map_cs: new Point(0,0),
-            geo_rad:  new GeoPoint(),
+            //geo_rad:  new GeoPoint(),
             geo_deg: this.state.observation_geo_point,
         }
     }
@@ -176,18 +176,18 @@ export default class Map extends Vue {
     created(){
         this.start_map_updating();
         this.log('created');
-        this.update_intersection_geo_rad();
+        //this.update_intersection_geo_rad();
 
-        let entry_geo_deg_update_handler = () => this.markers.entry.geo_rad.set_point(MathExt.geopoint_deg2rad(this.markers.entry.geo_deg));
-        this.markers.entry.geo_deg.changed.on(entry_geo_deg_update_handler);
-        entry_geo_deg_update_handler();
-        this.markers.entry.geo_rad.changed.on(s => this.update_intersection_geo_rad());
+        //let entry_geo_deg_update_handler = () => this.markers.entry.geo_rad.set_point(MathExt.geopoint_deg2rad(this.markers.entry.geo_deg));
+        //this.markers.entry.geo_deg.changed.on(entry_geo_deg_update_handler);
+        //entry_geo_deg_update_handler();
+        //this.markers.entry.geo_rad.changed.on(s => this.update_intersection_geo_rad());
 
         this.map_controller.update_url();
 
 
-        this.update_op_geo_rad();
-        this.markers.observation.map_cs.changed.on(s => this.update_op_geo_rad());
+        //this.update_op_geo_rad();
+        //this.markers.observation.map_cs.changed.on(s => this.update_op_geo_rad());
 
 
 
@@ -228,15 +228,15 @@ export default class Map extends Vue {
             this.markers.observation.map_cs.set_point(this.coord_sys.intersection_cs_transform.convert_to(this.markers.observation.field_cs));
         });
 
-        this.markers.observation.map_cs.changed.on(async s => 
-        {
-            this.request_map_update();
-        });
+        // this.markers.observation.map_cs.changed.on(async s => 
+        // {
+        //     this.request_map_update();
+        // });
         let entry_point_update_handler = () => {
             this.coord_sys.intersection_cs_transform.angle = this.state.entry_point.azimuth;
             this.coord_sys.only_rotate_transform.angle = this.state.entry_point.azimuth;
 
-            this.update_intersection_geo_rad();
+            //this.update_intersection_geo_rad();
         };
         this.state.entry_point.changed.on(entry_point_update_handler);
 
@@ -246,45 +246,45 @@ export default class Map extends Vue {
             this.markers.overpressure.field_cs.set_xy(0, this.state.effects.shock_wave.zero_point);
             this.markers.thermal.field_cs.set_xy(0, this.state.effects.irradiation.zero_point);
 
-            this.update_intersection_geo_rad();
+            //this.update_intersection_geo_rad();
         };
         this.state.variant.changed.on(variant_update_handler);
         variant_update_handler();
         entry_point_update_handler();
     }
 
-    update_intersection_geo_rad()
-    {
-        let entry_rad = this.markers.entry.geo_rad;
-        let distance = 100./Math.tan(this.state.variant.angle_rad);
-        let azimuth = MathExt.deg2rad(this.state.entry_point.azimuth+180);
-        //console.log("entry_rad: ", entry_rad, " distance: ", distance, " azimuth: ", Geometry.to_deg(azimuth));
+    // update_intersection_geo_rad()
+    // {
+    //     let entry_rad = this.markers.entry.geo_rad;
+    //     let distance = 100./Math.tan(this.state.variant.angle_rad);
+    //     let azimuth = MathExt.deg2rad(this.state.entry_point.azimuth+180);
+    //     //console.log("entry_rad: ", entry_rad, " distance: ", distance, " azimuth: ", Geometry.to_deg(azimuth));
 
-        let intersection_geo_rad = GeoMath.coords_by_distance_azimuth(entry_rad, distance, azimuth);
-        let intersection_geo_deg = MathExt.geopoint_rad2deg(intersection_geo_rad);
-        //console.log("intersection_geo_rad: ", intersection_geo_rad, " intersection_geo_deg: ", intersection_geo_deg);
-        this.markers.intersection.geo_rad.set(intersection_geo_rad.latitude, intersection_geo_rad.longitude);
-        this.markers.intersection.geo_deg.set(intersection_geo_deg.latitude, intersection_geo_deg.longitude);
-        this.update_op_geo_rad();
-        this.request_map_update();
-    }
+    //     let intersection_geo_rad = GeoMath.coords_by_distance_azimuth(entry_rad, distance, azimuth);
+    //     let intersection_geo_deg = MathExt.geopoint_rad2deg(intersection_geo_rad);
+    //     //console.log("intersection_geo_rad: ", intersection_geo_rad, " intersection_geo_deg: ", intersection_geo_deg);
+    //     this.markers.intersection.geo_rad.set(intersection_geo_rad.latitude, intersection_geo_rad.longitude);
+    //     this.markers.intersection.geo_deg.set(intersection_geo_deg.latitude, intersection_geo_deg.longitude);
+    //     this.update_op_geo_rad();
+    //     this.request_map_update();
+    // }
 
-    update_op_geo_rad()
-    {
+    // update_op_geo_rad()
+    // {
         
 
-        let distance = ((this.markers.intersection.field_cs.x - this.markers.observation.field_cs.x)**2 + (this.markers.intersection.field_cs.y - this.markers.observation.field_cs.y)**2)**0.5;
+    //     let distance = ((this.markers.intersection.field_cs.x - this.markers.observation.field_cs.x)**2 + (this.markers.intersection.field_cs.y - this.markers.observation.field_cs.y)**2)**0.5;
         
-        let angle = Math.atan2(this.markers.observation.field_cs.x-this.markers.intersection.field_cs.x, this.markers.observation.field_cs.y-this.markers.intersection.field_cs.y);
-        console.log('test angle', MathExt.rad2deg(angle));
-        angle +=  + MathExt.deg2rad(this.state.entry_point.azimuth);
-        let op_geo_rad = GeoMath.coords_by_distance_azimuth(this.markers.intersection.geo_rad, distance, angle);
-        let op_geo_deg = MathExt.geopoint_rad2deg(op_geo_rad);
+    //     let angle = Math.atan2(this.markers.observation.field_cs.x-this.markers.intersection.field_cs.x, this.markers.observation.field_cs.y-this.markers.intersection.field_cs.y);
+    //     console.log('test angle', MathExt.rad2deg(angle));
+    //     angle +=  + MathExt.deg2rad(this.state.entry_point.azimuth);
+    //     let op_geo_rad = GeoMath.coords_by_distance_azimuth(this.markers.intersection.geo_rad, distance, angle);
+    //     let op_geo_deg = MathExt.geopoint_rad2deg(op_geo_rad);
 
-        console.log(distance, MathExt.rad2deg(angle), op_geo_rad, op_geo_deg);
-        this.markers.observation.geo_rad.set(op_geo_rad.latitude, op_geo_rad.longitude);
-        this.markers.observation.geo_deg.set(op_geo_deg.latitude, op_geo_deg.longitude);
-    }
+    //     console.log(distance, MathExt.rad2deg(angle), op_geo_rad, op_geo_deg);
+    //     this.markers.observation.geo_rad.set(op_geo_rad.latitude, op_geo_rad.longitude);
+    //     this.markers.observation.geo_deg.set(op_geo_deg.latitude, op_geo_deg.longitude);
+    // }
 
 
     /* map updating */
@@ -320,14 +320,18 @@ export default class Map extends Vue {
         let angle = Math.atan2(new_zoom.x_shift, new_zoom.y_shift);
         
 
-        let center = {latitude: this.markers.intersection.geo_rad.latitude, longitude: this.markers.intersection.geo_rad.longitude };
+        //let center = {latitude: this.markers.intersection.geo_rad.latitude, longitude: this.markers.intersection.geo_rad.longitude };
         //console.log("dist: ", dist, ", angle: ", angle * 180 / Math.PI, " for center: ", Geometry.geopoint_to_deg(center));
 
 
-        let new_center = MathExt.geopoint_rad2deg(GeoMath.coords_by_distance_azimuth(center, dist, angle));
+        //let new_center = MathExt.geopoint_rad2deg(GeoMath.coords_by_distance_azimuth(center, dist, angle));
         //console.log("new center: ", new_center.latitude, ",", new_center.longitude);
-        this.map_controller.center = new_center;
-        this.map_controller.update_url();
+
+        // need this
+        //this.map_controller.center = new_center;
+        //this.map_controller.update_url();
+
+
         //this.coord_sys.intersection_cs_transform.set_zoom(1/this.km_per_svg_pixel);
 
         //this.map_controller.update_url();

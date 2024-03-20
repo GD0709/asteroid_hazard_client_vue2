@@ -22,8 +22,11 @@ export default class State
     observation_point_inputs: ObservationPointInput = new ObservationPointInput(this.observation_point, this.variant);
 
 
+
     geo_points_controller: GeoPointController = new GeoPointController(this.variant, this.entry_point, this.observation_point);
     observation_geo_point: GeoPoint = this.geo_points_controller.observation_point_geo;
+
+    intersection_geo_point: GeoPoint = this.geo_points_controller.intersection_point_geo;
     
     effects: Effects = new Effects(this.variant, this.target, this.observation_point_inputs);
 }

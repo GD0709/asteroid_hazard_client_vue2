@@ -47,8 +47,8 @@ class GeoPointController
         this.entry_point.changed.on(s => this.intersection_point_geo_recalc());
 
 
-        this.intersection_point_geo.changed.on(s => this.observation_point_geo_recalc());
-        this.observation_point.changed.on(s => this.observation_point_geo_recalc());
+        this.intersection_point_geo.changed.on(s => this.observation_point_geo_recalc(false));
+        this.observation_point.changed.on(s => this.observation_point_geo_recalc(true));
 
         this.observation_point_geo.changed.on(s => this.observation_point_recalc(true));
     }
@@ -69,7 +69,21 @@ class GeoPointController
 
     }
 
-    async observation_point_geo_recalc() : Promise<void> {
+    async observation_point_geo_recalc(check: boolean) : Promise<void> {
+        if (check) {
+            if (Math.abs(this.last_setted_observation_point.x - this.observation_point.x)< 0.000001 &&
+            Math.abs(this.last_setted_observation_point.y - this.observation_point.y)< 0.000001)
+            {
+                console.log("observation_point_geo_recalc ignoring");
+                return;
+            } else {
+                console.log("observation_point_geo_recalc not !!! ignoring - recalc ",
+                Math.abs(this.last_setted_observation_point.x - this.observation_point.x),
+                Math.abs(this.last_setted_observation_point.y - this.observation_point.y)
+                );
+            }
+        }
+
         var distance = Math.sqrt(
             Math.pow(this.observation_point.x, 2) + 
             Math.pow(this.observation_point.y, 2)
@@ -83,6 +97,7 @@ class GeoPointController
             longitude: this.intersection_point_geo.longitude
         }, distance*1000., bearing_from_intersection_to_observastion);
 
+        this.last_setted_observation_point.set_point_silent(this.observation_point);
         this.last_setted_observation_point_geo.set_wo_notify(res.latitude, res.longitude);
         this.observation_point_geo.set_wo_notify(res.latitude, res.longitude);
 
@@ -90,7 +105,8 @@ class GeoPointController
         tmp += "<|Coords -> {"+ this.intersection_point_geo.latitude +", "+this.intersection_point_geo.longitude+"}, Name -> "+ "\"intersection_point_geo\""+ "|>,";
         tmp += "<|Coords -> {"+ this.observation_point_geo.latitude +", "+this.observation_point_geo.longitude+"}, Name -> "+ "\"observation_point_geo\""+ "|>}, ";
         tmp += "Distance-> " + distance + ", Angle-> " + angleObs_deg + ", ";
-        tmp += "BearingFromIntersectionToObservastion-> " + bearing_from_intersection_to_observastion;
+        tmp += "BearingFromIntersectionToObservastion-> " + bearing_from_intersection_to_observastion + ", ";
+        tmp += "observation_point-> {" + this.observation_point.x + ", " + this.observation_point.y + "}";
         tmp += "|>;";
 
         console.log(tmp);
@@ -116,11 +132,15 @@ class GeoPointController
         let initial_bearing_from_intersection_to_observation = GeoMath.initial_bearing_to(this.intersection_point_geo, this.observation_point_geo);
         let observation_angle = 360-90-initial_bearing_from_intersection_to_observation;
 
-        let xy_angle = observation_angle-90;
+        this.last_setted_observation_point.set_point_silent({x: distance * Math.sin(MathExt.deg2rad(observation_angle)), y: (-1)*distance * Math.cos(MathExt.deg2rad(observation_angle))});
+        this.last_setted_observation_point_geo.set_wo_notify(this.observation_point_geo.latitude, this.observation_point_geo.longitude);
+        this.observation_point.set_xy(this.last_setted_observation_point.x, this.last_setted_observation_point.y);
 
         let tmp = "data3 = <|Distance-> " + distance + ", ObservationAngle-> " + observation_angle;
+        tmp += ", initial_bearing_from_intersection_to_observation->" + initial_bearing_from_intersection_to_observation;
 
-        tmp += ", x->" + distance/1000 * Math.sin(MathExt.deg2rad(xy_angle)) + ", y->" + distance/1000 * Math.cos(MathExt.deg2rad(xy_angle));
+
+        tmp += ", x->" + distance * Math.sin(MathExt.deg2rad(observation_angle)) + ", y->" + (-1)*distance * Math.cos(MathExt.deg2rad(observation_angle));
 
         tmp += ", List -> { <|Coords -> {"+ this.entry_point_geo.latitude +", "+this.entry_point_geo.longitude+"}, Name -> "+ "\"entry_point_geo\""+ "|>,";
         tmp += "<|Coords -> {"+ this.intersection_point_geo.latitude +", "+this.intersection_point_geo.longitude+"}, Name -> "+ "\"intersection_point_geo\""+ "|>,";

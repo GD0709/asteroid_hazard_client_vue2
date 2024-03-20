@@ -39,7 +39,7 @@
                     {{$dimension_prefix_format(irradiation.point_assesment.thermal_exposure)}}<span v-html="$t('calculator.dimensions.J/cm2')"/>
                 </div>
                 <div class="result_effect" v-if="state.variant.diameter < 150">
-                    <span class="results_effects_name">{{$t('calculator.results.irradiation.Thermal flux in the point of observation')}}:</span>
+                    <span class="results_effects_name">{{$t('calculator.results.irradiation.Maximal thermal flux in the point of observation')}}:</span>
                     {{$dimension_prefix_format(irradiation.point_assesment.thermal_flux)}}<span v-html="$t('calculator.dimensions.W/cm2')"/>
                 </div>
             </template>

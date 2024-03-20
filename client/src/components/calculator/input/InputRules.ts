@@ -26,7 +26,7 @@ input_along_across: [
     (v:any) => v != '' || v ===0 || `Distance is required`,
     (v:any) => !isNaN(v) || `${v} is not a number`,
     (v:any) => v>=-3000 || `Distance must be in range -3000 km to 3000 km`,
-    (v:any) => v<=3000 || `Distance must be less than 72 km/s`
+    (v:any) => v<=3000 || `Distance must be in range -3000 km to 3000 km`
 ],
 input_distance: [
     (v:any) => v != '' || `Distance is required`,
