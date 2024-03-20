@@ -4,13 +4,13 @@ import ru from './../locales/ru.json'
 
 type MessageSchema = typeof en
 
-const i18n = createI18n<[MessageSchema], 'en-US' | 'ru-RU'>({
+const i18n = createI18n<[MessageSchema], 'en' | 'ru'>({
   legacy: false,
-  locale: 'ru-RU',
-  fallbackLocale: 'en-US',
+  locale: 'ru',
+  fallbackLocale: 'en',
   messages: {
-    'en-US': en,
-    'ru-RU': ru
+    'en': en,
+    'ru': ru
   },
 })
 export default i18n

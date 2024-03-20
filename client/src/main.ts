@@ -18,7 +18,7 @@ import i18n from './plugins/i18n'
 //   // something vue-i18n options here ...
 // })
 
-
+import './assets/style.css';
 
 import LatLon from 'geodesy/latlon-ellipsoidal-vincenty.js';
 

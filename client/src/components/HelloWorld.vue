@@ -50,10 +50,8 @@
 
         <v-col cols="auto">
           <v-btn
-            href="https://community.vuetifyjs.com/"
+           
             min-width="164"
-            rel="noopener noreferrer"
-            target="_blank"
             variant="text"
           >
             <v-icon
@@ -62,8 +60,13 @@
               start
             />
 
-            Community
+            ttest
           </v-btn>
+          start!
+          <Help help_text="text" help_title="title">
+            Hello
+          </Help>
+          !end
         </v-col>
       </v-row>
     </v-responsive>
