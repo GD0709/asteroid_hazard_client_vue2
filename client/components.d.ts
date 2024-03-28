@@ -7,8 +7,17 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BasicInput: typeof import('./src/components/calculator/views/input/BasicInput.vue')['default']
+    Blank: typeof import('./src/components/calculator/tests/blank.vue')['default']
+    copy: typeof import('./src/components/calculator/views/input/Projectile copy.vue')['default']
+    Entry: typeof import('./src/components/calculator/views/input/Entry.vue')['default']
+    FieldInput: typeof import('./src/components/calculator/input/FieldInput.vue')['default']
+    FieldInputTest: typeof import('./src/components/calculator/tests/FieldInputTest.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Help: typeof import('./src/components/calculator/input/help.vue')['default']
+    InputSummary: typeof import('./src/components/calculator/views/input/InputSummary.vue')['default']
+    Projectile: typeof import('./src/components/calculator/views/input/Projectile.vue')['default']
+    ProjectileInput: typeof import('./src/components/calculator/views/ProjectileInput.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

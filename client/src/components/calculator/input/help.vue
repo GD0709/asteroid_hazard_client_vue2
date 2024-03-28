@@ -1,21 +1,25 @@
 <template>
-  <div>i am help {{ help_text }}</div>
-  <v-btn icon="mdi-account-group"
-          @click="dialog = true"></v-btn>
+  <v-btn icon="mdi-help-circle-outline" size="small" variant="text" color="primary" @click="dialog = true"></v-btn>
   <v-dialog
       v-model="dialog"
       width="auto"
     >
+
+
     <v-card
         max-width="400"
-        prepend-icon="mdi-update"
-        text="Your application will relaunch automatically after the update is complete."
-        title="Update in progress"
       >
+      <v-card-title v-html="help_title" style="padding-left: 24px; padding-right: 24px;">
+            </v-card-title>
+
+      <v-card-text >
+                <span v-html="help_text"></span>
+                <slot></slot>
+            </v-card-text>
         <template v-slot:actions>
           <v-btn
             class="ms-auto"
-            text="Ok"
+            text="Close"
             @click="dialog = false"
           ></v-btn>
         </template>

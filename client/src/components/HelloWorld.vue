@@ -1,5 +1,9 @@
 <template>
+  <div>
   <v-container class="fill-height">
+    <v-col>
+
+
     <v-responsive class="align-center text-center fill-height">
       <v-img height="300" src="@/assets/logo.svg" />
 
@@ -67,12 +71,21 @@
             Hello
           </Help>
           !end
+          <br/>
+          <br/>
+          <br/>
+         
         </v-col>
       </v-row>
     </v-responsive>
+    <FieldInputTest/>
+  </v-col>
   </v-container>
+</div>
 </template>
 
 <script setup lang="ts">
+import FieldInputTest from './calculator/tests/FieldInputTest.vue';
+
   //
 </script>

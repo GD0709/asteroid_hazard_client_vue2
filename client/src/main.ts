@@ -19,6 +19,7 @@ import i18n from './plugins/i18n'
 // })
 
 import './assets/style.css';
+import './styles/index.scss';
 
 import LatLon from 'geodesy/latlon-ellipsoidal-vincenty.js';
 
