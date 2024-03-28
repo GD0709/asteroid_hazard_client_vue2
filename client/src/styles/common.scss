@@ -60,6 +60,12 @@ h1{
     align-items: stretch;
     flex-grow: 1;
 }
+.flex_row_left_top {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items:flex-start;
+}
 .flex_row_center_center {
     display: flex;
     flex-direction: row;

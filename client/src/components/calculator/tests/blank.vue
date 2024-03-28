@@ -3,7 +3,13 @@
   </template>
   
   <script setup lang="ts">
-  import { ref } from 'vue'
+import State from './../../../../model/state';
+
+import {ref} from 'vue'
+
+let state = ref(State.state)
+
+
     const dialog = ref(false)
   
     defineProps<{

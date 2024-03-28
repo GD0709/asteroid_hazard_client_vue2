@@ -8,7 +8,7 @@
       <router-link class="header_link" to="/">
         <div class="flex_row_center_center align-center">
           <span class="icon ah-meteoroid logo"/>
-        <div class="app_bar_header">Impact Effects{{is_debug() ? ' - Debug Mode' : ''}}</div>
+        <div class="app_bar_header">Impact Effects{{state.visual_settings.is_debug ? ' - Debug Mode' : ''}}</div>
         </div>
       </router-link>
 
@@ -108,6 +108,11 @@
 </template>
 
 <script lang="ts" setup>
+import State from "./model/state"
+import {ref} from "vue"
+
+const state = ref(State.state)
+
 import { useI18n } from "vue-i18n";
 const t = useI18n();
 
@@ -121,6 +126,9 @@ function change_language(lng: string) {
 import LatLon from 'geodesy/latlon-ellipsoidal-vincenty.js';
 
   function test() {
+    console.log(t.t("footer.organization"));
+
+
     const p1 = new LatLon(-37.95103, 144.42487);
     const dist = 54972.271;
     const brng = 306.86816;

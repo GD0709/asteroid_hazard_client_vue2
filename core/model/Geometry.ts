@@ -284,4 +284,5 @@ class Transform extends Vector {
 }
 
 
-export {IPoint, Point, Vector, GeoPoint, GeoVector, Transform, GeoMath}
+export { Point, Vector, GeoPoint, GeoVector, Transform, GeoMath };
+export type { IPoint };

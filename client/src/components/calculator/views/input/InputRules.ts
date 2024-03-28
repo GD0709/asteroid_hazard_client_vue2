@@ -35,8 +35,15 @@ input_distance: [
     (v:any) => v>=0 || `Distance must be more than 0 km`,
     (v:any) => v<=4242 || `Distance must be less than 4242 km`
 ],
+azimuth: [
+    (v:any) => v != '' || `Azimuth is required`,
+    (v:any) => !isNaN(v) || `${v} is not a number`,
+    (v:any) => v>=0 || `Azimuth must be more than 0°`,
+    (v:any) => v<=360 || `Azimuth must be less than 360°`
+],
+
 input_angle: [
-    (v:any) => v != '' || `Angle is required`,
+    (v:any) => v != '' || `Entry angle is required`,
     (v:any) => !isNaN(v) || `${v} is not a number`,
     (v:any) => v>=0 || `Entry angle must be more than 0°`,
     (v:any) => v<=360 || `Entry angle must be less than 360°`

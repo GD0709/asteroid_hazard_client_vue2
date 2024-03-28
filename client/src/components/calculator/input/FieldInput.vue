@@ -21,7 +21,7 @@
             <!-- <template v-slot:label>
                 <span v-html="label"></span> (<span v-html="dimension"></span>)
             </template> -->
-        </v-text-field>
+            </v-text-field>
             
         </div>
 
@@ -231,9 +231,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 
   <style scoped lang="scss">
-  .active{
-    color:red;
-  }
   .input_text{
       width: 100px;
   }

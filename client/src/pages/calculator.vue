@@ -20,11 +20,14 @@
                 </div>
 
             </div>
-            
-            <BasicInput v-show="state.visual_settings.input_mode == InputModes.basic"/>
-            <!-- <ExtendedInput v-show="state.visual_settings.input_mode == InputModes.extended"/>
+ 
+            <div v-show="state.visual_settings.input_mode == InputModes.basic">        <BasicInput /></div>
+            <div v-show="state.visual_settings.input_mode == InputModes.extended">        <ExtendedInput /></div>
+
+            <!-- 
             <input-summary/>
             <results/> -->
+            <InputSummary/>
         </v-container>
     </div>
 
@@ -33,6 +36,8 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
 import BasicInput from "../components/calculator/views/input/BasicInput.vue";
+import ExtendedInput from "../components/calculator/views/input/ExtendedInput.vue";
+import InputSummary from '../components/calculator/views/input/InputSummary.vue';
 import State from '../model/state';
 import { InputModes } from '../model/VisualSettings';
 

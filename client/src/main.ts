@@ -13,7 +13,7 @@ import App from './App.vue'
 // Composables
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import i18n from './plugins/i18n'
+
 // const i18n = createI18n({
 //   // something vue-i18n options here ...
 // })
@@ -35,5 +35,4 @@ console.log("heloo from geodesy", p2);
 const app = createApp(App)
 
 registerPlugins(app)
-app.use(i18n)
 app.mount('#app')
