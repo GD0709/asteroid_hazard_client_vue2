@@ -1,6 +1,6 @@
 <template>
     <div class="flex_row_center_center">
-        <div class="calculator_input input_text italic_prefix">
+        <!-- <div class="calculator_input input_text italic_prefix">
             <div style="position:relative">
                 <div style="position: absolute;font-size: 12px;white-space: nowrap;" :class="{ 'text-primary': text_is_focused }">
                     <span v-html="label"></span> (<span v-html="dimension"></span>)
@@ -18,12 +18,21 @@
                 :prefix="prefix"
                 @update:model-value="text_modelValue"
             >
-            <!-- <template v-slot:label>
-                <span v-html="label"></span> (<span v-html="dimension"></span>)
-            </template> -->
             </v-text-field>
             
-        </div>
+        </div> -->
+        <NumberInput
+            :id="id"
+            :prefix="prefix"
+            :rules="rules"
+            :label="label"
+            :dimension="dimension"
+            :placeholder="placeholder"
+            :accuracy="accuracy"
+            @update:model-value="text_modelValue"
+            v-model:value="text_value" 
+            class="input_text"
+            />
 
         <div class="slider_wrapper">
             <v-slider
@@ -38,16 +47,16 @@
             <div class="inside">
                 <div class="inside_col">{{min}}&nbsp;<span v-html="dimension"></span></div>
                 <div class="intermediate">
-                    <slot name="slider_hint"></slot>
+                    <!-- <slot name="slider_hint"></slot> -->
                 </div>
                 <div class="inside_col">{{max}}&nbsp;<span v-html="dimension"></span></div>
             </div>
         </div>
 
         <help :help_title="help_title" :help_text="help_text">
-            <template>
+            <!-- <template>
                 <slot name="help"/>
-            </template>
+            </template> -->
         </help>
 
        
@@ -56,7 +65,6 @@
      <br/>
         <div v-if="is_debug">
             <div>is_debug: {{ is_debug }}</div>
-            <div>text_is_focused: {{ text_is_focused }}</div>
             <div>text_value: {{ text_value }}</div>
             <div>slider_value: {{ slider_value }}</div>
         </div>
@@ -66,6 +74,7 @@
   import { assertCatchClause } from '@babel/types';
 import { ref, watch } from 'vue'
   import { computed } from 'vue';
+  import NumberInput from "./NumberInput.vue"
 
 
   interface Props {
@@ -104,12 +113,12 @@ const props = withDefaults(defineProps<Props>(), {
     min: 0,
     max: 100,
     log_slider: false,
-    accuracy: 0.01,
+    accuracy: 2,
 })
 
  
     const log_base: number = 0.02;
-    const text_is_focused = ref(false)
+    
 
     const is_debug = ref(false)
 
@@ -128,10 +137,11 @@ const props = withDefaults(defineProps<Props>(), {
     let slider_value = ref(19)
     // watch works directly on a ref
     watch(model_value, (newValue, oldValue) => {
-        console.log("watch on model_value ", newValue, " ", oldValue);
+        if (is_debug.value) 
+            console.log("watch on model_value ", newValue, " ", oldValue);
 
         if (typeof newValue === 'number' && (isNaN(setting_value) || setting_value != newValue)) {
-            let converted = Math.round(newValue / props.accuracy)* props.accuracy;
+            let converted = newValue;//Math.round(newValue / props.accuracy)* props.accuracy;
             value_set_slider(converted);
             value_set_text(converted);
         }
@@ -160,7 +170,7 @@ const props = withDefaults(defineProps<Props>(), {
         if (props.log_slider) {
             converted = props.min + (props.max-props.min)*(Math.exp(value * (Math.log(log_base+1) - Math.log(log_base)) + Math.log(log_base)) - log_base);
         }
-        converted = Math.round(converted / props.accuracy)* props.accuracy;
+        converted = +converted.toFixed(props.accuracy);
         value_set_text(converted);
         setting_value = converted;
         emit('value_updated', converted)

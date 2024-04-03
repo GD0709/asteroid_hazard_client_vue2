@@ -16,10 +16,11 @@ declare module 'vue' {
     FieldInputTest: typeof import('./src/components/calculator/tests/FieldInputTest.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Help: typeof import('./src/components/calculator/input/help.vue')['default']
-    InputSummary: typeof import('./src/components/calculator/views/input/InputSummary.vue')['default']
+    InputSummary: typeof import('./src/components/calculator/views/InputSummary.vue')['default']
     NumberInput: typeof import('./src/components/calculator/input/NumberInput.vue')['default']
     Projectile: typeof import('./src/components/calculator/views/input/Projectile.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Schema: typeof import('./src/components/calculator/views/Schema.vue')['default']
   }
 }

@@ -4,7 +4,7 @@
         <h3>{{ $t("calculator.headers.Projectile parameters")}}</h3>
         <FieldInput
             id="variant.diameter"
-            :accuracy="1"
+            :accuracy="0"
             :log_slider="true"
             :min="15"
             :max="3000"
@@ -18,7 +18,7 @@
             />
         <FieldInput
             id="variant.density"
-            :accuracy="1"
+            :accuracy="0"
             :min="500"
             :max="4000"
             :rules="input_rules.density"

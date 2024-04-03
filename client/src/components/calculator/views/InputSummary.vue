@@ -118,8 +118,8 @@
 </template>
 
 <script lang="ts" setup>
-import State from './../../../../model/state';
-import { InputModes } from '../../../../model/VisualSettings';
+import State from './../../../model/state';
+import { InputModes } from '../../../model/VisualSettings';
 
 
 import {ref} from 'vue'

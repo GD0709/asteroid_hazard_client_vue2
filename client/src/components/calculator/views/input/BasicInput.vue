@@ -14,7 +14,7 @@
                     :log_slider="true"
                     v-model:value="state.observation_point_inputs.distance_angle.distance"
                     id="basic.op.distance"
-                    :accuracy="1"
+                    :accuracy="0"
                     :min="0"
                     :max="4242"
                     :rules="input_rules.input_distance"
@@ -30,7 +30,7 @@
 
                 <FieldInput
                     id="basic.op.angle"
-                    :accuracy="1"
+                    :accuracy="0"
                     :log_slider="false"
                     v-model:value="state.observation_point_inputs.distance_angle.angle"
                     :min="0"

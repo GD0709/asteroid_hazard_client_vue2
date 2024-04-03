@@ -19,7 +19,6 @@
         >
         
         </v-text-field>
-        
     </div>
 
 </template>
@@ -53,7 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
     dimension: "",
     placeholder: "",
 
-    accuracy: 0.01,
+    accuracy: 2,
 })
 
     const is_debug = ref(false)
@@ -67,15 +66,18 @@ const props = withDefaults(defineProps<Props>(), {
             value_updated: [value: number]
         }>()
 
-
+       
 
     watch(model_value, (newValue, oldValue) => {
+        if (is_debug.value) 
             console.log(props.id, " watch on model_value ", newValue, " ", oldValue);
 
 
             if (typeof newValue === 'number'){
                 if (!isNaN(newValue)) {
                     let newValueString = (newValue as number).toFixed(props.accuracy);
+                    if (is_debug.value) 
+                        console.log(props.id, " watch on model_value newValueString", newValueString);
                     if (setting_value == null || newValueString != setting_value)
                         value_set_text(newValueString);
                 }
@@ -92,7 +94,8 @@ const props = withDefaults(defineProps<Props>(), {
             setting_value = parsed.toFixed(props.accuracy);
             //parsed = Math.round(parsed / props.accuracy) * props.accuracy;
             //emit('value_updated', setting_value)
-            model_value.value = setting_value;
+            let num: number = +setting_value;
+            model_value.value = num;
         }
     }
 

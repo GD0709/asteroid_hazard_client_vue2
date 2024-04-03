@@ -3,6 +3,7 @@ import Variant from "../../../core/model/Variant";
 import {VisualSettings} from "./VisualSettings";
 import Target from "../../../core/model/Target"
 import { ObservationPointInput } from "../../../core/model/Observation";
+import { Effects } from "../../../core/model/Effects/EffectsAssessment";
 
 export default class State
 {
@@ -23,5 +24,5 @@ export default class State
     // geo_points_controller: GeoPointController = new GeoPointController(this.variant, this.entry_point, this.observation_point);
     // observation_geo_point: GeoPoint = this.geo_points_controller.observation_point_geo;
     
-    // effects: Effects = new Effects(this.variant, this.target, this.observation_point_inputs);
+    effects: Effects = new Effects(this.variant, this.target, this.observation_point_inputs);
 }

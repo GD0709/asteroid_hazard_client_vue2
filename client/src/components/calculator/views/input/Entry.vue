@@ -4,7 +4,7 @@
         <h3>{{ $t("calculator.headers.Entry parameters")}}</h3>
         <FieldInput
             id="variant.velocity"
-            :accuracy="1"
+            :accuracy="0"
             :min="12"
             :max="72"
             :rules="input_rules.velocity"
@@ -17,7 +17,7 @@
             />
         <FieldInput
             id="variant.angle"
-            :accuracy="1"
+            :accuracy="0"
             :min="15"
             :max="90"
             :rules="input_rules.entry_angle"

@@ -72,7 +72,7 @@
                     </div>
         </v-col>
         <v-col cols="12" md="6" no-gutters class="pl-md-3">
-            <!-- <schema/> -->
+            <schema/>
         </v-col>
     </v-row>
     <v-row no-gutters >
@@ -135,7 +135,7 @@
                 <field-input
                     v-model:value="state.entry_point.azimuth"
                     id="extended.entry_point.azimuth"
-                    :accuracy="1"
+                    :accuracy="0"
                     :min="0"
                     :max="360"
                     :rules="input_rules.azimuth"
@@ -272,7 +272,7 @@ import State from "./../../../../model/state"
 import {ref} from "vue"
 import input_rules from "./InputRules"
 import NumberInput from "../../input/NumberInput.vue"
-
+import Schema from "../Schema.vue"
 const state = ref(State.state)
 </script>
 

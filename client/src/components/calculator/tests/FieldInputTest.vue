@@ -1,9 +1,13 @@
 <template>
     <div style="margin:20px;">
-        <FieldInput ref="fi1" :accuracy="0.01"  
+        <FieldInput ref="fi1" :accuracy="0"  
         v-model:value="localvalue" id="text1" label="Diametr" prefix="D = " dimension="m" placeholder="19" 
         help_text="help very long text" help_title="diametr"
         @value_updated="text1_value_updated_handler"/>
+
+        <FieldInput ref="fi2" :accuracy="1"  
+        v-model:value="localvalue" id="text2" label="Diametr" prefix="D = " dimension="m" placeholder="19" 
+        help_text="help very long text" help_title="diametr"/>
         <!-- <FieldInput :log_slider="true" v-model="localvalue" id="text2" 
             :min="15"
             :max="3000"/>  -->

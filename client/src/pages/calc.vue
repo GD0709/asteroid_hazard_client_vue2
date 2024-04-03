@@ -37,7 +37,7 @@
 import {ref} from 'vue';
 import BasicInput from "../components/calculator/views/input/BasicInput.vue";
 import ExtendedInput from "../components/calculator/views/input/ExtendedInput.vue";
-import InputSummary from '../components/calculator/views/input/InputSummary.vue';
+import InputSummary from '../components/calculator/views/InputSummary.vue';
 import State from '../model/state';
 import { InputModes } from '../model/VisualSettings';
 
