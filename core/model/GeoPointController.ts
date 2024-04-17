@@ -102,7 +102,7 @@ class GeoPointController
     last_setted_observation_point_geo: GeoPoint;
     last_setted_observation_point: Point;
 
-    async observation_point_recalc(passed: string[]) : Promise<void> {
+    observation_point_recalc(passed: string[]) {
 
         if (passed.includes('observation_point_recalc')) {
             return;

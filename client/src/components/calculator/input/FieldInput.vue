@@ -214,7 +214,8 @@ const props = withDefaults(defineProps<Props>(), {
     })
 
     // watch works directly on a ref
-    watch(() => model_value, (newValue, oldValue) => {
+    watch(model_value, (newValue, oldValue) => {
+        console.log("watch works");
         log(props.id, " watch on model_value new_value:", newValue, " old_value:", oldValue, " setting_value:", setting_value);
 
         if (typeof newValue === 'number' && (isNaN(setting_value) || setting_value != newValue)) {
@@ -223,7 +224,7 @@ const props = withDefaults(defineProps<Props>(), {
             //value_set_slider(converted);
             //value_set_text(converted);
         }
-    },{ immediate: true, deep: true })
+    },{ immediate: true })
 
     //slider
     // let log_base: number = 0.02;

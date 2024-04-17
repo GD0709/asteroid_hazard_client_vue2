@@ -148,7 +148,7 @@
                 <v-col no-gutters class="no-gutters">
                     <h3>{{$t("calculator.headers.Observation point")}}</h3>
             
-                        <v-tabs
+                        <!-- <v-tabs
                             v-model="onservation_input_variant"                        
                             background-color="transparent"
                         color="primary"
@@ -157,11 +157,11 @@
                                 <v-tab value="one">{{$t('calculator.inputs.observation point.along across.label')}}</v-tab>
                                 <v-tab value="two">{{$t('calculator.inputs.observation point.distance angle.label')}}</v-tab>
                                 <v-tab value="three">{{$t('calculator.inputs.observation point.latitude longitude.label')}}</v-tab>
-                            </v-tabs>
+                            </v-tabs> -->
 
                             <v-card-text>
-                            <v-window v-model="onservation_input_variant">
-                                <v-window-item value="one">
+                            <!-- <v-window v-model="onservation_input_variant">
+                                <v-window-item value="one"> -->
                                     <div style="margin-top: 12px;">
                                         <FieldInput
                                             id="extended.observation.along"
@@ -198,10 +198,11 @@
                                             :accuracy="4"
                                         />
                                         {{ state.along_across.along }}
+                                        {{ state.observation_point_inputs.along_across.along }}
                                     </div>
-                                </v-window-item>
+                                <!-- </v-window-item>
 
-                                <v-window-item value="two">
+                                <v-window-item value="two"> -->
                                     <div style="margin-top: 12px;">
                                         <field-input
                                         id="extended.observation.distance"
@@ -232,9 +233,9 @@
                                             prefix="𝜓 ="
                                         />
                                     </div>
-                                </v-window-item>
+                                <!-- </v-window-item>
 
-                                <v-window-item value="three">
+                                <v-window-item value="three"> -->
                                     <v-row no-gutters class="align-center" style="margin-top: 12px;">
                                         <NumberInput  
                                             id="extended.observation.latitude"
@@ -256,8 +257,9 @@
                                     <span v-html="$t('calculator.inputs.observation point.latitude longitude.help')"/>
                                 </help>
                             </v-row>
+                            <!-- 
                                 </v-window-item>
-                            </v-window>
+                            </v-window> -->
                         </v-card-text>
             
 
