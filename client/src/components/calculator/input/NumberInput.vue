@@ -56,8 +56,24 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
     const is_debug = ref(false)
+    function log(...args: any[]): void {
+        if (is_debug.value || true) {
+            console.log("NumberInput ", props.id, " ", args);
+        }
+    }
+
     const text_is_focused = ref(false)
-    const model_value = defineModel('value')
+    const model_value = defineModel<number>('value', {type: Number})
+
+    const set_value = (value: number) => {
+        log(" set_value:", value, " text_value:", text_value.value)
+        setting_value = value.toFixed(props.accuracy);
+        text_value.value = setting_value;
+        model_value.value = value;
+    }
+
+
+    defineExpose({set_value});
 
     let setting_value: string|null = null;   
     let text_value = ref("")
@@ -69,43 +85,33 @@ const props = withDefaults(defineProps<Props>(), {
        
 
     watch(model_value, (newValue, oldValue) => {
-        if (is_debug.value) 
-            console.log(props.id, " watch on model_value ", newValue, " ", oldValue);
+        log(" watch on model_value ", newValue, " ", oldValue);
 
 
             if (typeof newValue === 'number'){
-                if (!isNaN(newValue)) {
-                    let newValueString = (newValue as number).toFixed(props.accuracy);
-                    if (is_debug.value) 
-                        console.log(props.id, " watch on model_value newValueString", newValueString);
-                    if (setting_value == null || newValueString != setting_value)
-                        value_set_text(newValueString);
-                }
+                set_value((newValue as number));
             }
     },{ immediate: true })
 
     // text input
     function text_modelValue(value: string):void {
-        if (is_debug.value) {
-            console.log(props.id, " text:", value, " text_value:", text_value.value)
-        }
+        if (value == setting_value) return;
+        log("text_modelValue:", value)
+        
         let parsed = parseFloat(value);
         if(!isNaN(parsed)) {
             setting_value = parsed.toFixed(props.accuracy);
             //parsed = Math.round(parsed / props.accuracy) * props.accuracy;
             //emit('value_updated', setting_value)
             let num: number = +setting_value;
+            log("text_modelValue: parsed", num);
+            emit('value_updated', num);
             model_value.value = num;
         }
     }
 
 
-    function value_set_text(value: string) {
-        if (is_debug.value) {
-            console.log(props.id, " value_set_text:", value, " text_value:", text_value.value)
-        }
-        text_value.value = value;
-    }
+   
     // const set_value = (value: number) => {
     //     if (is_debug.value) {
     //         console.log(props.id, "call set_value value:", value);

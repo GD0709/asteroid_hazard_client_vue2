@@ -18,25 +18,42 @@ class ObservationPointInput extends Point
     variant: Variant;
     constructor(main_point: Point,variant: Variant)
     {
-        super();
+        super("observation_point_rel");
         this.main_point = main_point;
-        this.main_point.changed.on(s => { console.log("main_point changed at OPI; set OPI", s.to_string()); this.set_xy(s.x, s.y - this.shift_y); });
+        this.main_point.changed.on((s, p) => this.main_point_changed(s, p));
         this.variant = variant;
-        this.update_shift();
-        this.changed.on(s => { console.log("OPI changed at OPI; set main_point", s.to_string()); this.main_point.set_xy(this.x, this.y + this.shift_y); });
-        this.variant.changed.on(s => this.update_shift());
+        this.update_shift([]);
+        this.variant.changed.on((s, p) => this.update_shift(p));
+    }
+
+    main_point_changed(s: Point, passed: string[]): void {
+        if (!passed.includes(this.name)){
+            console.log('main_point_changed', s.x, s.y-this.shift_y, passed);
+            this.set(s.x, s.y-this.shift_y, passed);
+        }
+    }
+
+    set_from_derivative(x: number, y: number, passed: string[]): void {
+        if (!passed.includes(this.name))
+        {
+            console.log('ObservationPointInput', x, y, passed);
+            this.set(x, y, passed);
+            this.main_point.set(x, y+this.shift_y, passed);
+            console.log('main point', this.main_point.to_string(), "this", this.to_string());
+            //this.set(x, y, passed.concat(this.name));
+        }
     }
 
     _relative_to: ZeroPoints = ZeroPoints.surface_intersection;
     get relative_to() { return this._relative_to; } 
-    set relative_to(relative_to: ZeroPoints) { if(this._relative_to != relative_to) { this._relative_to = relative_to; this.update_shift(); } }
+    set relative_to(relative_to: ZeroPoints) { if(this._relative_to != relative_to) { this._relative_to = relative_to; this.update_shift([]); } }
 
 
     // this is shift relative to zero_point and center 
     //shift_x: number = 0;
     shift_y: number = 0;
 
-    async update_shift(): Promise<void> {
+    async update_shift(passed: string[]): Promise<void> {
         if (this.relative_to == ZeroPoints.surface_intersection)
         {
             //this.shift_x = 0;
@@ -66,11 +83,11 @@ class ObservationPointInput extends Point
             this.log(`relative to set: ${this.relative_to} entry_point_100km and shift: ${this.shift_y}`);
         }
         
-        this.set_xy(this.main_point.x, this.main_point.y - this.shift_y);
+        this.set(this.main_point.x, this.main_point.y - this.shift_y, passed);
     }
 
     
-    along_across: ObservationPointAlongAcross = new ObservationPointAlongAcross(this);
+    public along_across: ObservationPointAlongAcross = new ObservationPointAlongAcross(this);
     //distance_angle= {distance: 0, angle:0 };
     distance_angle: ObservationPointDistanceAngle = new ObservationPointDistanceAngle(this);
 }
@@ -82,9 +99,10 @@ class ObservationPointAlongAcross {
     {
         this.input = input;
     }
+    name: string = "along_across"
 
-    get along(): number { return -this.input.y; } set along(val : number) { if(!isNaN(val)) { this.input.y = -val; }}
-    get across(): number { return this.input.x; } set across(val : number) { if(!isNaN(val)) { this.input.x = val; } }
+    get along(): number { return -this.input.y; } set along(val : number) { if(!isNaN(val)) { this.input.set_from_derivative(this.input.x, -val, [this.name]); }}
+    get across(): number { return this.input.x; } set across(val : number) { if(!isNaN(val)) {  this.input.set_from_derivative(val, this.input.y, [this.name]); } }
 }
 
 class ObservationPointDistanceAngle {
@@ -93,6 +111,7 @@ class ObservationPointDistanceAngle {
     {
         this.input = input;
     }
+    name: string = "distance_angle"
 
     get distance(): number { return (this.input.x**2 + this.input.y**2)**0.5; } 
     set distance(val : number) 
@@ -100,7 +119,7 @@ class ObservationPointDistanceAngle {
         if(!isNaN(val)) 
         {
             let angle = Math.atan2(this.input.x, -this.input.y);
-            this.input.set_xy(val * Math.sin(angle), -val * Math.cos(angle));
+            this.input.set_from_derivative(val * Math.sin(angle), -val * Math.cos(angle), [this.name]);
         }
     }
     static fix_quartile(angle_rad: number): number
@@ -121,7 +140,7 @@ class ObservationPointDistanceAngle {
         { 
             let distance = this.distance;
             let a = MathExt.deg2rad(val);
-            this.input.set_xy(distance * Math.sin(a), -distance * Math.cos(a));
+            this.input.set_from_derivative(distance * Math.sin(a), -distance * Math.cos(a), [this.name]);
         } 
     }
 }

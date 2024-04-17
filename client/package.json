@@ -15,6 +15,7 @@
     "roboto-fontface": "*",
     "vue": "^3.3.0",
     "vue-i18n": "^9.9.1",
+    "vue-yandex-maps": "^2.1.0",
     "vuetify": "^3.0.0"
   },
   "devDependencies": {

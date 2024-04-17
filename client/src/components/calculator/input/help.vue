@@ -7,7 +7,7 @@
 
 
     <v-card
-        max-width="400"
+        max-width="800"
       >
       <v-card-title v-html="help_title" style="padding-left: 24px; padding-right: 24px;">
             </v-card-title>

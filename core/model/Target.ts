@@ -9,7 +9,7 @@ export default class Target
     }
 
     public fire_changed(): void {
-        this.on_changed.trigger(this);
+        this.on_changed.trigger(this, []);
     }
 
     _target_density: number = 2650;

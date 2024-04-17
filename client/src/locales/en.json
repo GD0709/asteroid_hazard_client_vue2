@@ -137,7 +137,8 @@
           "longitude": "Longitude",
 
           "help title": "Latitude and Longitude of the Zero Point",
-          "help": "The latitude and the longitude of the zero point.<br/>Both latitude and longitude are measured in degrees. Latitude ranges from -90° to 90°. Longitude ranges from -180° to 180°."
+          "help": "The latitude and the longitude of the zero point.<br/>Both latitude and longitude are measured in degrees. Latitude ranges from -90° to 90°. Longitude ranges from -180° to 180°.",
+          "coordinates": "Coordinates"
         }
 
       }

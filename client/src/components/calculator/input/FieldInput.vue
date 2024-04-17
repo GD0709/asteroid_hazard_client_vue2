@@ -21,6 +21,11 @@
             </v-text-field>
             
         </div> -->
+        <!--
+
+                ref="numberinput"
+
+        -->
         <NumberInput
             :id="id"
             :prefix="prefix"
@@ -29,8 +34,8 @@
             :dimension="dimension"
             :placeholder="placeholder"
             :accuracy="accuracy"
-            @update:model-value="text_modelValue"
-            v-model:value="text_value" 
+            v-model:value="text_value"
+            @value_updated="numberinput_changed"
             class="input_text"
             />
 
@@ -116,54 +121,54 @@ const props = withDefaults(defineProps<Props>(), {
     accuracy: 2,
 })
 
- 
+    const numberinput = ref<InstanceType<typeof NumberInput> | null>(null)
     const log_base: number = 0.02;
     
 
     const is_debug = ref(false)
+    function log(...args: any[]): void {
+        if (is_debug.value || true) {
+            console.log("FieldInput ", props.id, " ", args);
+        }
+    }
 
     const emit = defineEmits<{
         value_updated: [value: number]
     }>()
    
-    function buttonClick() {
-        emit('value_updated', 1233)
-    }
-    const model_value = defineModel('value')
+    const model_value = defineModel<number>('value', {type: Number})
+
 
     let setting_value: number = NaN;   
     
     let text_value = ref(19)
     let slider_value = ref(19)
-    // watch works directly on a ref
-    watch(model_value, (newValue, oldValue) => {
-        if (is_debug.value) 
-            console.log("watch on model_value ", newValue, " ", oldValue);
-
-        if (typeof newValue === 'number' && (isNaN(setting_value) || setting_value != newValue)) {
-            let converted = newValue;//Math.round(newValue / props.accuracy)* props.accuracy;
-            value_set_slider(converted);
-            value_set_text(converted);
-        }
-    },{ immediate: true })
+   
 
     // text input
-    function text_modelValue(value: string):void {
-        if (is_debug.value) {
-            console.log(props.id, " text:", value, " text_value:", text_value.value)
-        }
-        let parsed = parseFloat(value);
-        if(!isNaN(parsed)) {
-            value_set_slider(parsed);
-            setting_value = parsed;
-            emit('value_updated', parsed)
-            model_value.value = parsed;
+
+    function numberinput_changed(value: number): void {
+        log("numberinput_changed:", value);
+        if(!isNaN(value)) {
+            setting_value = value;
+            value_set_slider(value);
+            emit('value_updated', value)
+            model_value.value = value;
         }
     }
+    // function text_modelValue(value: string):void {
+    //     log(" text:", value, " text_value:", text_value.value)
+        
+    //     let parsed = parseFloat(value);
+    //     if(!isNaN(parsed)) {
+    //         value_set_slider(parsed);
+    //         setting_value = parsed;
+    //         emit('value_updated', parsed)
+    //         model_value.value = parsed;
+    //     }
+    // }
     function slider_modelValue(value: number): void {
-        if (is_debug.value) {
-            console.log(props.id, " slider:", value, " slider_value:", slider_value.value)
-        }
+       log(" slider:", value, " slider_value:", slider_value.value)
 
 
         let converted = value;
@@ -181,9 +186,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 
     function value_set_slider(value: number) {
-        if (is_debug.value) {
-            console.log(props.id, " value_set_slider:", value, " slider_value:", slider_value.value)
-        }
+        log(props.id, " value_set_slider:", value, " slider_value:", slider_value.value);
 
         let converted = value;
         if (props.log_slider) {
@@ -193,16 +196,14 @@ const props = withDefaults(defineProps<Props>(), {
     }
 
     function value_set_text(value: number) {
-        if (is_debug.value) {
-            console.log(props.id, " value_set_text:", value, " text_value:", text_value.value)
-        }
+        log(" value_set_text:", value, " text_value:", text_value.value);
+        //numberinput.value?.set_value(value);
         text_value.value = value;
     }
 
     const set_value = (value: number) => {
-        if (is_debug.value) {
-            console.log(props.id, "call set_value value:", value);
-        }
+        log("call set_value value:", value);
+        
         value_set_text(value);
         value_set_slider(value);
         
@@ -212,7 +213,17 @@ const props = withDefaults(defineProps<Props>(), {
         set_value
     })
 
-   
+    // watch works directly on a ref
+    watch(() => model_value, (newValue, oldValue) => {
+        log(props.id, " watch on model_value new_value:", newValue, " old_value:", oldValue, " setting_value:", setting_value);
+
+        if (typeof newValue === 'number' && (isNaN(setting_value) || setting_value != newValue)) {
+            let converted = newValue;//Math.round(newValue / props.accuracy)* props.accuracy;
+            set_value(newValue);
+            //value_set_slider(converted);
+            //value_set_text(converted);
+        }
+    },{ immediate: true, deep: true })
 
     //slider
     // let log_base: number = 0.02;
@@ -243,6 +254,7 @@ const props = withDefaults(defineProps<Props>(), {
   <style scoped lang="scss">
   .input_text{
       width: 100px;
+      flex-grow: 0;
   }
   .v-text-field__prefix{
       font-style: italic;

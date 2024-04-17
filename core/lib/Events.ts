@@ -1,8 +1,8 @@
 // https://www.davideaversa.it/blog/simple-event-system-typescript/
 
 interface IEmitter<S> {
-    on(handler: (source: S) => void): void;
-    off(handler: (source: S) => void): void;
+    on(handler: (source: S, passed: string[]) => void): void;
+    off(handler: (source: S, passed: string[]) => void): void;
 }
 interface INotifyChanged<T>
 {
@@ -18,19 +18,19 @@ class Emitter<S> implements IEmitter<S> {
         return this
     }
 
-    private handlers: Array<(source: S) => void> = [];
+    private handlers: Array<(source: S, passed: string[]) => void> = [];
 
-    public on(handler: (source: S) => void): void {
+    public on(handler: (source: S, passed: string[]) => void): void {
         this.handlers.push(handler);
     }
 
-    public off(handler: (source: S) => void): void {
+    public off(handler: (source: S, passed: string[]) => void): void {
         this.handlers = this.handlers.filter(h => h !== handler);
     }
 
-    public trigger(source: S): void {
+    public trigger(source: S, passed: string[]): void {
         // Duplicate the array to avoid side effects during iteration.
-        this.handlers.slice(0).forEach(h => h(source));
+        this.handlers.slice(0).forEach(h => h(source, passed));
     }
 }
 interface IAsyncEmitter<S> {
@@ -39,22 +39,22 @@ interface IAsyncEmitter<S> {
 }
 
 class AsyncEmitter<S> implements IAsyncEmitter<S> {
-    private handlers: Array<(source: S) => Promise<void>> = [];
+    private handlers: Array<(source: S, passed: string[]) => Promise<void>> = [];
 
-    public on(handler: (source: S) => Promise<void>): void {
+    public on(handler: (source: S, passed: string[]) => Promise<void>): void {
         this.handlers.push(handler);
     }
 
-    public off(handler: (source: S) => Promise<void>): void {
+    public off(handler: (source: S, passed: string[]) => Promise<void>): void {
         this.handlers = this.handlers.filter(h => h !== handler);
     }
 
-    public async trigger(source: S): Promise<void> {
-        this.handlers.slice(0).map(h => h(source));
+    public async trigger(source: S, passed: string[]): Promise<void> {
+        this.handlers.slice(0).map(h => h(source, passed));
     }
 
-    public async triggerAwait(source: S): Promise<void> {
-        const promises = this.handlers.slice(0).map(h => h(source));
+    public async triggerAwait(source: S, passed: string[]): Promise<void> {
+        const promises = this.handlers.slice(0).map(h => h(source, passed));
         await Promise.all(promises);
     }
     

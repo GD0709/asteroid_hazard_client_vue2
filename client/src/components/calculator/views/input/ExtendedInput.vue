@@ -79,11 +79,11 @@
             <v-col cols="12" md="6" no-gutters class="pr-md-3 no-gutters">
                 <h3>{{$t("calculator.headers.Entry vector")}}</h3>
         
-                <div class="flex_row">
+                <!-- <div class="flex_row">
                     <div class="flex_row">
                         <v-text-field
                             variant="underlined"
-                            v-model="state.entry_point.latitude" 
+                            v-model="state.entry_point_geo.latitude" 
                             required      
                             :label="$t('calculator.inputs.entry vector.latitude')+'(' + $t('calculator.dimensions.degree') + ')'"          
                             :rules="input_rules.coordinate"
@@ -91,7 +91,7 @@
             
 
                         <v-text-field
-                            v-model="state.entry_point.longitude"
+                            v-model="state.entry_point_geo.longitude"
                             :rules="input_rules.coordinate"
                             variant="underlined"
                             :label="$t('calculator.inputs.entry vector.longitude')+'(' + $t('calculator.dimensions.degree') + ')'"
@@ -101,12 +101,12 @@
                     <help :help_title="$t('calculator.inputs.entry vector.help title')">
                         <span v-html="$t('calculator.inputs.entry vector.help')"/>
                     </help>
-                </div>
+                </div> -->
                 <div class="flex_row">
                     <div class="flex_row">
                         <NumberInput style="width:50%"
-                            id="entry.latitude"
-                            v-model:value="state.entry_point.latitude"
+                            id="extended.entry.latitude"
+                            v-model:value="state.entry_point_geo.latitude"
                             :label="$t('calculator.inputs.entry vector.latitude')"  
                             :dimension="$t('calculator.dimensions.degree')"        
                             :rules="input_rules.coordinate"
@@ -114,8 +114,8 @@
                         />
                       
                         <NumberInput  style="width:50%"
-                            id="entry.longitude"
-                            v-model:value="state.entry_point.longitude"
+                            id="extended.entry.longitude"
+                            v-model:value="state.entry_point_geo.longitude"
                             :label="$t('calculator.inputs.entry vector.longitude')" 
                             :dimension="$t('calculator.dimensions.degree')"
                             :rules="input_rules.coordinate"
@@ -131,9 +131,9 @@
                     
                     
                 </v-row> -->
-                
+
                 <field-input
-                    v-model:value="state.entry_point.azimuth"
+                    v-model:value="state.entry_point_geo.azimuth"
                     id="extended.entry_point.azimuth"
                     :accuracy="0"
                     :min="0"
@@ -147,8 +147,150 @@
                 
                 <v-col no-gutters class="no-gutters">
                     <h3>{{$t("calculator.headers.Observation point")}}</h3>
+            
+                        <v-tabs
+                            v-model="onservation_input_variant"                        
+                            background-color="transparent"
+                        color="primary"
+                        grow
+                            >
+                                <v-tab value="one">{{$t('calculator.inputs.observation point.along across.label')}}</v-tab>
+                                <v-tab value="two">{{$t('calculator.inputs.observation point.distance angle.label')}}</v-tab>
+                                <v-tab value="three">{{$t('calculator.inputs.observation point.latitude longitude.label')}}</v-tab>
+                            </v-tabs>
+
+                            <v-card-text>
+                            <v-window v-model="onservation_input_variant">
+                                <v-window-item value="one">
+                                    <div style="margin-top: 12px;">
+                                        <FieldInput
+                                            id="extended.observation.along"
+                                            :log_slider="false"
+                                            v-model:value="state.observation_point_inputs.along_across.along"
+                                            :min="-3000"
+                                            :max="3000"
+                                            :accuracy="0"
+                                            :rules="input_rules.input_along_across"
+                                            :label="$t('calculator.inputs.observation point.along across.along')"
+                                            :help_title="$t('calculator.inputs.observation point.along across.along help title')"
+                                            :help_text="$t('calculator.inputs.observation point.along across.along help')"
+                                            :dimension="$t('calculator.dimensions.km')"
+                                            prefix="Ly ="
+                                        />
+                                        <FieldInput
+                                        id="extended.observation.across"
+                                            :log_slider="false"
+                                            v-model:value="state.observation_point_inputs.along_across.across"
+                                            :min="-3000"
+                                            :max="3000"
+                                            :accuracy="0"
+                                            :rules="input_rules.input_along_across"
+                                            :label="$t('calculator.inputs.observation point.along across.across')"
+                                            :help_title="$t('calculator.inputs.observation point.along across.across help title')"
+                                            :help_text="$t('calculator.inputs.observation point.along across.across help')"
+                                            :dimension="$t('calculator.dimensions.km')"
+                                            prefix="Lx ="
+                                        />
+                                        <NumberInput  
+                                            id="test.along"
+                                            v-model:value="state.along_across.along"
+                                            
+                                            :accuracy="4"
+                                        />
+                                        {{ state.along_across.along }}
+                                    </div>
+                                </v-window-item>
+
+                                <v-window-item value="two">
+                                    <div style="margin-top: 12px;">
+                                        <field-input
+                                        id="extended.observation.distance"
+                                            :log_slider="false"
+                                            v-model:value="state.observation_point_inputs.distance_angle.distance"
+                                            :min="0"
+                                            :max="4242"
+                                            :accuracy="0"
+                                            :rules="input_rules.input_distance"
+                                            :label="$t('calculator.inputs.observation point.distance angle.distance')"
+                                            :help_title="$t('calculator.inputs.observation point.distance angle.distance help title')"
+                                            :help_text="$t('calculator.inputs.observation point.distance angle.distance help')"
+                                            :dimension="$t('calculator.dimensions.km')"
+                                            prefix="L ="
+                                        />
+                                        <field-input
+                                        id="extended.observation.angle"
+                                            :log_slider="false"
+                                            v-model:value="state.observation_point_inputs.distance_angle.angle"
+                                            :min="0"
+                                            :max="360"
+                                            :accuracy="0"
+                                            :rules="input_rules.angle"
+                                            :label="$t('calculator.inputs.observation point.distance angle.angle')"
+                                            :help_title="$t('calculator.inputs.observation point.distance angle.angle help title')"
+                                            :help_text="$t('calculator.inputs.observation point.distance angle.angle help')"
+                                            :dimension="$t('calculator.dimensions.degree')"
+                                            prefix="𝜓 ="
+                                        />
+                                    </div>
+                                </v-window-item>
+
+                                <v-window-item value="three">
+                                    <v-row no-gutters class="align-center" style="margin-top: 12px;">
+                                        <NumberInput  
+                                            id="extended.observation.latitude"
+                                            v-model:value="state.observation_point_geo.latitude"
+                                            :label="$t('calculator.inputs.entry vector.longitude')" 
+                                            :dimension="$t('calculator.dimensions.degree')"
+                                            :rules="input_rules.coordinate"
+                                            :accuracy="4"
+                                        />
+                                        <NumberInput  
+                                            id="extended.observation.longitude"
+                                            v-model:value="state.observation_point_geo.longitude"
+                                            :label="$t('calculator.inputs.entry vector.longitude')" 
+                                            :dimension="$t('calculator.dimensions.degree')"
+                                            :rules="input_rules.coordinate"
+                                            :accuracy="4"
+                                        />
+                                <help :help_title="$t('calculator.inputs.observation point.latitude longitude.help title')">
+                                    <span v-html="$t('calculator.inputs.observation point.latitude longitude.help')"/>
+                                </help>
+                            </v-row>
+                                </v-window-item>
+                            </v-window>
+                        </v-card-text>
+            
+
+
                     <!-- <v-tabs
-                        v-model="tab"
+                        v-model="onservation_input_variant"
+                        background-color="transparent"
+                        color="primary"
+                        grow
+                        >
+                        <v-tab>
+                            {{$t('calculator.inputs.observation point.along across.label')}}
+                        </v-tab>
+                        <v-tab>
+                            {{$t('calculator.inputs.observation point.distance angle.label')}}
+                        </v-tab>
+                        <v-tab>
+                            {{$t('calculator.inputs.observation point.latitude longitude.label')}}
+                        </v-tab>
+                    </v-tabs>
+                    <v-tabs-items v-model="onservation_input_variant">
+                        <v-tab-item :v-model="0">
+                            along and across
+                        </v-tab-item>
+                        <v-tab-item :v-model="1">
+                            second
+                        </v-tab-item>
+                        <v-tab-item :v-model="2">
+                            third
+                        </v-tab-item>
+                    </v-tabs-items> -->
+
+                    <!-- <v-tabs
                         background-color="transparent"
                         grow
                         >
@@ -165,12 +307,14 @@
                         <v-tab-item>
                             
                             <div style="margin-top: 12px;">
+
                                 <field-input
-                                    id="OP.along"
+                                    id="extended.observation.along"
                                     :log_slider="false"
-                                    v-model="state.observation_point_inputs.along_across.along"
+                                    v-model:value="state.observation_point_inputs.along_across.along"
                                     :min="-3000"
                                     :max="3000"
+                                    :accuracy="0"
                                     :rules="input_rules.input_along_across"
                                     :label="$t('calculator.inputs.observation point.along across.along')"
                                     :help_title="$t('calculator.inputs.observation point.along across.along help title')"
@@ -179,11 +323,12 @@
                                     prefix="Ly ="
                                 />
                                 <field-input
-                                id="OP.across"
+                                id="extended.observation.across"
                                     :log_slider="false"
-                                    v-model:value="state.observation_point_inputs.along_across.across"
+                                    v-model:value:value="state.observation_point_inputs.along_across.across"
                                     :min="-3000"
                                     :max="3000"
+                                    :accuracy="0"
                                     :rules="input_rules.input_along_across"
                                     :label="$t('calculator.inputs.observation point.along across.across')"
                                     :help_title="$t('calculator.inputs.observation point.along across.across help title')"
@@ -193,8 +338,8 @@
                                 />
                             </div>
                             
-                        </v-tab-item>
-                        <v-tab-item>
+                        </v-tab-item> -->
+                        <!-- <v-tab-item>
                             <div style="margin-top: 12px;">
                                 <field-input
                                 id="OP.distance"
@@ -248,18 +393,18 @@
                                 </help>
                             </v-row>
                             <v-row no-gutters class="align-center" v-if="state.visual_settings.is_debug">
-                                {{state.observation_geo_point.latitude}}, {{state.observation_geo_point.longitude}}
+                                {{state.observation_point_geo.latitude}}, {{state.observation_point_geo.longitude}}
                             </v-row>
 
-                        </v-tab-item>
+                        </v-tab-item> -->
 
-                    </v-tabs> -->
+                    <!-- </v-tabs> -->
 
                             
                 </v-col>
             </v-col>
             <v-col cols="12" md="6" no-gutters class="pl-md-3">
-                <!-- <Map/> -->
+                <Map/>
             </v-col>
         </v-row>
 </template>
@@ -273,7 +418,14 @@ import {ref} from "vue"
 import input_rules from "./InputRules"
 import NumberInput from "../../input/NumberInput.vue"
 import Schema from "../Schema.vue"
+import Map from "./Map.vue"
 const state = ref(State.state)
+
+const onservation_input_variant = ref('along-across')
+
+const items = ref([
+          'Appetizers', 'Entrees', 'Deserts', 'Cocktails',
+        ])
 </script>
 
 

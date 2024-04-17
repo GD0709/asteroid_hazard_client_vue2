@@ -12,10 +12,12 @@ let state = ref(State.state)
 
     const dialog = ref(false)
   
-    defineProps<{
-      help_text?: string
-      help_title?: string
-    }>()
+    interface Props {
+    size?:number
+}
+const props = withDefaults(defineProps<Props>(), {
+    size: 200
+})
   </script>
   
 

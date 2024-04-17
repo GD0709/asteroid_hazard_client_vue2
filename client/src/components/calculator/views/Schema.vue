@@ -177,7 +177,7 @@
                 <foreignObject  v-for="(marker, name)  in markers" :key="'tooltip for ' + name"
                     :x="marker.map_cs.x" :y="- marker.map_cs.y" width="0" height="0" overflow="visible" >
                     <div xmlns="http://www.w3.org/1999/xhtml" class="tooltip_wrapper top" :class="marker.icon.tooltip ? 'active' : ''" 
-                    :style="'zoom: ' + (100*200/client_size.width) +'%;'">
+                    :style="'zoom: ' + (100*200/client_size1().width) +'%;'">
                         <div class="tooltip_back">{{$t('calculator.schema.' + marker.icon.tooltip_text_key)}}</div>
                     </div>
                 </foreignObject>
@@ -185,8 +185,9 @@
             </svg>
         </svg>    
         <!-- <div ref="t1">asdhajhsd</div> -->
-        <!-- <div>
+         <div>
             <div>client_size:{{ client_size }}</div>
+            <div>client_size1:{{ client_size1() }}</div>
             <div>entry: {{ entry }}                         </div>
             <div>false_entry: {{ false_entry }}</div>
             <div>arrow_placement:{{ arrow_placement }}</div>
@@ -194,7 +195,7 @@
             <div>irradiation_point:{{ irradiation_point }}</div>
             <div>{{ markers_provider }}</div>
             
-        </div> -->
+        </div>
     </v-col>
 </template>
 
@@ -263,8 +264,6 @@ let markers = reactive({
 let state = ref(State.state)
 
 
-  const dialog = ref(false)
-
 interface Props {
     size?:number
 }
@@ -314,6 +313,12 @@ const props = withDefaults(defineProps<Props>(), {
     return {width: svg.value.clientWidth, height: svg.value.clientHeight};
     
   })
+  function client_size1() {
+    if (svg.value == null || svg.value == undefined)
+        return {width: 200, height: 200};
+
+    return {width: svg.value.clientWidth, height: svg.value.clientHeight};
+  }
   const t1 = ref<HTMLDivElement | null>(null)
   const test = computed(()=> t1.value?.innerText)
  

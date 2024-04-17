@@ -23,6 +23,7 @@ import './styles/index.scss';
 
 import LatLon from 'geodesy/latlon-ellipsoidal-vincenty.js';
 
+
 const p1 = new LatLon(-37.95103, 144.42487);
 const dist = 54972.271;
 const brng = 306.86816;

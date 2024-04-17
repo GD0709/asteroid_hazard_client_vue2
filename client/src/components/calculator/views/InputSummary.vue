@@ -58,15 +58,23 @@
                 </div>
                 <div v-if="state.visual_settings.input_mode == InputModes.extended">
                     <span class="input_parameter_name">{{$t('calculator.inputs.entry vector.latitude')}}: </span>
-                    <span class="input_parameter_value">{{state.entry_point.latitude}}{{$t('calculator.dimensions.degree')}}</span>
+                    <span class="input_parameter_value">{{state.entry_point_geo.latitude}}{{$t('calculator.dimensions.degree')}}</span>
                 </div>
                 <div v-if="state.visual_settings.input_mode == InputModes.extended">
                     <span class="input_parameter_name">{{$t('calculator.inputs.entry vector.longitude')}}: </span>
-                    <span class="input_parameter_value">{{state.entry_point.longitude}}{{$t('calculator.dimensions.degree')}}</span>
+                    <span class="input_parameter_value">{{state.entry_point_geo.longitude}}{{$t('calculator.dimensions.degree')}}</span>
                 </div>
                 <div v-if="state.visual_settings.input_mode == InputModes.extended">
                     <span class="input_parameter_name">{{$t('calculator.inputs.entry vector.azimuth')}}: </span>
-                    <span class="input_parameter_value">{{state.entry_point.azimuth}}{{$t('calculator.dimensions.degree')}}</span>
+                    <span class="input_parameter_value">{{state.entry_point_geo.azimuth}}{{$t('calculator.dimensions.degree')}}</span>
+                </div>
+                <div  v-if="state.visual_settings.is_debug">
+                    <span class="input_parameter_name">entry point: </span>
+                    <span class="input_parameter_value">{{state.geo_points_controller.entry_point.x}}, {{state.geo_points_controller.entry_point.y}}</span>
+                </div>
+                <div  v-if="state.visual_settings.is_debug">
+                    <span class="input_parameter_name">Intersection point geo: </span>
+                    <span class="input_parameter_value">{{state.geo_points_controller.intersection_point_geo.latitude}}{{$t('calculator.dimensions.degree')}}, {{state.geo_points_controller.intersection_point_geo.longitude}}{{$t('calculator.dimensions.degree')}}</span>
                 </div>
 
 
@@ -92,23 +100,42 @@
                 </div>
                 <div>
                     <span class="input_parameter_name">{{$t('calculator.inputs.observation point.distance angle.distance')}}: </span>
-                    <span class="input_parameter_value">{{$format.round_decimal_digits_to_string(state.observation_point_inputs.distance_angle.distance,1)}} {{$t('calculator.dimensions.km')}}</span>
+                    <span class="input_parameter_value">{{state.observation_point_inputs.distance_angle.distance.toFixed(0)}} {{$t('calculator.dimensions.km')}}</span>
                 </div>
                 <div>
                     <span class="input_parameter_name">{{$t('calculator.inputs.observation point.distance angle.angle')}}: </span>
-                    <span class="input_parameter_value">{{$format.round_decimal_digits_to_string(state.observation_point_inputs.distance_angle.angle,1)}}{{$t('calculator.dimensions.degree')}}</span>
+                    <span class="input_parameter_value">{{state.observation_point_inputs.distance_angle.angle.toFixed(0)}}{{$t('calculator.dimensions.degree')}}</span>
                 </div>
                 <div>
                     <span class="input_parameter_name">{{$t('calculator.inputs.observation point.along across.along')}}: </span>
-                    <span class="input_parameter_value">{{$format.round_decimal_digits_to_string(state.observation_point_inputs.along_across.along,1)}} {{$t('calculator.dimensions.km')}}</span>
+                    <span class="input_parameter_value">{{state.observation_point_inputs.along_across.along.toFixed(0)}} {{$t('calculator.dimensions.km')}}</span>
                 </div>
                 <div>
                     <span class="input_parameter_name">{{$t('calculator.inputs.observation point.along across.across')}}: </span>
-                    <span class="input_parameter_value">{{$format.round_decimal_digits_to_string(state.observation_point_inputs.along_across.across,1)}} {{$t('calculator.dimensions.km')}}</span>
+                    <span class="input_parameter_value">{{state.observation_point_inputs.along_across.across.toFixed(0)}} {{$t('calculator.dimensions.km')}}</span>
                 </div>
+
+                <div  v-if="state.visual_settings.input_mode == InputModes.extended">
+                    <span class="input_parameter_name">{{$t('calculator.inputs.observation point.latitude longitude.coordinates')}}: </span>
+                    <span class="input_parameter_value">{{state.observation_point_geo.latitude.toFixed(4)}}{{$t('calculator.dimensions.degree')}}</span>,
+                    <span class="input_parameter_value">{{state.observation_point_geo.longitude.toFixed(4)}}{{$t('calculator.dimensions.degree')}}</span>
+                </div>
+                
+
+
                 <div  v-if="state.visual_settings.is_debug">
-                    <span class="input_parameter_name">main point: </span>
-                    <span class="input_parameter_value">x: {{state.observation_point_inputs.main_point.x}}, y: {{state.observation_point_inputs.main_point.y}}</span>
+                    <div>
+                        <span class="input_parameter_name">main point: </span>
+                        <span class="input_parameter_value">x: {{state.observation_point_inputs.main_point.x}}, y: {{state.observation_point_inputs.main_point.y}}</span>
+                    </div>
+                    <div>
+                        <span class="input_parameter_name">along_across: </span>
+                        <span class="input_parameter_value">along: {{state.observation_point_inputs.along_across.along}}, across: {{state.observation_point_inputs.along_across.across}}</span>
+                    </div>
+                    <div>
+                        <span class="input_parameter_name">distance_angle: </span>
+                        <span class="input_parameter_value">distance: {{state.observation_point_inputs.distance_angle.distance}}, angle: {{state.observation_point_inputs.distance_angle.angle}}</span>
+                    </div>
                 </div>
             </v-col>
         </v-row>
