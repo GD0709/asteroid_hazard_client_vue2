@@ -46,10 +46,8 @@ export default class Variant implements INotifyChanged<Variant> {
 
     
     update_derivatives() {
-        if(this.angle == 0) 
-            this.angle_rad = 0;
-        else 
-            this.angle_rad = this.angle * Math.PI/180;
+
+        this.angle_rad = this.angle * Math.PI/180;
         this.kenergy = this.kenergy_calc(this);
         this.kenergy_kttnt = this.kenergy_kttnt_calc(this.kenergy);
         this.heff = ShockWaveEffects.heff_calc(this);

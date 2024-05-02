@@ -76,6 +76,14 @@
       <div class="marker"><div class="icon" v-html="observation_point_controller.icon"></div></div>
     </yandex-map-marker>
 
+
+    <yandex-map-marker v-model="max_overpressure_point_model" :settings="max_overpressure_point_controller.settings">
+      <div class="marker"><div class="icon" v-html="max_overpressure_point_controller.icon"></div></div>
+    </yandex-map-marker>
+    <yandex-map-marker v-model="max_thermal_effect_point_model" :settings="max_thermal_effect_point_controller.settings">
+      <div class="marker"><div class="icon" v-html="max_thermal_effect_point_controller.icon"></div></div>
+    </yandex-map-marker>
+
     <yandex-map-listener
     :settings="{
       onActionEnd: map_drag_event,
@@ -83,12 +91,29 @@
   />
 
   </yandex-map>
-  <!-- <div class="flex_col">
-    <v-btn v-on:click="test_set_center">set center</v-btn>
+  <div class="flex_col_center_center">
+    <h3>{{$t('calculator.schema.legend')}}</h3>
+    <div class="flex_col">
+      <div class="flex_row_left_center">
+        <div class="legend_marker"><div class="icon" v-html="entry_point_controller.icon"></div></div><div class="legend_marker_title">{{$t('calculator.inputs.zero point.entry point 100km')}}</div>
+      </div>
+      <div class="flex_row_left_center">
+        <div class="legend_marker"><div class="icon" v-html="intersection_point_controller.icon"></div></div><div class="legend_marker_title">{{$t('calculator.inputs.zero point.surface intersection')}}</div>
+      </div>
 
+      <div class="flex_row_left_center">
+        <div class="legend_marker"><div class="icon" v-html="max_overpressure_point_controller.icon"></div></div><div class="legend_marker_title">{{$t('calculator.inputs.zero point.max overpressure point')}}</div>
+      </div>
+      <div class="flex_row_left_center">
+        <div class="legend_marker"><div class="icon" v-html="max_thermal_effect_point_controller.icon"></div></div><div class="legend_marker_title">{{$t('calculator.inputs.zero point.max thermal effect point')}}</div>
+      </div>
 
+      <div class="flex_row_left_center">
+        <div class="legend_marker"><div class="icon" v-html="observation_point_controller.icon"></div></div><div class="legend_marker_title">{{$t('calculator.schema.Observation point')}}</div>
+      </div>
+    </div>
 
-  </div> -->
+  </div>
 </div>
 </template>
 
@@ -207,6 +232,14 @@ const intersection_point_controller = new MarkerModel(intersection_point_model, 
 
 const observation_point_model = shallowRef<any | null>(null);
 const observation_point_controller = new MarkerModel(observation_point_model, "?", "Observation point", state.value.observation_point_geo, (s, p)=> state.value.observation_point_geo.set(p.latitude, p.longitude, ['map']));
+
+
+const max_overpressure_point_model = shallowRef<any | null>(null);
+const max_overpressure_point_controller = new MarkerModel(max_overpressure_point_model, "&#xe904;", "Max overpressure point", state.value.geo_points_controller.max_overpressure_point_geo, null)
+
+const max_thermal_effect_point_model = shallowRef<any | null>(null);
+const max_thermal_effect_point_controller = new MarkerModel(max_thermal_effect_point_model, "&#xe9a9;", "Max thermal effect point", state.value.geo_points_controller.max_thermal_effect_point_geo, null)
+
 
 const lineCoordinates = ref<LngLat[]>([
     [state.value.geo_points_controller.intersection_point_geo.longitude, state.value.geo_points_controller.intersection_point_geo.latitude],
@@ -406,6 +439,40 @@ const LOCATION: YMapLocationRequest = {
     }
 }
 
+.legend_marker {
+    width: 34px;
+    height: 34px;
+    background: rgba(80, 80, 80, 1);
+    border-radius: 50%;
+    border: 1px solid rgb(220, 220, 220);
+    text-align: center;
+    font-weight: bold;
+    line-height: 20px;
+    font-size: 14px;
+
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .icon{
+        color:rgb(220, 220, 220);
+        display: flex;
+    
+        font-family: 'asteroidhazard' !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        font-size: 22px;
+    }
+}
+.legend_marker_title{
+  margin-left: 10px;
+}
 
   .marker_figure{
       

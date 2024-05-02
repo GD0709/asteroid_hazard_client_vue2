@@ -88,7 +88,9 @@
               variant="text" 
               v-on:click="change_language('en')">English</v-btn>
             </div>
- 
+            <div class="flex_row_center_top footer_column">
+              <a href="mailto:achidg@yandex.ru?subject=Impact Effects Calculator" class="email">{{$t("footer.email")}}: achidg@yandex.ru</a>
+            </div>
           </div>
           
 

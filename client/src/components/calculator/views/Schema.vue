@@ -200,10 +200,18 @@
 </template>
 
 <script setup lang="ts">
+import { InputModes } from '@/model/VisualSettings';
+import { Ref, triggerRef } from 'vue';
 import MathExt from '../../../../../core/lib/MathExt';
+import { CraterTypes } from '../../../../../core/model/Effects/Crater';
+import { Effects } from '../../../../../core/model/Effects/EffectsAssessment';
+import { GeoPoint, Point, IPoint } from '../../../../../core/model/Geometry';
+import { ZeroPoints } from '../../../../../core/model/Observation';
+import Target from '../../../../../core/model/Target';
+import Variant from '../../../../../core/model/Variant';
 import State from './../../../model/state';
 
-import {ref, computed, reactive} from 'vue'
+import {ref, computed, reactive, onMounted} from 'vue'
 
 
 class Icon
@@ -263,6 +271,11 @@ let markers = reactive({
 
 let state = ref(State.state)
 
+onMounted(() => {
+    state.value.variant.changed.on((s, p)=> {
+        triggerRef(state)
+    })
+})
 
 interface Props {
     size?:number

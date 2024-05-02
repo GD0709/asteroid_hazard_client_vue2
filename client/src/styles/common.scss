@@ -73,6 +73,12 @@ h1{
     justify-content:flex-start;
     align-items:flex-start;
 }
+.flex_row_left_center {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items:center;
+}
 .flex_row_center_center {
     display: flex;
     flex-direction: row;

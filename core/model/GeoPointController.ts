@@ -23,6 +23,9 @@ class GeoPointController
     intersection_point_geo: GeoPoint;
     observation_point_geo: GeoPoint;
     
+    //calc 3
+    max_overpressure_point_geo : GeoPoint = new GeoPoint("max_overpressure_point_geo");
+    max_thermal_effect_point_geo: GeoPoint = new GeoPoint("max_thermal_effect_point_geo");
 
 
     private readonly on_observation_point_changed = new Emitter<Point>();
@@ -62,14 +65,14 @@ class GeoPointController
         this.last_setted_observation_point_geo = new GeoPoint("");
         this.last_setted_observation_point = new Point("");
 
-        this.entry_point_recalc();
+    
 
         this.variant.changed.on(s => this.entry_point_recalc());
       
         this.entry_point_geo.changed.on((s, p) => this.intersection_point_geo_recalc(p));
         this.entry_point.changed.on((s, p) => this.intersection_point_geo_recalc(p));
 
-
+        this.entry_point_recalc();
         this.intersection_point_geo.changed.on(s => this.observation_point_geo_recalc());
         this.observation_point.changed.on(s => this.observation_point_geo_recalc());
 
@@ -121,6 +124,26 @@ class GeoPointController
         console.log(tmp);
 
     }
+
+
+    max_overpressure_geopoint_recalc(distance: number) {
+        var res = GeoMath.coords_by_distance_azimuth({
+            latitude: this.intersection_point_geo.latitude,
+            longitude: this.intersection_point_geo.longitude
+        }, distance*1000., this.entry_point_geo.azimuth);
+
+        this.max_overpressure_point_geo.set(res.latitude, res.longitude, []);
+    }
+    max_thermal_effect_geopoint_recalc(distance: number) {
+        var res = GeoMath.coords_by_distance_azimuth({
+            latitude: this.intersection_point_geo.latitude,
+            longitude: this.intersection_point_geo.longitude
+        }, distance*1000., this.entry_point_geo.azimuth);
+
+        this.max_thermal_effect_point_geo.set(res.latitude, res.longitude, []);
+    }
+
+
 
     last_setted_observation_point_geo: GeoPoint;
     last_setted_observation_point: Point;

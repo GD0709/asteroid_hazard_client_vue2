@@ -8,7 +8,8 @@
     "calculator": "Calculator",
     "articles": "Articles",
     "footer_text": "Impact Effects Calculator",
-    "organization":"Institute of Geosphere Dynamics Russian Academy of Sciences (IDG RAS)"
+    "organization":"Institute of Geosphere Dynamics Russian Academy of Sciences (IDG RAS)",
+    "email": "Email us"
   },
   "home":{
     "intro_1":"Comprehensive assessment of hazardous effects caused by impacts of cosmic bodies",
@@ -243,7 +244,8 @@
       "Effective overpressure point source": "Position of effective overpressure point source",
       "Observation point": "Observation point",
       "yaxe":  "Altitude, km",
-      "xaxe": "Distance Along the Trajectory Projection, km"
+      "xaxe": "Distance Along the Trajectory Projection, km",
+      "legend": "Legend:"
     }
   },
 
