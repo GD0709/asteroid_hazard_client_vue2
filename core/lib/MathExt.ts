@@ -107,6 +107,10 @@ export default class MathExt
 
     static dimension_prefix_format(real: number, dimension_formatter: (power: number) => string, n: number): string
     {
+        if (real == 0) {
+            return "0 ";
+        }
+
         let real_power = Math.floor(Math.log10(real));
         let rest_power = real_power % 3;
         let power = real_power-rest_power;
@@ -118,6 +122,9 @@ export default class MathExt
 
     static power_format(real: number, n: number)
     {
+        if (real == 0){
+            return { mult:"1", power: "0", power_n: 0, html:"0" };
+        }
         let power = Math.floor(Math.log10(real));
         let mult = MathExt.round_by_digits_to_string(real / 10**power, n);
         let html = mult;

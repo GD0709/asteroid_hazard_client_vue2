@@ -148,7 +148,7 @@
                 <v-col no-gutters class="no-gutters">
                     <h3>{{$t("calculator.headers.Observation point")}}</h3>
             
-                        <!-- <v-tabs
+                        <v-tabs
                             v-model="onservation_input_variant"                        
                             background-color="transparent"
                         color="primary"
@@ -157,11 +157,11 @@
                                 <v-tab value="one">{{$t('calculator.inputs.observation point.along across.label')}}</v-tab>
                                 <v-tab value="two">{{$t('calculator.inputs.observation point.distance angle.label')}}</v-tab>
                                 <v-tab value="three">{{$t('calculator.inputs.observation point.latitude longitude.label')}}</v-tab>
-                            </v-tabs> -->
+                            </v-tabs>
 
                             <v-card-text>
-                            <!-- <v-window v-model="onservation_input_variant">
-                                <v-window-item value="one"> -->
+                            <v-window v-model="onservation_input_variant">
+                                <v-window-item value="one">
                                     <div style="margin-top: 12px;">
                                         <FieldInput
                                             id="extended.observation.along"
@@ -191,18 +191,10 @@
                                             :dimension="$t('calculator.dimensions.km')"
                                             prefix="Lx ="
                                         />
-                                        <NumberInput  
-                                            id="test.along"
-                                            v-model:value="state.along_across.along"
-                                            
-                                            :accuracy="4"
-                                        />
-                                        {{ state.along_across.along }}
-                                        {{ state.observation_point_inputs.along_across.along }}
                                     </div>
-                                <!-- </v-window-item>
+                                </v-window-item>
 
-                                <v-window-item value="two"> -->
+                                <v-window-item value="two">
                                     <div style="margin-top: 12px;">
                                         <field-input
                                         id="extended.observation.distance"
@@ -233,14 +225,14 @@
                                             prefix="𝜓 ="
                                         />
                                     </div>
-                                <!-- </v-window-item>
+                                </v-window-item>
 
-                                <v-window-item value="three"> -->
+                                <v-window-item value="three">
                                     <v-row no-gutters class="align-center" style="margin-top: 12px;">
                                         <NumberInput  
                                             id="extended.observation.latitude"
                                             v-model:value="state.observation_point_geo.latitude"
-                                            :label="$t('calculator.inputs.entry vector.longitude')" 
+                                            :label="$t('calculator.inputs.entry vector.latitude')" 
                                             :dimension="$t('calculator.dimensions.degree')"
                                             :rules="input_rules.coordinate"
                                             :accuracy="4"
@@ -257,9 +249,9 @@
                                     <span v-html="$t('calculator.inputs.observation point.latitude longitude.help')"/>
                                 </help>
                             </v-row>
-                            <!-- 
+
                                 </v-window-item>
-                            </v-window> -->
+                            </v-window>
                         </v-card-text>
             
 
@@ -416,14 +408,24 @@ import FieldInput from "../../input/FieldInput.vue"
 import ProjectileInput from './Projectile.vue'
 import Entry from './Entry.vue'
 import State from "./../../../../model/state"
-import {ref} from "vue"
+import {ref, onMounted} from "vue"
 import input_rules from "./InputRules"
 import NumberInput from "../../input/NumberInput.vue"
 import Schema from "../Schema.vue"
 import Map from "./Map.vue"
+import { triggerRef } from "vue"
 const state = ref(State.state)
 
 const onservation_input_variant = ref('along-across')
+
+
+onMounted(() => {
+    state.value.observation_point.changed.on((s, p) => {
+        triggerRef(state);
+    });
+});
+
+
 
 const items = ref([
           'Appetizers', 'Entrees', 'Deserts', 'Cocktails',

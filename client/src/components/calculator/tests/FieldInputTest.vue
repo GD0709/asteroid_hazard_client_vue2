@@ -1,13 +1,17 @@
 <template>
     <div style="margin:20px;">
         <FieldInput ref="fi1" :accuracy="0"  
-        v-model:value="localvalue" id="text1" label="Diametr" prefix="D = " dimension="m" placeholder="19" 
+        v-model:value="state.observation_point_inputs.along_across.along"
+        id="text1" label="Diametr" prefix="D = " dimension="m" placeholder="19" 
         help_text="help very long text" help_title="diametr"
         @value_updated="text1_value_updated_handler"/>
 
         <FieldInput ref="fi2" :accuracy="1"  
-        v-model:value="localvalue" id="text2" label="Diametr" prefix="D = " dimension="m" placeholder="19" 
+        v-model:value="state.observation_point_inputs.along_across.along"
+        id="text2" label="Diametr" prefix="D = " dimension="m" placeholder="19" 
         help_text="help very long text" help_title="diametr"/>
+        <div>"state.observation_point_inputs.along_across.along":
+        {{ state.observation_point_inputs.along_across.along }}</div>
         <!-- <FieldInput :log_slider="true" v-model="localvalue" id="text2" 
             :min="15"
             :max="3000"/>  -->
@@ -26,8 +30,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import FieldInput from '../input/FieldInput.vue';
+import State from '@/model/state'
   const dialog = ref(false)
-
+  const state = ref(State.state)
   defineProps<{
     help_text?: string
     help_title?: string

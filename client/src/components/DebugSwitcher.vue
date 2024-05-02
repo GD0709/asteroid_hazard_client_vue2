@@ -1,5 +1,5 @@
 <template>
-    <div @click="dsclick">DS<slot/>DS</div>
+    <div @click="dsclick"><slot/></div>
 </template>
 
 <script lang="ts" setup>

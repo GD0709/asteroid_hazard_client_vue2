@@ -53,6 +53,11 @@
       "W/cm2": "W/cm<sup>2</sup>",
       "t tnt": "t TNT",
       "prefix":{
+        "-15": "f",
+        "-12": "p",
+        "-9": "n",
+        "-6": "µ",
+        "-3": "m",
         "0": "",
         "3": "k",
         "6": "M",
@@ -236,7 +241,9 @@
       "Surface intersection point": "The point of intersection of the trajectory with the Earth's surface",
       "Effective thermal point source":"Position of effective thermal point source",
       "Effective overpressure point source": "Position of effective overpressure point source",
-      "Observation point": "Observation point"
+      "Observation point": "Observation point",
+      "yaxe":  "Altitude, km",
+      "xaxe": "Distance Along the Trajectory Projection, km"
     }
   },
 

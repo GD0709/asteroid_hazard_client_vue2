@@ -22,14 +22,14 @@
         <span class="mr-2">{{ $t("old version") }}</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn> -->
-      <v-btn class="d-none d-sm-flex"
+      <!-- <v-btn class="d-none d-sm-flex"
         v-on:click="test"
       >
         <span class="mr-2">test</span>
         <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
-    <HelloWorld/>
+    <!-- <HelloWorld/> -->
     <v-main>
       <router-view />
    

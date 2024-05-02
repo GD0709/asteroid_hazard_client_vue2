@@ -28,7 +28,7 @@ class DelayedUpdater
 
     }
 
-    debug: boolean = false;
+    debug: boolean = true;
     log(...data: any[])
     {
         if(this.debug == true)
@@ -58,7 +58,7 @@ class DelayedUpdater
         {
             this.log("check update and perform");
             this.is_updating = true;
-            this.on_updating.trigger(this);
+            this.on_updating.trigger(this, []);
             this.last_need_update = 0;
             this.is_updating = false;
             return true;
@@ -97,8 +97,8 @@ class Effects {
         this.observation_point_input = observation_point_input;
         this.observation_point_input.main_point.changed.on(() => this.observation_point_input_updater.need_update());
         this.observation_point_input_updater.updating.on(() => this.observation_point_changed());
-/*         setInterval(() => this.update(), Effects.variant_update_timeout);
-        this.update(); */
+        //  setInterval(() => this.update(), Effects.variant_update_timeout);
+        // this.update();
         this.variant_changed();
         this.variant_and_target_changed();
         this.observation_point_changed();
@@ -112,6 +112,16 @@ class Effects {
     crater: Crater = new Crater();
     seismic: Seismic = new Seismic();
     atmospheric_disturbances: AtmosphericDisturbances = new AtmosphericDisturbances();
+
+
+    private readonly on_effects_updated = new Emitter<Effects>();
+    get effects_updated(): IEmitter<Effects> {
+        return this.on_effects_updated;
+    }
+    public fire_effects_updated(): void {
+        this.on_effects_updated.trigger(this, []);
+    }
+
 
     update_fast(){
         this.shock_wave.calc_heff_and_zero_point(this.variant);
@@ -144,6 +154,7 @@ class Effects {
         this.crater.calc_point(this.observation_point_input.main_point, this.shock_wave.zero_point);
         this.seismic.calc_point(this.variant, this.observation_point_input.main_point, this.shock_wave.zero_point);
         this.atmospheric_disturbances.calc_point(this.variant, this.observation_point_input.main_point);
+        this.fire_effects_updated();
     }
 
    /*  update() {

@@ -102,13 +102,13 @@
                     alignment-baseline="end"
                     class="axe_label_text"
                     transform="rotate(-90 222 -50)">
-                    Altitude, km
+                    {{$t('calculator.schema.yaxe')}}
                 </text>
                 <!-- x axe label -->
                 <text x="105" :y="-120" dy="0.13em" text-anchor="middle" stroke="none"
                     alignment-baseline="end"
                     class="axe_label_text">
-                    Distance Along the Trajectory Projection, km
+                    {{$t('calculator.schema.xaxe')}}
                 </text>
 
                 <!-- y ticks left -->
@@ -185,7 +185,7 @@
             </svg>
         </svg>    
         <!-- <div ref="t1">asdhajhsd</div> -->
-         <div>
+         <div v-if="state.visual_settings.is_debug">
             <div>client_size:{{ client_size }}</div>
             <div>client_size1:{{ client_size1() }}</div>
             <div>entry: {{ entry }}                         </div>

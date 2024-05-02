@@ -9,6 +9,7 @@ interface Format {
     };
     round: (real: number, n: number|null) => string;
     round_decimal_digits_to_string: (real: number, after_dot_length: number) => string;
+    seconds_to_string: (s: number, show_ms: boolean) => string;
   }
 
 interface FormatOptions {
@@ -42,6 +43,9 @@ const createFormat = (options: FormatOptions): Format => {
         },
         round_decimal_digits_to_string: function(real: number, after_dot_length: number): string {
             return MathExt.round_decimal_digits_to_string(real, after_dot_length)
+        },
+        seconds_to_string: function(s: number, show_ms: boolean = false): string {
+            return MathExt.seconds_to_string(s, show_ms)
         }
     }
 }

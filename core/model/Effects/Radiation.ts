@@ -168,6 +168,8 @@ export default class RadiationEffects implements IEffectAssesment {
         )
         if (res >= 100)
             return 100.
+        if (res < 0)
+            return 0.
         return res;        
     }
     static eta_large_calc(variant: Variant): number {
@@ -257,7 +259,8 @@ export default class RadiationEffects implements IEffectAssesment {
         return (op: IPoint): number => {
             let el = op.y >= 0 ? elp : eln;
             let res =  this.eta * 4.184 * 10 ** 12 * variant.kenergy_kttnt / (100*4 * Math.PI * 10**10 * (this.hrad**2 + op.x**2 + el * op.y**2))
-            return res > 0 ? res : 0;
+            console.log("irradiation result ", res);
+            return res > 0.1 ? res : 0.;
         }
     }
 
@@ -271,7 +274,7 @@ export default class RadiationEffects implements IEffectAssesment {
             let r = Math.sqrt(op.x**2 + op.y**2);
             let stuff = variant.angle <= 75 ? Math.cos(Math.PI * r / (2 * cos_scale)): 1;
             let res = shorter * stuff / (10**10 * (this.hrad**2 + r**2));
-            return res > 0 ? res : 0;
+            return res > 0.1 ? res : 0;
         }
     }
 
@@ -325,7 +328,7 @@ export default class RadiationEffects implements IEffectAssesment {
             let stuff = op.y >= 0 ? elp : eln;
 
             let res = shorter  / (this.hrad + op.x**2 + stuff * op.y**2);
-            return res > 0 ? res : 0;
+            return res > 0.1 ? res : 0;
         }
     }
 

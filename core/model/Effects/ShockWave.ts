@@ -71,7 +71,7 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
                 Math.pow(variant.density / rho_0, 2. / 3)
             )
         ) / 1000;
-        if(res < 0) return 0;
+        if(res < 0.1) return 0;
         else return res;
     }
 
@@ -155,7 +155,7 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
             let el = 1.0 * hetpORhetn / (Math.sin(phi)**2 + hetpORhetn**2 * Math.cos(phi)**2)**0.5
             let d=1000 * (this.heff**2 + r**2)**0.5;
             let res = el * pre_res(d);
-            return res > 0 ? res : 0;
+            return res > 0.001 ? res : 0;
         }
     }
 
@@ -208,7 +208,7 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
             let d=1000 * (this.heff**2 + r**2)**0.5
 
             let res = el * pre_res(d);
-            return res > 0 ? res : 0;
+            return res > 0.001 ? res : 0;
         }
 
     }
@@ -226,14 +226,14 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
             res = this.low_overpressure_calc(variant);
         else if (variant.diameter < 300)
         {
-            let var_150 = new Variant();
+            let var_150 = new Variant("var_150");
             var_150._density = variant.density;
             var_150._diameter = 150.;
             var_150._angle = variant.angle;
             var_150._velocity = variant.velocity;
             var_150.update_derivatives();
 
-            let var_300 = new Variant();
+            let var_300 = new Variant("var_300");
             var_300._density = variant.density;
             var_300._diameter = 300.;
             var_300._angle = variant.angle;
@@ -249,7 +249,7 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
             let output = res(op);
             if(this.heff > 0 && variant.diameter <= 150 && output > this.max_value_of_overpressure)
                 output = this.max_value_of_overpressure;
-            return output > 0 ? output : 0;
+            return output > 0.001 ? output : 0;
         };
 
         return check;
@@ -260,6 +260,6 @@ export default class ShockWaveEffects implements IEffectAssesment, IPointEffectA
         let pressure_value=(overpressure_atm+1.0);
         let gamma=1.4;
         let value= 330.0/gamma * (pressure_value -1) * (1+(gamma + 1)/(2*gamma) * (pressure_value-1))**(-0.5);
-        return value;
+        return value > 0.1 ? value : 0;
     } 
 }

@@ -1,4 +1,5 @@
 
+import { Emitter, IEmitter, INotifyChanged } from "../lib/Events";
 import MathExt from "../lib/MathExt";
 import { GeoMath, GeoPoint, GeoVector, Point } from "./Geometry";
 import { ObservationPointDistanceAngle } from "./Observation";
@@ -7,6 +8,7 @@ import Variant from "./Variant";
 
 class GeoPointController
 {
+    name: string = "GeoPointController"
     // input
     variant: Variant;
     entry_point_geo: GeoVector;
@@ -20,6 +22,27 @@ class GeoPointController
     // calc 2
     intersection_point_geo: GeoPoint;
     observation_point_geo: GeoPoint;
+    
+
+
+    private readonly on_observation_point_changed = new Emitter<Point>();
+    get observation_point_changed(): IEmitter<Point> {
+        return this.on_observation_point_changed;
+    }
+    public fire_observation_point_changed(passed: string[]): void {
+        //passed.push(this.name);
+        this.on_observation_point_changed.trigger(this.observation_point, passed);
+    }
+
+
+    private readonly on_observation_geopoint_changed = new Emitter<GeoPoint>();
+    get observation_geopoint_changed(): IEmitter<GeoPoint> {
+        return this.on_observation_geopoint_changed;
+    }
+    public fire_observation_geopoint_changed(passed: string[]): void {
+        //passed.push(this.name);
+        this.on_observation_geopoint_changed.trigger(this.observation_point_geo, passed);
+    }
     
 
     constructor(    variant: Variant,
@@ -65,7 +88,7 @@ class GeoPointController
         var res = GeoMath.coords_by_distance_azimuth({
             latitude: this.entry_point_geo.latitude,
             longitude: this.entry_point_geo.longitude
-        }, this.entry_point.y*1000, (-90-this.entry_point_geo.azimuth));
+        }, this.entry_point.y*1000, (-180+this.entry_point_geo.azimuth));
         this.intersection_point_geo.set(res.latitude, res.longitude, passed.concat(['intersection_point_geo_recalc']));
 
     }
@@ -78,7 +101,7 @@ class GeoPointController
         );
         var angleObs_deg = ObservationPointDistanceAngle.calc_angle(this.observation_point);
         
-        let bearing_from_intersection_to_observastion = 360-90 - angleObs_deg;
+        let bearing_from_intersection_to_observastion = angleObs_deg + this.entry_point_geo.azimuth;
 
         var res = GeoMath.coords_by_distance_azimuth({
             latitude: this.intersection_point_geo.latitude,
@@ -87,7 +110,7 @@ class GeoPointController
 
         this.last_setted_observation_point_geo.set(res.latitude, res.longitude, []);
         this.observation_point_geo.set(res.latitude, res.longitude, []);
-
+        
         var tmp = "data = <|List -> { <|Coords -> {"+ this.entry_point_geo.latitude +", "+this.entry_point_geo.longitude+"}, Name -> "+ "\"entry_point_geo\""+ "|>,";
         tmp += "<|Coords -> {"+ this.intersection_point_geo.latitude +", "+this.intersection_point_geo.longitude+"}, Name -> "+ "\"intersection_point_geo\""+ "|>,";
         tmp += "<|Coords -> {"+ this.observation_point_geo.latitude +", "+this.observation_point_geo.longitude+"}, Name -> "+ "\"observation_point_geo\""+ "|>}, ";
@@ -119,13 +142,20 @@ class GeoPointController
         }
         let distance = GeoMath.calc_distance(this.intersection_point_geo, this.observation_point_geo);
         let initial_bearing_from_intersection_to_observation = GeoMath.initial_bearing_to(this.intersection_point_geo, this.observation_point_geo);
-        let observation_angle = 360-90-initial_bearing_from_intersection_to_observation;
+        let observation_angle = initial_bearing_from_intersection_to_observation - this.entry_point_geo.azimuth;
 
         let xy_angle = 180-observation_angle;
 
-        let tmp = "data3 = <|Distance-> " + distance + ", ObservationAngle-> " + observation_angle;
+
+
+
+        let tmp = "data3 = <|Distance-> " + distance;
+        tmp += ", InitialBearingFromIntersectionToObservation-> " + initial_bearing_from_intersection_to_observation;
+        tmp += ", ObservationAngle-> " + observation_angle;
         let x = (1)*distance * Math.sin(MathExt.deg2rad(xy_angle)) ;
         let y = distance * Math.cos(MathExt.deg2rad(xy_angle));
+
+
         tmp += ", x->" + x + ", y->" + y;
 
         tmp += ", List -> { <|Coords -> {"+ this.entry_point_geo.latitude +", "+this.entry_point_geo.longitude+"}, Name -> "+ "\"entry_point_geo\""+ "|>,";
@@ -136,6 +166,9 @@ class GeoPointController
         console.log(tmp);
         this.last_setted_observation_point_geo.set(x,y,passed);
         this.observation_point.set(x,y, passed.concat('observation_point_recalc'))
+
+
+
         // var distance = GeoMath.calc_distance(this.observation_point_geo, this.intersection_point_geo);
         // var angleObs_rad = GeoMath.angle_in_triangle(this.observation_point_geo, this.intersection_point_geo, this.entry_point_geo);
         // console.log(" observation_point_recalc:", this.observation_point_geo.to_string(), " and ", this.intersection_point_geo.to_string(), ":", MathExt.rad2deg(angleObs_rad));

@@ -1,4 +1,7 @@
 <template>
+    <div class="map_wrapper map">
+
+    
     <yandex-map
         v-model="map"
         :settings="{
@@ -34,6 +37,20 @@
     >
       <div class="marker"><div class="icon" v-html="marker.icon"></div></div>
     </yandex-map-default-marker> -->
+
+    <yandex-map-feature
+    :settings="{
+      geometry: {
+        type: 'LineString',
+        coordinates: lineCoordinates,
+      },
+      style: {
+        stroke: [{ color: '#cccccc', width: 3 }],
+      },
+    }"
+  />
+
+
     <yandex-map-default-marker
     v-model="defaultMarker"
     :settings="{
@@ -61,6 +78,13 @@
     </yandex-map-marker>
 
   </yandex-map>
+  <div class="flex_col">
+    
+
+
+
+  </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -80,7 +104,7 @@ const props = withDefaults(defineProps<Props>(), {
     size: 200
 })
 
-const center:LngLat = [0, 0]
+const center:LngLat = [64.565, 54.445]
 const zoom = 7;
 const theme = "dark"
 
@@ -97,13 +121,13 @@ import {
   YandexMapMarker,
   YandexMapControlButton,
   YandexMapZoomControl,
+  YandexMapFeature,
 } from 'vue-yandex-maps';
 import type { YandexMapMarkerPosition } from 'vue-yandex-maps';
-import { onMounted, onUnmounted, ref,triggerRef } from 'vue';
+import { onMounted, onUnmounted, ref, Ref, triggerRef } from 'vue';
 import type { LngLat } from '@yandex/ymaps3-types';
 import type { YMapDefaultMarker } from '@yandex/ymaps3-types/packages/markers';
 import { IGeoPoint } from '../../../../../../core/model/Geometry';
-import { Ref } from 'vue';
 import { LatLon } from 'geodesy/utm';
 
 
@@ -117,13 +141,13 @@ class MarkerModel {
     ) {
         this.control = control;
         this.icon = icon;
-        this.settings.coordinates[0] = geo_point.latitude;
-        this.settings.coordinates[1] = geo_point.longitude;
+        this.settings.coordinates[1] = geo_point.latitude;
+        this.settings.coordinates[0] = geo_point.longitude;
         geo_point.changed.on((p, passed) => {
             console.log("map geopoint changed", p, passed);
            
             control.value?.update({
-                coordinates: [p.latitude, p.longitude]
+                coordinates: [p.longitude, p.latitude]
             })
            
         });
@@ -141,7 +165,7 @@ class MarkerModel {
     outer_move_handler: null | ((sender: MarkerModel, point:{latitude: number, longitude: number}) => void);
 
 
-    move(lat: number, lon: number): void {
+    move(lon: number, lat: number): void {
         if (this.outer_move_handler != null) {
             console.log("lat:", lat, " long:", lon);
             this.outer_move_handler(this, {latitude: lat, longitude: lon});
@@ -163,6 +187,13 @@ const intersection_point_controller = new MarkerModel(intersection_point_model, 
 const observation_point_model = shallowRef<any | null>(null);
 const observation_point_controller = new MarkerModel(observation_point_model, "?", "Observation point", state.value.observation_point_geo, (s, p)=> state.value.observation_point_geo.set(p.latitude, p.longitude, ['map']));
 
+const lineCoordinates = ref<LngLat[]>([
+    [state.value.geo_points_controller.intersection_point_geo.longitude, state.value.geo_points_controller.intersection_point_geo.latitude],
+    [state.value.entry_point_geo.longitude, state.value.entry_point_geo.latitude],
+    // entry_point_model.value.settings.coordinates,
+    // intersection_point_model.value.settings.coordinates
+]);
+
 // const markers3:MarkerModel[] = [
 //     new MarkerModel("&#xe902;", "Entry point", state.value.entry_point_geo, null),
 //     //new MarkerModel("&#8736;","Surface intersection point", state.value.geo_points_controller.intersection_point_geo),
@@ -178,7 +209,18 @@ const map = shallowRef<null | YMap>(null);
 
 const handleClick = (event: MouseEvent) => console.log(event);
     
-
+onMounted(() => {
+    console.log('map onMounted register callback');
+    state.value.geo_points_controller.observation_point.changed.on((s, p)=> {
+        triggerRef(state);
+    });
+    state.value.entry_point_geo.changed.on((s, p)=> {
+        lineCoordinates.value[1] = [s.longitude, s.latitude];
+    });
+    state.value.geo_points_controller.intersection_point_geo.changed.on((s, p)=> {
+        lineCoordinates.value[0] = [s.longitude, s.latitude];
+    });
+})
 
 
 
@@ -192,7 +234,7 @@ const onDragMove = (...args: any[]) => {
 const onDragEnd = (...arhs: any[]) => {
     triggerRef(defaultMarker);
     console.log("on drag end,",  arhs);
-
+    triggerRef(state);
     // entry_point_marker.value?.update({
     //     coordinates: [55, 60]
     // })
@@ -222,13 +264,21 @@ const entry_point_settings: YMapMarkerProps = {
 
 
 <style scoped lang="scss">
+.map_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
 .marker {
     margin-top: -50%;
     margin-left: -50%;
     position: relative;
     width: 50px;
     height: 50px;
-    background: rgba(150, 150, 150, 0.4);
+    background: rgba(80, 80, 80, 1);
     border-radius: 50%;
     border: 1px solid rgb(220, 220, 220);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);

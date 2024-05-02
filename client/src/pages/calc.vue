@@ -21,12 +21,8 @@
 
             </div>
  
-            <!-- <div v-show="state.visual_settings.input_mode == InputModes.basic">        <BasicInput /></div>
-            <div v-show="state.visual_settings.input_mode == InputModes.extended">        <ExtendedInput /></div> -->
-<ExtendedInput />
-            <!-- 
-            <input-summary/>
-            <results/> -->
+            <div v-show="state.visual_settings.input_mode == InputModes.basic">        <BasicInput /></div>
+            <div v-show="state.visual_settings.input_mode == InputModes.extended">        <ExtendedInput /></div>
             <InputSummary/>
             <Results/>
         </v-container>

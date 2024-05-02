@@ -15,7 +15,7 @@ export default class State
 
     visual_settings: VisualSettings = new VisualSettings();
     
-    entry_point_geo: GeoVector = new GeoVector("entry_point_geo", 0,0,0);//54.445, 64.565, 103.3);
+    entry_point_geo: GeoVector = new GeoVector("entry_point_geo", 54.445, 64.565, 103.3);
     target: Target = new Target();
 
 

@@ -10,7 +10,7 @@
                 <div class="result_effect"><span class="results_effects_name">{{$t('calculator.results.shockwave.Effective altitude')}}: </span>&nbsp;{{$format.round(shock_wave.heff)}} km</div>
                 <div class="result_effect" v-if="shock_wave.heff > 0"><span class="results_effects_name" >{{$t('calculator.results.shockwave.Maximal overpressure')}}:</span> {{$format.round(shock_wave.max_value_of_overpressure)}} {{$t('calculator.dimensions.atm')}} {{$format.dimension_prefix_format(1000*shock_wave.overpressure_to_kPa(shock_wave.max_value_of_overpressure))}}{{$t('calculator.dimensions.Pa')}}</div>
                 <div class="result_effect" v-if="shock_wave.heff > 0"><span class="results_effects_name">{{$t('calculator.results.shockwave.Distance to the center')}}: </span>&nbsp;{{$format.round(shock_wave.zero_point)}} {{$t('calculator.dimensions.km')}}</div>
-                <div class="result_effect" v-if="shock_wave.heff > 0"><div class="results_effects_name" >{{$t('calculator.results.shockwave.Areas')}}: </div>
+                <!-- <div class="result_effect" v-if="shock_wave.heff > 0"><div class="results_effects_name" >{{$t('calculator.results.shockwave.Areas')}}: </div>
                 
                     <div v-for="([key, value], i) in shock_wave.areas_at" :key="i" class="results_tab">
                         {{$t('calculator.results.common.at')}} {{key}} {{$t('calculator.dimensions.atm')}}: 
@@ -19,7 +19,7 @@
                         
                     </div>
                 
-                </div>
+                </div> -->
 
 
                 <div class="result_effect"><span class="results_effects_name">{{$t('calculator.results.shockwave.The value of the overpressure')}}: </span>&nbsp;{{$format.round(shock_wave.point_assesment.overpressure)}} {{$t('calculator.dimensions.atm')}} ({{$format.dimension_prefix_format(1000*shock_wave.overpressure_to_kPa(shock_wave.point_assesment.overpressure))}}{{$t('calculator.dimensions.Pa')}})</div>
@@ -29,14 +29,20 @@
 </template>
 
 <script setup lang="ts">
+import { triggerRef } from 'vue';
 import State from './../../../../model/state';
 import Expansion from './Expansion.vue';
 
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 
 let state = ref(State.state)
 let shock_wave = ref(State.state.effects.shock_wave)
 
+onMounted(() => {
+    state.value.effects.effects_updated.on((effects, passed)=> {
+        triggerRef(shock_wave)
+    })
+})
 </script>
 
 
