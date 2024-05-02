@@ -28,7 +28,7 @@
                     <span class="input_parameter_name">{{$t('calculator.input_summary.energy')}}: </span>
                     <span class="input_parameter_value">
                         {{$format.dimension_prefix_format(state.variant.kenergy)}}{{$t('calculator.dimensions.J')}}
-                       (<span v-html="$format.power_format(state.variant.kenergy).html"/> {{$t('calculator.dimensions.J')}})
+                       (<span v-html="$format.power_format(state.variant.kenergy, null).html"/> {{$t('calculator.dimensions.J')}})
                     </span>
                 </div>
                 <div  v-if="state.visual_settings.is_debug">
@@ -40,7 +40,7 @@
                     <div class="input_parameter_value">
                         {{$format.dimension_prefix_format(1000.*state.variant.kenergy_kttnt)}}{{$t('calculator.dimensions.t tnt')}}
                         <span  v-if="state.visual_settings.input_mode == InputModes.extended"><br/>
-                        <span v-html="$format.power_format(1000.*state.variant.kenergy_kttnt).html"/> {{$t('calculator.dimensions.t tnt')}}
+                        <span v-html="$format.power_format(1000.*state.variant.kenergy_kttnt, null).html"/> {{$t('calculator.dimensions.t tnt')}}
                         </span>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
 <script lang="ts" setup>
 import State from './../../../model/state';
 import { InputModes } from '../../../model/VisualSettings';
-
+import MathExt from '../../../../../core/lib/MathExt';
 
 import {ref} from 'vue'
 

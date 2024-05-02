@@ -5,13 +5,12 @@
     <yandex-map
         v-model="map"
         :settings="{
-            location: {
-                center,
-                zoom,
-            },
+            location: LOCATION,
             theme,
             showScaleInCopyrights: true,
+            behaviors: BEHAVIOR,
         }"
+  
       width="100%"
       height="100%"
   >
@@ -56,7 +55,7 @@
     :settings="{
       //Здесь вам НУЖНО брать координаты либо из функции onDragMove, либо из маркера, стриггерив реактивность
       //Яндекс при выполнении функции .update зачем-то подставляет оригинальные координаты, хотя они не менялись =(
-      coordinates: defaultMarker ? defaultMarker.coordinates : center,
+      coordinates: defaultMarker ? defaultMarker.coordinates : LOCATION.center,
       title: `Долгота: ${defaultMarker?.coordinates[0].toFixed(2)}<br>Широта: ${defaultMarker?.coordinates[1].toFixed(2)}`,
       draggable: true,
       onDragMove,
@@ -77,13 +76,19 @@
       <div class="marker"><div class="icon" v-html="observation_point_controller.icon"></div></div>
     </yandex-map-marker>
 
+    <yandex-map-listener
+    :settings="{
+      onActionEnd: map_drag_event,
+    }"
+  />
+
   </yandex-map>
-  <div class="flex_col">
-    
+  <!-- <div class="flex_col">
+    <v-btn v-on:click="test_set_center">set center</v-btn>
 
 
 
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -92,6 +97,7 @@ import State from './../../../../model/state';
 
 
 import { YMapMarkerProps } from '@yandex/ymaps3-types/imperative/YMapMarker';
+import type { YMapLocationRequest } from '@yandex/ymaps3-types/imperative/YMap';
 
 
 let state = ref(State.state)
@@ -104,8 +110,10 @@ const props = withDefaults(defineProps<Props>(), {
     size: 200
 })
 
-const center:LngLat = [64.565, 54.445]
-const zoom = 7;
+
+
+
+
 const theme = "dark"
 
 // -- map
@@ -122,6 +130,7 @@ import {
   YandexMapControlButton,
   YandexMapZoomControl,
   YandexMapFeature,
+  YandexMapListener
 } from 'vue-yandex-maps';
 import type { YandexMapMarkerPosition } from 'vue-yandex-maps';
 import { onMounted, onUnmounted, ref, Ref, triggerRef } from 'vue';
@@ -129,6 +138,18 @@ import type { LngLat } from '@yandex/ymaps3-types';
 import type { YMapDefaultMarker } from '@yandex/ymaps3-types/packages/markers';
 import { IGeoPoint } from '../../../../../../core/model/Geometry';
 import { LatLon } from 'geodesy/utm';
+
+import type { BehaviorMapEventHandler, BehaviorType, DomEvent } from '@yandex/ymaps3-types';
+const BEHAVIOR: BehaviorType[] = ['drag', 'scrollZoom', 'dblClick', 'mouseRotate', 'mouseTilt'];
+
+
+const map_drag_event = (object: Parameters<BehaviorMapEventHandler>[0]) => {
+    console.log(`map_drag_event Object:`, object);
+   //triggerRef(LOCATION);
+  };
+
+
+
 
 
 class MarkerModel {
@@ -194,6 +215,7 @@ const lineCoordinates = ref<LngLat[]>([
     // intersection_point_model.value.settings.coordinates
 ]);
 
+
 // const markers3:MarkerModel[] = [
 //     new MarkerModel("&#xe902;", "Entry point", state.value.entry_point_geo, null),
 //     //new MarkerModel("&#8736;","Surface intersection point", state.value.geo_points_controller.intersection_point_geo),
@@ -213,13 +235,17 @@ onMounted(() => {
     console.log('map onMounted register callback');
     state.value.geo_points_controller.observation_point.changed.on((s, p)=> {
         triggerRef(state);
+        test_set_center();
     });
     state.value.entry_point_geo.changed.on((s, p)=> {
         lineCoordinates.value[1] = [s.longitude, s.latitude];
+        test_set_center();
     });
     state.value.geo_points_controller.intersection_point_geo.changed.on((s, p)=> {
         lineCoordinates.value[0] = [s.longitude, s.latitude];
+        test_set_center();
     });
+    test_set_center();
 })
 
 
@@ -232,9 +258,9 @@ const onDragMove = (...args: any[]) => {
 };
 
 const onDragEnd = (...arhs: any[]) => {
-    triggerRef(defaultMarker);
+    //triggerRef(defaultMarker);
     console.log("on drag end,",  arhs);
-    triggerRef(state);
+    //triggerRef(state);
     // entry_point_marker.value?.update({
     //     coordinates: [55, 60]
     // })
@@ -254,11 +280,77 @@ const entry_point_marker_onDragEnd = (...args: any[]) => {
     console.log(args);
 };
 const entry_point_settings: YMapMarkerProps = {
-    coordinates: [55, 55],
+    coordinates: [55, 60],
     draggable: true,
     onDragEnd: (...args: any[]) => entry_point_marker_onDragEnd(args),
 }
 
+
+
+
+const test_set_center = () => {
+  console.log("clicked set center button");
+
+  let arr = [
+    state.value.entry_point_geo,
+    state.value.geo_points_controller.intersection_point_geo,
+    state.value.observation_point_geo
+  ]
+
+  let settings_bounds =  [
+    [
+      Math.min(...arr.map(s => s.longitude)),
+      Math.min(...arr.map(s => s.latitude))
+    ], [
+      Math.max(...arr.map(s => s.longitude)),
+      Math.max(...arr.map(s => s.latitude))
+    ]];
+
+  let extlong = 0.1* Math.abs(settings_bounds[1][0] - settings_bounds[0][0])
+  let ext_lat = 0.1* Math.abs(settings_bounds[1][1] - settings_bounds[0][1])
+
+
+  map.value?.setLocation({
+    // center: [56,60],
+    // zoom: 5
+    bounds:[
+      [settings_bounds[0][0] - extlong,settings_bounds[0][1]-ext_lat],
+      [settings_bounds[1][0]+extlong,settings_bounds[1][1]+ext_lat]
+    ]
+  
+  })
+}
+
+const calc_center_for_map = (): {latitude:number, longitude: number} => {
+  let arr = [
+    state.value.entry_point_geo,
+    state.value.geo_points_controller.intersection_point_geo,
+    state.value.observation_point_geo
+  ]
+
+  let settings_bounds =  [
+    [
+      Math.min(...arr.map(s => s.longitude)),
+      Math.min(...arr.map(s => s.latitude))
+    ], [
+      Math.max(...arr.map(s => s.longitude)),
+      Math.max(...arr.map(s => s.latitude))
+    ]];
+  return {
+    latitude: (settings_bounds[1][1] + settings_bounds[0][1])/2,
+    longitude: (settings_bounds[1][0] + settings_bounds[0][0])/2,
+  }
+}
+
+const calc_center_and_convert_to_LngLat = ():LngLat => {
+  let res = calc_center_for_map();
+  return [res.longitude, res.latitude];
+}
+
+const LOCATION: YMapLocationRequest = {
+  center: calc_center_and_convert_to_LngLat(), // starting position [lng, lat]
+  zoom: 6, // starting zoom
+};
 
 </script>
 

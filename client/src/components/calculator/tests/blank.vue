@@ -3,7 +3,7 @@
   </template>
   
   <script setup lang="ts">
-import State from './../../../../model/state';
+import State from './../../../model/state';
 
 import {ref} from 'vue'
 

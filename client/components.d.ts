@@ -10,7 +10,6 @@ declare module 'vue' {
     AtmosphericDisturbances: typeof import('./src/components/calculator/views/results/AtmosphericDisturbances.vue')['default']
     BasicInput: typeof import('./src/components/calculator/views/input/BasicInput.vue')['default']
     Blank: typeof import('./src/components/calculator/tests/blank.vue')['default']
-    copy: typeof import('./src/components/calculator/views/results/Ejecta copy.vue')['default']
     Crater: typeof import('./src/components/calculator/views/results/Crater.vue')['default']
     DebugSwitcher: typeof import('./src/components/DebugSwitcher.vue')['default']
     Ejecta: typeof import('./src/components/calculator/views/results/Ejecta.vue')['default']

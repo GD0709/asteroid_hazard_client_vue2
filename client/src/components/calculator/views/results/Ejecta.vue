@@ -13,7 +13,7 @@
                 
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.ejecta.Thickness of ejecta blanket')}}:&nbsp;</span>
-                    <span v-html="$format.power_format(crater.ejecta.ejecta_thickness).html"/><span v-html="$t('calculator.dimensions.m')"/>
+                    <span v-html="$format.power_format(crater.ejecta.ejecta_thickness, null).html"/><span v-html="$t('calculator.dimensions.m')"/>
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.ejecta.Fraction of melt in ejecta')}}:</span>

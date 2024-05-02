@@ -65,7 +65,7 @@ class AsyncEmitter<S> implements IAsyncEmitter<S> {
 
 
 
-/* 
+/*
 
 
 interface ISignal<S,T> {
@@ -134,10 +134,8 @@ class AsyncSignal<S, T> implements IAsyncSignal<S,T> {
         return this
     }
 } */
-
-
-
-export {  INotifyChanged, IAsyncNotifyChanged,/* ISignal, IAsyncSignal, Signal, AsyncSignal,  */IEmitter, IAsyncEmitter, Emitter, AsyncEmitter}
+export { Emitter, AsyncEmitter };
+export type { INotifyChanged, IAsyncNotifyChanged, /* ISignal, IAsyncSignal, Signal, AsyncSignal,  */ IEmitter, IAsyncEmitter };
 
 
 /* class Dog implements INotifyChanged<Dog>{

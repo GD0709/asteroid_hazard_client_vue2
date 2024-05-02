@@ -17,11 +17,11 @@
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.seismic.The peak ground velocity')}}:</span>
-                    {{$format.round(seismic.PGV)}} <span v-html="$t('calculator.dimensions.cm/s')"/>
+                    {{$format.round(seismic.PGV, null)}} <span v-html="$t('calculator.dimensions.cm/s')"/>
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.seismic.The peak ground acceleration')}}:</span>
-                    {{$format.round(seismic.PGA)}} <span v-html="$t('calculator.dimensions.cm/s2')"/>
+                    {{$format.round(seismic.PGA, null)}} <span v-html="$t('calculator.dimensions.cm/s2')"/>
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.seismic.Time of arrival to the observation point')}}:</span>

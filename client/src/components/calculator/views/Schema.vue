@@ -99,14 +99,14 @@
 
                 <!-- y axe label -->
                 <text x="226" :y="-50" dy="0.13em" text-anchor="middle" stroke="none"
-                    alignment-baseline="end"
+      
                     class="axe_label_text"
                     transform="rotate(-90 222 -50)">
                     {{$t('calculator.schema.yaxe')}}
                 </text>
                 <!-- x axe label -->
                 <text x="105" :y="-120" dy="0.13em" text-anchor="middle" stroke="none"
-                    alignment-baseline="end"
+               
                     class="axe_label_text">
                     {{$t('calculator.schema.xaxe')}}
                 </text>

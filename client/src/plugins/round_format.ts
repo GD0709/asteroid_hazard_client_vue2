@@ -1,7 +1,7 @@
 
 interface Format {
     dimension_prefix_format: (real: number) => string;
-    power_format: (real: number, n: number) => {
+    power_format: (real: number, n: number|null) => {
         mult: string;
         power: string;
         power_n: number;
@@ -33,9 +33,9 @@ const createFormat = (options: FormatOptions): Format => {
         //console.log("Dimensions", state.state.visual_settings.round_digits);
             return MathExt.dimension_prefix_format(real, (p) => options.localize("calculator.dimensions.prefix." + p), State.state.visual_settings.round_digits);
         },
-        power_format: function(real: number) 
+        power_format: function(real: number, n:number|null) 
         { 
-            return MathExt.power_format(real, State.state.visual_settings.round_digits);
+            return MathExt.power_format(real, n == null ? State.state.visual_settings.round_digits: n);
         },
         round: function(real: number, n: number|null) 
         { 
@@ -57,3 +57,10 @@ export const FormatPlugin: Plugin = {
         app.config.globalProperties.$format = createFormat(options)
     }
 }
+
+declare module "@vue/runtime-core" {
+    //Bind to `this` keyword
+    interface ComponentCustomProperties {
+      $format: Format;
+    }
+  }

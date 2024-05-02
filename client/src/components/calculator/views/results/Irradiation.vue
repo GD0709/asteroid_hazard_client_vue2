@@ -17,19 +17,19 @@
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Radiation altitude')}}:</span>
-                    {{$format.round(irradiation.hrad)}}  {{$t('calculator.dimensions.km')}}
+                    {{$format.round(irradiation.hrad, null)}}  {{$t('calculator.dimensions.km')}}
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Radiation pulse duration')}}:</span>
-                    {{$format.round(irradiation.trad)}}  {{$t('calculator.dimensions.s')}}
+                    {{$format.round(irradiation.trad, null)}}  {{$t('calculator.dimensions.s')}}
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Radiation efficiency')}}:</span>
-                    {{$format.round(irradiation.eta)}}%
+                    {{$format.round(irradiation.eta, null)}}%
                 </div>
                 <div class="result_effect">
                     <span class="results_effects_name">{{$t('calculator.results.irradiation.Distance to the center')}}:</span>
-                    {{$format.round(irradiation.zero_point)}} {{$t('calculator.dimensions.km')}}
+                    {{$format.round(irradiation.zero_point, null)}} {{$t('calculator.dimensions.km')}}
                 </div>
 
 
