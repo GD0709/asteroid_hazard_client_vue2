@@ -5,7 +5,7 @@
     <yandex-map
         v-model="map"
         :settings="{
-            location: LOCATION,
+            location:LOCATION,
             theme,
             showScaleInCopyrights: true,
             behaviors: BEHAVIOR,
@@ -13,6 +13,7 @@
   
       width="100%"
       height="100%"
+      style="min-height:500px; min-width:300px;"
   >
   <yandex-map-default-scheme-layer  :settings="{ theme: 'dark' }"/>
   <yandex-map-default-features-layer />
@@ -50,7 +51,7 @@
   />
 
 
-    <yandex-map-default-marker
+    <!-- <yandex-map-default-marker
     v-model="defaultMarker"
     :settings="{
       //Здесь вам НУЖНО брать координаты либо из функции onDragMove, либо из маркера, стриггерив реактивность
@@ -62,25 +63,25 @@
       onDragEnd,
     }"
     
-  />
+  /> -->
 
-    <yandex-map-marker v-model="entry_point_model" :settings="entry_point_controller.settings">
+    <yandex-map-marker v-model="entry_point_model" :settings="entry_point_controller.settings" style="width:0px;height:0px;">
       <div class="marker"><div class="icon" v-html="entry_point_controller.icon"></div></div>
     </yandex-map-marker>
 
-    <yandex-map-marker v-model="intersection_point_model" :settings="intersection_point_controller.settings">
+    <yandex-map-marker v-model="intersection_point_model" :settings="intersection_point_controller.settings" style="width:0px;height:0px;">
       <div class="marker"><div class="icon" v-html="intersection_point_controller.icon"></div></div>
     </yandex-map-marker>
 
-    <yandex-map-marker v-model="observation_point_model" :settings="observation_point_controller.settings">
+    <yandex-map-marker v-model="observation_point_model" :settings="observation_point_controller.settings" style="width:0px;height:0px;">
       <div class="marker"><div class="icon" v-html="observation_point_controller.icon"></div></div>
     </yandex-map-marker>
 
 
-    <yandex-map-marker v-model="max_overpressure_point_model" :settings="max_overpressure_point_controller.settings">
+    <yandex-map-marker v-model="max_overpressure_point_model" :settings="max_overpressure_point_controller.settings" style="width:0px;height:0px;">
       <div class="marker"><div class="icon" v-html="max_overpressure_point_controller.icon"></div></div>
     </yandex-map-marker>
-    <yandex-map-marker v-model="max_thermal_effect_point_model" :settings="max_thermal_effect_point_controller.settings">
+    <yandex-map-marker v-model="max_thermal_effect_point_model" :settings="max_thermal_effect_point_controller.settings" style="width:0px;height:0px;">
       <div class="marker"><div class="icon" v-html="max_thermal_effect_point_controller.icon"></div></div>
     </yandex-map-marker>
 
@@ -112,7 +113,7 @@
         <div class="legend_marker"><div class="icon" v-html="observation_point_controller.icon"></div></div><div class="legend_marker_title">{{$t('calculator.schema.Observation point')}}</div>
       </div>
     </div>
-
+    <!-- <div>location: {{ LOCATION }}</div> -->
   </div>
 </div>
 </template>
@@ -268,7 +269,9 @@ onMounted(() => {
     console.log('map onMounted register callback');
     state.value.geo_points_controller.observation_point.changed.on((s, p)=> {
         triggerRef(state);
-        test_set_center();
+        if (!p.includes("map")){
+          test_set_center();
+        }
     });
     state.value.entry_point_geo.changed.on((s, p)=> {
         lineCoordinates.value[1] = [s.longitude, s.latitude];
@@ -278,7 +281,7 @@ onMounted(() => {
         lineCoordinates.value[0] = [s.longitude, s.latitude];
         test_set_center();
     });
-    test_set_center();
+    setTimeout(test_set_center, 1000);
 })
 
 
@@ -322,7 +325,7 @@ const entry_point_settings: YMapMarkerProps = {
 
 
 const test_set_center = () => {
-  console.log("clicked set center button");
+
 
   let arr = [
     state.value.entry_point_geo,
@@ -352,6 +355,10 @@ const test_set_center = () => {
     ]
   
   })
+  console.log("clicked set center button", [
+      [settings_bounds[0][0] - extlong,settings_bounds[0][1]-ext_lat],
+      [settings_bounds[1][0]+extlong,settings_bounds[1][1]+ext_lat]
+    ]);
 }
 
 const calc_center_for_map = (): {latitude:number, longitude: number} => {
@@ -398,8 +405,8 @@ const LOCATION: YMapLocationRequest = {
 }
 
 .marker {
-    margin-top: -50%;
-    margin-left: -50%;
+    margin-top: -25px;
+    margin-left: -25px;
     position: relative;
     width: 50px;
     height: 50px;

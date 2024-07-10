@@ -28,9 +28,19 @@ export default class State
     this.effects.effects_updated.on((s, p) => {
         this.recalc_effects_geopoints();
     });
+
     this.recalc_effects_geopoints();
+
+    this.variant.changed.on((s, p) => {
+        this.recalc_effects_geopoints();
+    });
+    this.entry_point_geo.changed.on((s, p) => {
+        this.recalc_effects_geopoints();
+    });
+
     }
 
+ 
     recalc_effects_geopoints() {
         console.log("recalc_effects_geopoints ", this.effects.shock_wave.zero_point, this.effects.irradiation.zero_point);
         this.geo_points_controller.max_overpressure_geopoint_recalc(this.effects.shock_wave.zero_point);

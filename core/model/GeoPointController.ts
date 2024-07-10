@@ -77,6 +77,7 @@ class GeoPointController
         this.observation_point.changed.on(s => this.observation_point_geo_recalc());
 
         this.observation_point_geo.changed.on((s, p) => this.observation_point_recalc(p));
+        this.observation_point_geo_recalc();
     }
 
 
@@ -127,19 +128,28 @@ class GeoPointController
 
 
     max_overpressure_geopoint_recalc(distance: number) {
-        var res = GeoMath.coords_by_distance_azimuth({
-            latitude: this.intersection_point_geo.latitude,
-            longitude: this.intersection_point_geo.longitude
-        }, distance*1000., this.entry_point_geo.azimuth);
+
+        let res = {
+            latitude: this.intersection_point_geo.latitude- distance/(this.entry_point.y) * (this.intersection_point_geo.latitude - this.entry_point_geo.latitude),
+            longitude: this.intersection_point_geo.longitude- distance/(this.entry_point.y) * (this.intersection_point_geo.longitude - this.entry_point_geo.longitude)
+        }
+
+        // var res = GeoMath.coords_by_distance_azimuth({
+        //     latitude: this.intersection_point_geo.latitude,
+        //     longitude: this.intersection_point_geo.longitude
+        // }, distance*1000., this.entry_point_geo.azimuth);
 
         this.max_overpressure_point_geo.set(res.latitude, res.longitude, []);
     }
     max_thermal_effect_geopoint_recalc(distance: number) {
-        var res = GeoMath.coords_by_distance_azimuth({
-            latitude: this.intersection_point_geo.latitude,
-            longitude: this.intersection_point_geo.longitude
-        }, distance*1000., this.entry_point_geo.azimuth);
-
+        // var res = GeoMath.coords_by_distance_azimuth({
+        //     latitude: this.intersection_point_geo.latitude,
+        //     longitude: this.intersection_point_geo.longitude
+        // }, distance*1000., this.entry_point_geo.azimuth);
+        let res = {
+            latitude: this.intersection_point_geo.latitude- distance/(this.entry_point.y) * (this.intersection_point_geo.latitude - this.entry_point_geo.latitude),
+            longitude: this.intersection_point_geo.longitude- distance/(this.entry_point.y) * (this.intersection_point_geo.longitude - this.entry_point_geo.longitude)
+        }
         this.max_thermal_effect_point_geo.set(res.latitude, res.longitude, []);
     }
 

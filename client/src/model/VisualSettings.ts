@@ -4,7 +4,7 @@ enum InputModes {basic = 0, extended = 1}
 class VisualSettings
 {
 
-    input_mode: InputModes = InputModes.basic;
+    input_mode: InputModes = InputModes.extended;
     round_digits: number = 2;
     round(real: number){
         return '' + MathExt.round_by_digits_to_string(real, this.round_digits);
