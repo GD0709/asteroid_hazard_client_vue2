@@ -170,17 +170,17 @@
       },
       "irradiation":{
         "Irradiation": "Irradiation",
-        "Thermal exposure": "Thermal exposure",
+        "Thermal exposure": "Maximal thermal exposure",
         "description": "One of the main hazardous effects of the cosmic body impacts",
         "Maximal thermal exposure":"Maximal thermal exposure",
-        "Maximal irradiation flux":"Maximal irradiation flux",
+        "Maximal irradiation flux":"Maximal thermal flux",
         "Radiation altitude":"Radiation altitude",
         "Radiation pulse duration":"Radiation pulse duration",
         "Radiation efficiency":"Radiation efficiency",
         "Distance to the center":"Distance to the center of a radiation field from the point of intersection of the trajectory with the Earth`s surface",
 
-        "Thermal exposure in the point of observation":"Thermal exposure in the point of observation",
-        "Thermal flux in the point of observation":"Thermal flux in the point of observation"
+        "Thermal exposure in the point of observation":"Maximal thermal exposure in the point of observation",
+        "Thermal flux in the point of observation":"Maximal thermal flux in the point of observation"
 
       },
       "crater": {
@@ -215,8 +215,8 @@
         "no ejecta": "No ejecta",
         "Ejecta forming event": "Ejecta forming event",
         "description":"Target and projectile material excavated from the crater is called ejecta. Ejected particles land around the crater forming ejecta deposit or ejecta blanket. A thickness of ejecta blanket is the greatest at the crater rim and decreases with distance from the crater. At high distances ejecta become patchy. We give an average thickness of the ejecta blanket and a thickness melted part of the ejecta blanket.",
-        "Thickness of ejecta blanket": "Thickness of ejecta blanket",
-        "Fraction of melt in ejecta": "Fraction of melt in ejecta"
+        "Thickness of ejecta blanket": "Thickness of ejecta blanket in the observational point",
+        "Fraction of melt in ejecta": "Fraction of melt in ejecta in the observational point"
       },
       "seismic": {
         "Seismic effect": "Seismic effect",
@@ -230,7 +230,7 @@
       },
       "atmospheric_disturbances": {
         "Atmospheric disturbances": "Atmospheric disturbances",
-        "description": "Atmospheric plume resulting from impact rises to high altitudes and generate atmospheric disturbances expanding to distances up to thousands of kilometres. To estimate these disturbances we consider deviations of air density from equilibrium value at an altitude of 300 km and deviations of temperature from equilibrium value at an altitude of 300 km.",
+        "description": "Atmospheric plume resulting from impact rises to high altitudes and generates atmospheric disturbances expanding to distances up to thousands of kilometres. To estimate these disturbances we consider deviations of air density from average value at an altitude of 300 km and deviations of temperature from equilibrium value at an altitude of 100 km.",
         "Peak amplitude of relative density oscillations at an altitude of 300 km":"Peak amplitude of relative density oscillations at an altitude of 300 km",
         "Peak amplitude of relative temperature oscillations at an altitude of 100 km":"Peak amplitude of relative temperature oscillations at an altitude of 100 km"
       }

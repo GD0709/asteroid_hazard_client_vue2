@@ -257,10 +257,13 @@ export default class RadiationEffects implements IEffectAssesment {
 
 
         return (op: IPoint): number => {
+            if (Math.sqrt(op.x**2 + op.y**2)<=1) return this.max_irradiation_energy;
             let el = op.y >= 0 ? elp : eln;
             let res =  this.eta * 4.184 * 10 ** 12 * variant.kenergy_kttnt / (100*4 * Math.PI * 10**10 * (this.hrad**2 + op.x**2 + el * op.y**2))
             console.log("irradiation result ", res);
-            return res > 0.1 ? res : 0.;
+            res =  res > 0.1 ? res : 0.;
+            res = res > this.max_irradiation_energy ? this.max_irradiation_energy : res
+            return res
         }
     }
 
@@ -271,15 +274,20 @@ export default class RadiationEffects implements IEffectAssesment {
         let shorter = (4.184*10**12) / (100*4 * Math.PI) * (variant.kenergy_kttnt * this.eta);
 
         return (op: IPoint): number => {
+            if (Math.sqrt(op.x**2 + op.y**2)<=1) return this.max_irradiation_energy;
+
             let r = Math.sqrt(op.x**2 + op.y**2);
             let stuff = variant.angle <= 75 ? Math.cos(Math.PI * r / (2 * cos_scale)): 1;
             let res = shorter * stuff / (10**10 * (this.hrad**2 + r**2));
-            return res > 0.1 ? res : 0;
+            res = res > 0.1 ? res : 0;
+            res = res > this.max_irradiation_energy ? this.max_irradiation_energy : res
+            return res
         }
     }
 
     irradiation_calc(variant: Variant): (op: IPoint) => number {
         let res: (op:Point) => number = (op: IPoint) => 0;
+        
         if(variant.diameter <= 150)
             return this.irradiation_small_calc(variant);
         else if (variant.diameter < 300)
@@ -290,9 +298,15 @@ export default class RadiationEffects implements IEffectAssesment {
             let var_300 = variant.clone();
             var_300.diameter = 300.;
 
-            return (op: IPoint) => MathExt.interpolate_by(this.irradiation_small_calc(var_150)(op), var_150.kenergy_kttnt,
+            return (op: IPoint) => {
+                if (Math.sqrt(op.x**2 + op.y**2)<=1) return this.max_irradiation_energy;
+
+                let res = MathExt.interpolate_by(this.irradiation_small_calc(var_150)(op), var_150.kenergy_kttnt,
                                             this.irradiation_large_calc(var_300)(op), var_300.kenergy_kttnt,
                                             variant.kenergy_kttnt);
+                                            res = res > this.max_irradiation_energy ? this.max_irradiation_energy : res
+                                            return res;
+            }
         }
         return this.irradiation_large_calc(variant);
     }
@@ -328,7 +342,9 @@ export default class RadiationEffects implements IEffectAssesment {
             let stuff = op.y >= 0 ? elp : eln;
 
             let res = shorter  / (this.hrad + op.x**2 + stuff * op.y**2);
-            return res > 0.1 ? res : 0;
+            res = res > 0.1 ? res : 0;
+            res = res > this.max_irradiation_flux ? this.max_irradiation_flux : res
+            return res
         }
     }
 

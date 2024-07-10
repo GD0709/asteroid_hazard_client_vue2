@@ -54,7 +54,7 @@
               color="white"
               rounded="xl"
               variant="text"
-              v-on:click="navigate('about')"
+              v-on:click="navigate('/')"
             >
             {{ $t("footer.about") }}
             </v-btn>
