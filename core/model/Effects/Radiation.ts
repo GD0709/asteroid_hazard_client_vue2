@@ -280,7 +280,6 @@ export default class RadiationEffects implements IEffectAssesment {
             let stuff = variant.angle <= 75 ? Math.cos(Math.PI * r / (2 * cos_scale)): 1;
             let res = shorter * stuff / (10**10 * (this.hrad**2 + r**2));
             res = res > 0.1 ? res : 0;
-            res = res > this.max_irradiation_energy ? this.max_irradiation_energy : res
             return res
         }
     }
@@ -304,7 +303,6 @@ export default class RadiationEffects implements IEffectAssesment {
                 let res = MathExt.interpolate_by(this.irradiation_small_calc(var_150)(op), var_150.kenergy_kttnt,
                                             this.irradiation_large_calc(var_300)(op), var_300.kenergy_kttnt,
                                             variant.kenergy_kttnt);
-                                            res = res > this.max_irradiation_energy ? this.max_irradiation_energy : res
                                             return res;
             }
         }
