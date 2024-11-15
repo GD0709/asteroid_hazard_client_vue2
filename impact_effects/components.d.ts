@@ -7,8 +7,28 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AtmosphericDisturbances: typeof import('./src/components/calculator/views/results/AtmosphericDisturbances.vue')['default']
+    BasicInput: typeof import('./src/components/calculator/views/input/BasicInput.vue')['default']
+    Blank: typeof import('./src/components/calculator/tests/blank.vue')['default']
+    Crater: typeof import('./src/components/calculator/views/results/Crater.vue')['default']
+    Ejecta: typeof import('./src/components/calculator/views/results/Ejecta.vue')['default']
+    Entry: typeof import('./src/components/calculator/views/input/Entry.vue')['default']
+    Expansion: typeof import('./src/components/calculator/views/results/Expansion.vue')['default']
+    ExtendedInput: typeof import('./src/components/calculator/views/input/ExtendedInput.vue')['default']
+    FieldInput: typeof import('./src/components/calculator/input/FieldInput.vue')['default']
+    FieldInputTest: typeof import('./src/components/calculator/tests/FieldInputTest.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Help: typeof import('./src/components/calculator/input/help.vue')['default']
+    InputSummary: typeof import('./src/components/calculator/views/InputSummary.vue')['default']
+    Irradiation: typeof import('./src/components/calculator/views/results/Irradiation.vue')['default']
+    Map: typeof import('./src/components/calculator/views/input/Map.vue')['default']
+    NumberInput: typeof import('./src/components/calculator/input/NumberInput.vue')['default']
+    Projectile: typeof import('./src/components/calculator/views/input/Projectile.vue')['default']
+    Results: typeof import('./src/components/calculator/views/results/Results.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Schema: typeof import('./src/components/calculator/views/Schema.vue')['default']
+    Seismic: typeof import('./src/components/calculator/views/results/Seismic.vue')['default']
+    ShockWave: typeof import('./src/components/calculator/views/results/ShockWave.vue')['default']
   }
 }

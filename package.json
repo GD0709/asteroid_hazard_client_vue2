@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/geodesy": "^2.2.8",
+    "geodesy": "^2.4.0"
+  }
+}
