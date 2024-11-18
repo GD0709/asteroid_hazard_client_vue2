@@ -7,7 +7,14 @@
             </template>
             <template v-slot:content>
                 <div class="results_description" v-html="$t('calculator.results.shockwave.description')"></div>
-                <div class="result_effect"><span class="results_effects_name">{{$t('calculator.results.shockwave.Effective altitude')}}: </span>&nbsp;{{$format.round(shock_wave.heff, null)}} km</div>
+                <div class="result_effect">
+                    <help :help_title="$t('calculator.results.shockwave.info.Effective altitude.header')">
+                        <div>{{ $t('calculator.results.shockwave.info.Effective altitude.body') }}</div>
+                        <Publication :publication="publications[24]" :large="true" :links="true"
+                            style="margin-top: 16px;"/>
+                    </help>
+                    <span class="results_effects_name">{{$t('calculator.results.shockwave.Effective altitude')}}: </span>&nbsp;{{$format.round(shock_wave.heff, null)}} km
+                </div>
                 <div class="result_effect" v-if="shock_wave.heff > 0"><span class="results_effects_name" >{{$t('calculator.results.shockwave.Maximal overpressure')}}:</span> {{$format.round(shock_wave.max_value_of_overpressure, null)}} {{$t('calculator.dimensions.atm')}} {{$format.dimension_prefix_format(1000*shock_wave.overpressure_to_kPa(shock_wave.max_value_of_overpressure))}}{{$t('calculator.dimensions.Pa')}}</div>
                 <div class="result_effect" v-if="shock_wave.heff > 0"><span class="results_effects_name">{{$t('calculator.results.shockwave.Distance to the center')}}: </span>&nbsp;{{$format.round(shock_wave.zero_point, null)}} {{$t('calculator.dimensions.km')}}</div>
                 <!-- <div class="result_effect" v-if="shock_wave.heff > 0"><div class="results_effects_name" >{{$t('calculator.results.shockwave.Areas')}}: </div>
@@ -32,6 +39,7 @@
 import { triggerRef } from 'vue';
 import State from './../../../../model/state';
 import Expansion from './Expansion.vue';
+import {publications} from '@/model/articles'
 
 import {ref, onMounted} from 'vue'
 

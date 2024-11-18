@@ -2,6 +2,9 @@
   "message": "hello i18n !!",
   "old version": "Old version",  
   "under construction": "under construction",
+  "system":{
+    "close_text":"close"
+  },
   "footer":{
     "navigation": "Navigation",
     "about":"About",
@@ -166,7 +169,13 @@
         "Maximal overpressure": "Maximal overpressure",
         "Areas": "Areas, at which chosen levels of overpressure exceed",
         "The value of the overpressure":"The value of the overpressure in the point of observation",
-        "Maximum wind speed":"Maximum wind speed behind the shock front in the point of observation"
+        "Maximum wind speed":"Maximum wind speed behind the shock front in the point of observation",
+        "info":{
+          "Effective altitude": {
+            "header":"The effective altitude",
+            "body": "The effective height Heff is the height at which the impactor loses most of its energy and slows down significantly, which makes it possible to determine the boundary between different scenarios (meteor explosion, transitional variant or crater-forming impact). As a first approximation, the overpressure in the shock wave from the falling cosmic body can be estimated by considering the explosion at the altitude Heff, the energy of which is determined by the energy of the falling body."
+          }
+        }
       },
       "irradiation":{
         "Irradiation": "Irradiation",

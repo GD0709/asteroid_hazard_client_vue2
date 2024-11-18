@@ -25,6 +25,7 @@ declare module 'vue' {
     Map: typeof import('./src/components/calculator/views/input/Map.vue')['default']
     NumberInput: typeof import('./src/components/calculator/input/NumberInput.vue')['default']
     Projectile: typeof import('./src/components/calculator/views/input/Projectile.vue')['default']
+    Publication: typeof import('./src/components/calculator/publication.vue')['default']
     Results: typeof import('./src/components/calculator/views/results/Results.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

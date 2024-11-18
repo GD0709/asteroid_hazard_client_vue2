@@ -19,7 +19,7 @@
         <template v-slot:actions>
           <v-btn
             class="ms-auto"
-            text="Close"
+            :text="$t('system.close_text')"
             @click="dialog = false"
           ></v-btn>
         </template>
